@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIRPORT FACILITATION COUNCIL — Strategic Simulation</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: JetBrains Mono for crisp Thai & English legibility -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =========================================================================
+       MODERN DARK LUXURY — EXECUTIVE AVIATION COMMAND THEME
+       Obsidian Canvas (#090B0E), Elevated Surfaces (#11141B / #161A23),
+       Hairline Borders (rgba(255,255,255,0.08)), Champagne Gold (#C9A96E)
+       ========================================================================= */
+    :root {
+      --bg-obsidian: #090B0E;
+      --surface-primary: #11141B;
+      --surface-elevated: #161A23;
+      --surface-hover: #1C212C;
+      --hairline: rgba(255, 255, 255, 0.08);
+      --hairline-strong: rgba(255, 255, 255, 0.14);
+      --gold-champagne: #C9A96E;
+      --gold-bright: #D4AF37;
+      --gold-muted: rgba(201, 169, 110, 0.14);
+      --sage-emerald: #34D399;
+      --amber-bronze: #F59E0B;
+      --crimson-rose: #F87171;
+      --text-primary: #F3F4F6;
+      --text-secondary: #9CA3AF;
+      --text-muted: #6B7280;
+    }
+
+    * {
+      font-family: 'JetBrains Mono', monospace;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-obsidian);
+      color: var(--text-primary);
+      font-size: 14px;
+      line-height: 1.65;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Elevated Dark Luxury Surface Cards */
+    .lux-panel {
+      background-color: var(--surface-primary);
+      border: 1px solid var(--hairline);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    }
+
+    .lux-card {
+      background-color: var(--surface-elevated);
+      border: 1px solid var(--hairline);
+      border-radius: 10px;
+      transition: transform 0.18s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .lux-card:hover {
+      border-color: rgba(201, 169, 110, 0.42);
+      background-color: var(--surface-hover);
+      transform: translateY(-1px);
+    }
+
+    .lux-card-selected {
+      background: linear-gradient(180deg, rgba(201, 169, 110, 0.12) 0%, rgba(22, 26, 35, 0.98) 100%) !important;
+      border: 1px solid var(--gold-champagne) !important;
+      box-shadow: 0 0 0 1px rgba(201, 169, 110, 0.25), 0 10px 24px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    .lux-card-emerald {
+      background: linear-gradient(180deg, rgba(52, 211, 153, 0.10) 0%, rgba(22, 26, 35, 0.98) 100%) !important;
+      border: 1px solid rgba(52, 211, 153, 0.55) !important;
+    }
+
+    .lux-card-crimson {
+      background: linear-gradient(180deg, rgba(248, 113, 113, 0.10) 0%, rgba(22, 26, 35, 0.98) 100%) !important;
+      border: 1px solid rgba(248, 113, 113, 0.45) !important;
+    }
+
+    /* Minimalist Luxury Buttons */
+    .btn-lux {
+      border-radius: 8px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: all 0.18s ease;
+      cursor: pointer;
+    }
+    .btn-lux:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+
+    .btn-lux-gold {
+      background: linear-gradient(135deg, #D4AF37 0%, #B8924A 100%);
+      color: #090B0E;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 14px rgba(201, 169, 110, 0.22);
+    }
+    .btn-lux-gold:hover:not(:disabled) {
+      filter: brightness(1.06);
+      box-shadow: 0 6px 20px rgba(201, 169, 110, 0.32);
+    }
+
+    .btn-lux-ghost {
+      background-color: var(--surface-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--hairline-strong);
+    }
+    .btn-lux-ghost:hover:not(:disabled) {
+      border-color: var(--gold-champagne);
+      color: var(--gold-champagne);
+      background-color: var(--surface-hover);
+    }
+
+    .btn-lux-emerald {
+      background-color: rgba(52, 211, 153, 0.14);
+      color: #6EE7B7;
+      border: 1px solid rgba(52, 211, 153, 0.45);
+    }
+    .btn-lux-emerald:hover:not(:disabled) {
+      background-color: rgba(52, 211, 153, 0.22);
+    }
+
+    /* Ultra-Clean Thin Progress Bars */
+    .progress-rail {
+      background-color: rgba(255, 255, 255, 0.06);
+      height: 5px;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Subtle Architectural Blueprint Flow Animation */
+    @keyframes flowStream {
+      to {
+        stroke-dashoffset: -36;
+      }
+    }
+    .blueprint-flow {
+      stroke-dasharray: 6 12;
+      animation: flowStream 2.4s linear infinite;
+    }
+
+    @keyframes subtlePulse {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(1.22); }
+    }
+    .beacon-ring {
+      transform-origin: center;
+      transform-box: fill-box;
+      animation: subtlePulse 2.4s ease-in-out infinite;
+    }
+
+    /* Refined Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090B0E;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2A303D;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C9A96E;
+    }
+  </style>
+</head>
+<body class="selection:bg-[#C9A96E] selection:text-[#090B0E]">
+
+  <!-- =========================================================================
+       TOP EXECUTIVE COMMAND BAR (TITLE, CYCLE, TIMER, 4 FLOWS, SILO, ASQ)
+       ========================================================================= -->
+  <header class="sticky top-0 z-30 bg-[#090B0E]/92 backdrop-blur-md border-b border-white/[0.08]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5">
+      <!-- Row 1: Identity, Cycle Indicator, Countdown Timer & Utility Actions -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-3.5 border-b border-white/[0.07]">
+        <div class="flex items-center gap-3.5">
+          <!-- Minimalist Geometric Aviation Crest -->
+          <div class="w-10 h-10 rounded-lg bg-[#161A23] border border-[#C9A96E]/40 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <polygon points="12 3 21 19 3 19" />
+              <line x1="12" y1="3" x2="12" y2="19" />
+              <line x1="7.5" y1="12" x2="16.5" y2="12" />
+            </svg>
+          </div>
+          <div>
+            <div class="flex flex-wrap items-center gap-2.5">
+              <h1 class="text-base sm:text-lg font-bold tracking-tight text-gray-100">
+                AIRPORT FACILITATION COUNCIL
+              </h1>
+              <span id="roundBadge" class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-[#C9A96E]/15 text-[#C9A96E] border border-[#C9A96E]/35">
+                AFC CYCLE #01
+              </span>
+            </div>
+            <p class="text-xs text-gray-400 mt-0.5">
+              Strategic Simulation • คณะกรรมการอำนวยความสะดวกในการเดินอากาศ ณ สนามบิน
+            </p>
+          </div>
+        </div>
+
+        <!-- Timer & Subtle Executive Controls -->
+        <div class="flex flex-wrap items-center gap-2 ml-auto">
+          <!-- 12:00 Meeting Countdown -->
+          <div class="flex items-center gap-2 bg-[#11141B] border border-white/[0.09] rounded-lg px-3 py-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#34D399]" id="timerDot"></span>
+            <span id="timerDisplay" class="text-sm sm:text-base font-bold text-gray-100 tracking-wider">12:00</span>
+            <div class="h-4 w-[1px] bg-white/10 mx-0.5"></div>
+            <button id="timerToggleBtn" onclick="toggleTimer()" class="text-xs font-semibold text-[#C9A96E] hover:text-white px-1.5 py-0.5 transition">
+              PAUSE
+            </button>
+            <button onclick="addOneMinute()" class="text-xs font-medium text-gray-400 hover:text-gray-200 px-1.5 py-0.5 transition">
+              +1M
+            </button>
+            <button onclick="resetPhaseTimer()" class="text-xs font-medium text-gray-400 hover:text-gray-200 px-1.5 py-0.5 transition">
+              RESET
+            </button>
+          </div>
+
+          <button id="soundToggleBtn" onclick="toggleSound()" class="btn-lux btn-lux-ghost px-3 py-1.5 text-xs">
+            SFX: ON
+          </button>
+
+          <button onclick="dealNewScenarios()" class="btn-lux btn-lux-ghost px-3 py-1.5 text-xs">
+            NEW CYCLE
+          </button>
+
+          <button onclick="openCodexModal('rules')" class="btn-lux btn-lux-gold px-3.5 py-1.5 text-xs sm:text-sm">
+            CODEX & RULES
+          </button>
+        </div>
+      </div>
+
+      <!-- Row 2: 6 Holistic Airport Telemetry Meters (4 Flows + Silo Friction + ASQ Score) -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-3.5">
+        <!-- 1. Aircraft Flow -->
+        <div class="bg-[#11141B] border border-white/[0.06] rounded-lg px-3 py-2">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-gray-400 truncate">Aircraft Flow</span>
+            <span id="statAircraftText" class="font-semibold text-gray-200">65%</span>
+          </div>
+          <div class="progress-rail">
+            <div id="statAircraftBar" class="progress-bar bg-[#34D399]" style="width: 65%"></div>
+          </div>
+          <div class="text-[11px] text-gray-500 mt-1">อากาศยาน</div>
+        </div>
+
+        <!-- 2. Pax & Crew Flow -->
+        <div class="bg-[#11141B] border border-white/[0.06] rounded-lg px-3 py-2">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-gray-400 truncate">Pax & Crew Flow</span>
+            <span id="statPaxText" class="font-semibold text-gray-200">60%</span>
+          </div>
+          <div class="progress-rail">
+            <div id="statPaxBar" class="progress-bar bg-[#34D399]" style="width: 60%"></div>
+          </div>
+          <div class="text-[11px] text-gray-500 mt-1">ผู้โดยสารและลูกเรือ</div>
+        </div>
+
+        <!-- 3. Baggage Flow -->
+        <div class="bg-[#11141B] border border-white/[0.06] rounded-lg px-3 py-2">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-gray-400 truncate">Baggage Flow</span>
+            <span id="statBaggageText" class="font-semibold text-gray-200">62%</span>
+          </div>
+          <div class="progress-rail">
+            <div id="statBaggageBar" class="progress-bar bg-[#34D399]" style="width: 62%"></div>
+          </div>
+          <div class="text-[11px] text-gray-500 mt-1">สัมภาระ</div>
+        </div>
+
+        <!-- 4. Cargo & Mail Flow -->
+        <div class="bg-[#11141B] border border-white/[0.06] rounded-lg px-3 py-2">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-gray-400 truncate">Cargo & Mail Flow</span>
+            <span id="statCargoText" class="font-semibold text-gray-200">55%</span>
+          </div>
+          <div class="progress-rail">
+            <div id="statCargoBar" class="progress-bar bg-[#F59E0B]" style="width: 55%"></div>
+          </div>
+          <div class="text-[11px] text-gray-500 mt-1">สินค้าและไปรษณียภัณฑ์</div>
+        </div>
+
+        <!-- 5. Silo Friction Meter (Lower is Better) -->
+        <div class="bg-[#11141B] border border-white/[0.06] rounded-lg px-3 py-2">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-gray-400 truncate">Silo Friction</span>
+            <span id="statSiloText" class="font-semibold text-[#F87171]">70%</span>
+          </div>
+          <div class="progress-rail">
+            <div id="statSiloBar" class="progress-bar bg-[#F87171]" style="width: 70%"></div>
+          </div>
+          <div class="text-[11px] text-gray-500 mt-1">ความฝืดเคืองแยกส่วน</div>
+        </div>
+
+        <!-- 6. ASQ Foundation Score -->
+        <div class="bg-[#11141B] border border-[#C9A96E]/30 rounded-lg px-3 py-2">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-[#C9A96E] font-semibold truncate">ASQ Foundation</span>
+            <span id="statAsqText" class="font-bold text-[#C9A96E]">58%</span>
+          </div>
+          <div class="progress-rail">
+            <div id="statAsqBar" class="progress-bar bg-[#C9A96E]" style="width: 58%"></div>
+          </div>
+          <div class="text-[11px] text-gray-500 mt-1">รากฐานคุณภาพบริการ</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       MINIMALIST 4-PHASE STRATEGIC STEPPER
+       ========================================================================= -->
+  <nav class="border-b border-white/[0.06] bg-[#0B0E13]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+        <button onclick="jumpToPhase(1)" id="stepBtn1" class="phase-step-btn flex items-center gap-3 px-3.5 py-2.5 rounded-lg border text-left transition">
+          <span class="w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold shrink-0">01</span>
+          <div class="min-w-0">
+            <div class="text-xs font-bold tracking-wide truncate">PRE-AFC BRIEFING</div>
+            <div class="text-xs opacity-80 truncate">รับทราบรายงานปัญหาสะสม</div>
+          </div>
+        </button>
+
+        <button onclick="jumpToPhase(2)" id="stepBtn2" class="phase-step-btn flex items-center gap-3 px-3.5 py-2.5 rounded-lg border text-left transition">
+          <span class="w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold shrink-0">02</span>
+          <div class="min-w-0">
+            <div class="text-xs font-bold tracking-wide truncate">AGENDA SETTING</div>
+            <div class="text-xs opacity-80 truncate">คัดเลือก 2 วาระเชิงยุทธศาสตร์</div>
+          </div>
+        </button>
+
+        <button onclick="jumpToPhase(3)" id="stepBtn3" class="phase-step-btn flex items-center gap-3 px-3.5 py-2.5 rounded-lg border text-left transition">
+          <span class="w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold shrink-0">03</span>
+          <div class="min-w-0">
+            <div class="text-xs font-bold tracking-wide truncate">SARPs & COUNCIL</div>
+            <div class="text-xs opacity-80 truncate">อ้างอิงกฎหมาย & แบ่งหน้าที่</div>
+          </div>
+        </button>
+
+        <button onclick="jumpToPhase(4)" id="stepBtn4" class="phase-step-btn flex items-center gap-3 px-3.5 py-2.5 rounded-lg border text-left transition">
+          <span class="w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold shrink-0">04</span>
+          <div class="min-w-0">
+            <div class="text-xs font-bold tracking-wide truncate">ASQ & DEBRIEF</div>
+            <div class="text-xs opacity-80 truncate">ประเมินผลเชิงโครงสร้าง</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       SUBTLE EXECUTIVE BRIEFING STRIP (ADVISOR GUIDANCE)
+       ========================================================================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 pt-5">
+    <div class="lux-panel px-4 sm:px-5 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="flex items-start gap-3">
+        <span class="w-2 h-2 rounded-full bg-[#C9A96E] mt-2 shrink-0"></span>
+        <div>
+          <div id="advisorTitle" class="text-xs sm:text-sm font-bold text-[#C9A96E] tracking-wide">
+            PHASE 01 • PRE-AFC BRIEFING (2 นาที)
+          </div>
+          <p id="advisorMessage" class="text-xs sm:text-sm text-gray-300 mt-0.5 leading-relaxed">
+            ตรวจสอบจุดแจ้งเตือนทั้ง 3 จุดบนแผนผังท่าอากาศยาน เพื่อวิเคราะห์ผลกระทบต่อทั้ง 4 Flows หลัก และแยกแยะประเด็นเชิงโครงสร้างออกจากงานปฏิบัติการเฉพาะหน้า
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0 self-end sm:self-center">
+        <button onclick="loadPrmPreset()" class="btn-lux btn-lux-ghost px-3 py-1.5 text-xs">
+          ภารกิจ PRM (กพท. 90/95)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MAIN SIMULATION WORKSPACE (RENDERED BY PHASE)
+       ========================================================================= -->
+  <main id="gameBoardContainer" class="max-w-7xl mx-auto px-4 sm:px-6 py-5">
+    <!-- Dynamic Phase Content -->
+  </main>
+
+  <!-- =========================================================================
+       PERSISTENT COUNCIL DIRECTORY: 8 AFC STAKEHOLDERS
+       ========================================================================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+    <div class="lux-panel p-5">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-[#C9A96E]">
+            AFC COUNCIL DIRECTORY
+          </span>
+          <h2 class="text-base sm:text-lg font-bold text-gray-100 mt-0.5">
+            องค์ประกอบคณะกรรมการทั้ง 8 หน่วยงาน
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-400 mt-0.5">
+            คลิกที่หน่วยงานเพื่อตรวจสอบบทบาทความร่วมมือ (Mandate) และกับดักการทำงานแยกส่วน (Silo Trap)
+          </p>
+        </div>
+        <button onclick="openCodexModal('stakeholders')" class="btn-lux btn-lux-ghost px-3.5 py-2 text-xs">
+          ดูรายละเอียดทั้งหมด →
+        </button>
+      </div>
+
+      <div id="stakeholderStrip" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       DARK LUXURY CODEX & RULES MODAL
+       ========================================================================= -->
+  <div id="codexModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-6">
+    <div class="lux-panel w-full max-w-4xl max-h-[88vh] flex flex-col overflow-hidden border border-[#C9A96E]/35">
+      <!-- Modal Header -->
+      <div class="px-5 py-4 bg-[#161A23] border-b border-white/[0.08] flex items-center justify-between">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-[#C9A96E]">
+            FACILITATION REFERENCE CODEX
+          </span>
+          <h3 id="codexModalTitle" class="text-base sm:text-lg font-bold text-gray-100 mt-0.5">
+            คลังความรู้มาตรฐานสากล กฎหมายไทย และกติกาการประชุม AFC
+          </h3>
+        </div>
+        <button onclick="closeCodexModal()" class="btn-lux btn-lux-ghost px-3 py-1.5 text-xs">
+          ปิดหน้าต่าง [ESC]
+        </button>
+      </div>
+
+      <!-- Modal Navigation Tabs -->
+      <div class="flex flex-wrap gap-2 px-5 py-3 bg-[#0E1117] border-b border-white/[0.08]">
+        <button onclick="switchCodexTab('rules')" id="codexTabRules" class="codex-tab btn-lux px-3.5 py-1.5 text-xs">
+          กติกา 4 Phases
+        </button>
+        <button onclick="switchCodexTab('regulations')" id="codexTabRegulations" class="codex-tab btn-lux px-3.5 py-1.5 text-xs">
+          การ์ดกฎหมาย & SARPs (7 ใบ)
+        </button>
+        <button onclick="switchCodexTab('stakeholders')" id="codexTabStakeholders" class="codex-tab btn-lux px-3.5 py-1.5 text-xs">
+          8 หน่วยงาน & Silo Traps
+        </button>
+        <button onclick="switchCodexTab('flows')" id="codexTabFlows" class="codex-tab btn-lux px-3.5 py-1.5 text-xs">
+          4 Flows & รากฐาน ASQ
+        </button>
+      </div>
+
+      <!-- Modal Content -->
+      <div id="codexModalBody" class="p-5 overflow-y-auto space-y-4 text-sm text-gray-200">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       JAVASCRIPT: LOCKED GAME DATA, AUDIO FEEDBACK & CORE SIMULATION LOOP
+       ========================================================================= -->
+  <script>
+    /* -------------------------------------------------------------------------
+       1. MINIMALIST MONOLINE AVIATION ICONOGRAPHY FOR STAKEHOLDERS
+       ------------------------------------------------------------------------- */
+    function getStakeholderIcon(id) {
+      const icons = {
+        director: `<svg class="w-4 h-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 2L15 8L21 9L17 14L18 20L12 17L6 20L7 14L3 9L9 8L12 2Z"/></svg>`,
+        airport_ops: `<svg class="w-4 h-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3"/></svg>`,
+        avsec: `<svg class="w-4 h-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+        immigration: `<svg class="w-4 h-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 17h8"/></svg>`,
+        customs: `<svg class="w-4 h-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+        quarantine_health: `<svg class="w-4 h-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>`,
+        plant_quarantine: `<svg class="w-4 h-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
+        animal_quarantine: `<svg class="w-4 h-4 text-[#C9A96E]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="4" cy="8" r="2"/><path d="M12 12c-3.5 0-6 2.5-6 5.5 0 1.5 1.2 2.5 2.7 2.5h6.6c1.5 0 2.7-1 2.7-2.5 0-3-2.5-5.5-6-5.5z"/></svg>`
+      };
+      return icons[id] || icons.director;
+    }
+
+    /* -------------------------------------------------------------------------
+       2. EXACT LOCKED GAME DATA (8 STAKEHOLDERS, 7 SCENARIOS, 7 REGULATIONS)
+       ------------------------------------------------------------------------- */
+    const STAKEHOLDERS = [
+      {
+        id: 'director',
+        code: 'AFC-01',
+        shortName: 'ผอ.สนามบิน (ประธาน AFC)',
+        fullName: 'ผอ.สนามบิน (ประธาน AFC)',
+        role: 'กำหนด Shared Vision คัดเลือกวาระเชิงยุทธศาสตร์ เชื่อมโยงเป้าหมายสู่ ASQ',
+        siloTrap: 'มุ่งเน้นแต่ความพึงพอใจผู้โดยสาร Landside และเร่งปิดประชุมโดยไม่กำหนดผู้รับผิดชอบชัดเจน'
+      },
+      {
+        id: 'airport_ops',
+        code: 'AFC-02',
+        shortName: 'ฝ่ายการท่าอากาศยาน (บริหารอาคารฯ)',
+        fullName: 'ฝ่ายการท่าอากาศยาน (บริหารอาคารฯ)',
+        role: 'จัดสรรพื้นที่ ระบบสัญลักษณ์ และสิ่งอำนวยความสะดวกให้รองรับทุก Flow',
+        siloTrap: 'ปรับปรุงพื้นที่โดยไม่หารือหน่วยตรวจ (CIQ) และ AVSEC ล่วงหน้าจนเกิดคอขวด'
+      },
+      {
+        id: 'avsec',
+        code: 'AFC-03',
+        shortName: 'ฝ่ายรักษาความปลอดภัย (AVSEC)',
+        fullName: 'ฝ่ายรักษาความปลอดภัย (AVSEC)',
+        role: 'รักษาสมดุลระหว่าง Security กับ Facilitation',
+        siloTrap: 'เพิ่มขั้นตอนตรวจค้นซ้ำซ้อนโดยไม่อิง Risk-based จนกระทบเวลาต่อเครื่อง'
+      },
+      {
+        id: 'immigration',
+        code: 'AFC-04',
+        shortName: 'สำนักงานตรวจคนเข้าเมือง (ตม.)',
+        fullName: 'สำนักงานตรวจคนเข้าเมือง (ตม.)',
+        role: 'บริหาร Flow ผู้โดยสารและลูกเรือขาเข้า-ขาออกให้รวดเร็วและแม่นยำ',
+        siloTrap: 'ทำงานแยกส่วนข้อมูล API/PNR ไม่ประสานการจัดสรรช่องตรวจตามตารางบินจริง'
+      },
+      {
+        id: 'customs',
+        code: 'AFC-05',
+        shortName: 'กรมศุลกากร (ศก.)',
+        fullName: 'กรมศุลกากร (ศก.)',
+        role: 'ตรวจปล่อยสัมภาระ คาร์โก้ และไปรษณียภัณฑ์ ด้วยระบบบริหารความเสี่ยง',
+        siloTrap: 'ตรวจปล่อยสินค้าแยกตามรอบเวลาตนเองโดยไม่เชื่อมโยงระบบกับด่านตรวจพืช/สัตว์'
+      },
+      {
+        id: 'quarantine_health',
+        code: 'AFC-06',
+        shortName: 'ด่านควบคุมโรคติดต่อระหว่างประเทศ',
+        fullName: 'ด่านควบคุมโรคติดต่อระหว่างประเทศ',
+        role: 'คัดกรองโรคติดต่ออย่างมีประสิทธิภาพโดยไม่ขัดขวางการจราจรทางอากาศโดยไม่จำเป็น',
+        siloTrap: 'ตั้งจุดคัดกรองขวางเส้นทางหลักก่อนถึง ตม. โดยไม่วางแผนพื้นที่ร่วมกับฝ่ายการท่าฯ'
+      },
+      {
+        id: 'plant_quarantine',
+        code: 'AFC-07',
+        shortName: 'ด่านตรวจพืช',
+        fullName: 'ด่านตรวจพืช',
+        role: 'ตรวจปล่อยสินค้าเกษตรและพืชตามมาตรฐานสากลอย่างรวดเร็ว',
+        siloTrap: 'รอเอกสารกระดาษหน้างานอย่างเดียว ไม่เชื่อมโยงข้อมูลอิเล็กทรอนิกส์ล่วงหน้า'
+      },
+      {
+        id: 'animal_quarantine',
+        code: 'AFC-08',
+        shortName: 'ด่านตรวจสัตว์',
+        fullName: 'ด่านตรวจสัตว์',
+        role: 'ตรวจปล่อยสัตว์มีชีวิตและผลิตภัณฑ์จากสัตว์ ลดระยะเวลาพักคอย',
+        siloTrap: 'ขาดข้อตกลง SLA ร่วมกับคลังสินค้าและศุลกากร ทำให้การตรวจปล่อยนอกเวลาทำการล่าช้า'
+      }
+    ];
+
+    const REGULATIONS = [
+      {
+        id: 'R-01',
+        code: 'ICAO Annex 9',
+        title: 'ICAO Annex 9 (SARPs)',
+        category: 'International SARPs',
+        summary: 'มาตรฐานและข้อพึงปฏิบัติสากลด้านการอำนวยความสะดวกในการเดินอากาศ ครอบคลุมทุก Flow และหลักการดูแลผู้โดยสาร PRM',
+        power: 'วางมาตรฐานสากลครอบคลุมทุก Flow และลดความซ้ำซ้อนด้านพิธีการ'
+      },
+      {
+        id: 'R-02',
+        code: 'ICAO Doc 9957',
+        title: 'ICAO Doc 9957 (Facilitation Manual)',
+        category: 'Facilitation Guidance',
+        summary: 'แนวทางปฏิบัติในการนำ Annex 9 ไปใช้จริง เน้นการประสานงานข้ามหน่วยงาน (Inter-agency Coordination) และกลไกการประชุม AFC',
+        power: 'ลด Silo Friction และเชื่อมโยงการทำงานระหว่าง CIQ, AVSEC และผู้ดำเนินการสนามบิน'
+      },
+      {
+        id: 'R-03',
+        code: 'NATFP',
+        title: 'แผนอำนวยความสะดวกในการเดินอากาศแห่งชาติ (NATFP)',
+        category: 'National Policy',
+        summary: 'กรอบนโยบายระดับชาติที่กำหนดกลไกการทำงานร่วมกันระหว่างหน่วยงานภาครัฐและผู้ดำเนินการสนามบิน รวมถึงการจัดตั้ง AFC',
+        power: 'สร้าง Shared Vision ระดับชาติและกรอบความร่วมมือของหน่วยงานรัฐ'
+      },
+      {
+        id: 'R-04',
+        code: 'พ.ร.บ. การเดินอากาศ',
+        title: 'พ.ร.บ. การเดินอากาศ (ฉบับล่าสุด)',
+        category: 'Primary Aviation Law',
+        summary: 'ฐานอำนาจทางกฎหมายหลักในการกำกับดูแลกิจการการบินพลเรือน มาตรฐานสนามบิน และการอำนวยความสะดวกในการเดินอากาศ',
+        power: 'รับรองฐานอำนาจทางกฎหมายของมติที่ประชุม AFC และข้อตกลงร่วม'
+      },
+      {
+        id: 'R-05',
+        code: 'กพท. ฉบับที่ 7',
+        title: 'ข้อกำหนด กพท. ฉบับที่ 7',
+        category: 'CAAT Regulation No. 7',
+        summary: 'ว่าด้วยสิ่งอำนวยความสะดวกและบริการสำหรับคนโดยสารและสัมภาระในสนามบินที่ให้บริการสาธารณะ',
+        power: 'กำหนดมาตรฐานสิ่งอำนวยความสะดวกและบริการสำหรับผู้โดยสารและสัมภาระ'
+      },
+      {
+        id: 'R-06',
+        code: 'กพท. ฉบับที่ 90',
+        title: 'ข้อกำหนด กพท. ฉบับที่ 90',
+        category: 'CAAT Regulation No. 90 (PRM)',
+        summary: 'ข้อกำหนดที่กำหนดมาตรฐานของสิ่งอำนวยความสะดวกและบริการสำหรับบุคคลผู้ต้องการความช่วยเหลือพิเศษ (PRM)',
+        power: 'กำหนดมาตรฐานการดูแลและเส้นทางเชื่อมต่อผู้โดยสาร PRM แบบไร้รอยต่อ'
+      },
+      {
+        id: 'R-07',
+        code: 'กพท. ฉบับที่ 95',
+        title: 'ข้อกำหนด กพท. ฉบับที่ 95',
+        category: 'CAAT Regulation No. 95 (Amendment)',
+        summary: 'แก้ไขข้อกำหนด กพท. ฉบับที่ 7 โดยยกเลิกเรื่องบุคคลที่ต้องการความช่วยเหลือเป็นกรณีพิเศษ ให้ไปใช้ข้อกำหนดของ กพท. ฉบับที่ 90 แทน',
+        power: 'ปลดล็อกความสับสนทางกฎหมายโดยโอนมาตรฐาน PRM ไปสู่ฉบับที่ 90 อย่างถูกต้อง'
+      }
+    ];
+
+    const SCENARIOS = [
+      {
+        id: 'S-01',
+        type: 'systemic',
+        tag: 'SYSTEMIC • PAX & CREW',
+        title: 'คอขวดจุดตรวจร่วมผู้โดยสารขาเข้าช่วง Peak Hour',
+        mapNode: { x: 405, y: 170, label: 'จุดตรวจ CIQ & AVSEC' },
+        affectedFlows: ['pax'],
+        flowLabels: ['Pax & Crew Flow (ผู้โดยสารและลูกเรือ)'],
+        description: 'ผู้โดยสารเที่ยวบินระหว่างประเทศสะสมยาวล้นโถงทางเดิน เนื่องจากจุดคัดกรองของด่านควบคุมโรคฯ จุดตรวจค้น AVSEC และโถง ตม. ใช้พื้นที่ต่อเนื่องกันโดยขาดการบริหาร Flow และข้อมูลตารางบินร่วมกัน',
+        siloFailureNote: 'การเพิ่มกำลังคนเฉพาะแผนกตนเองโดยไม่เชื่อมข้อมูลเที่ยวบินและผังพื้นที่ จะเพียงย้ายคอขวดไปยังจุดตรวจถัดไป',
+        bestRegs: ['R-01', 'R-02', 'R-05'],
+        acceptableRegs: ['R-03', 'R-04'],
+        keyStakeholders: ['airport_ops', 'immigration', 'quarantine_health', 'avsec'],
+        debrief: 'การอ้างอิง ICAO Annex 9 (R-01), Doc 9957 (R-02) และข้อกำหนด กพท. ฉบับที่ 7 (R-05) ช่วยให้ฝ่ายการท่าฯ ตม. ด่านควบคุมโรคฯ และ AVSEC ออกแบบพื้นที่และจัดสรรช่องตรวจตามข้อมูลผู้โดยสารล่วงหน้าได้อย่างสอดประสาน'
+      },
+      {
+        id: 'S-02',
+        type: 'systemic',
+        tag: 'SYSTEMIC • CARGO & MAIL',
+        title: 'สินค้าเกษตรและสัตว์มีชีวิตตกค้างรอการตรวจปล่อยข้ามวัน',
+        mapNode: { x: 665, y: 245, label: 'Cargo & Quarantine' },
+        affectedFlows: ['cargo'],
+        flowLabels: ['Cargo & Mail Flow (สินค้าและไปรษณียภัณฑ์)'],
+        description: 'สินค้าเน่าเสียง่าย (Perishables) และสัตว์มีชีวิตล่าช้าในกระบวนการตรวจปล่อย เพราะด่านตรวจพืช ด่านตรวจสัตว์ และศุลกากร ตรวจแยกขั้นตอน ขอเอกสารซ้ำซ้อน และขาดข้อตกลงเวลาให้บริการ (SLA) ร่วมกัน',
+        siloFailureNote: 'องค์กรมักให้ความสำคัญกับความพึงพอใจฝั่งผู้โดยสาร (Landside) จนละเลย Cargo & Mail Flow ซึ่งเป็นหัวใจสำคัญของมาตรฐาน Facilitation',
+        bestRegs: ['R-01', 'R-02', 'R-03'],
+        acceptableRegs: ['R-04'],
+        keyStakeholders: ['customs', 'plant_quarantine', 'animal_quarantine', 'airport_ops'],
+        debrief: 'การใช้ ICAO Annex 9 (R-01), Doc 9957 (R-02) และแผน NATFP (R-03) ในเวที AFC ช่วยกำหนดระบบตรวจปล่อยร่วม (Joint Inspection) และข้อตกลง SLA ระหว่างศุลกากร ด่านตรวจพืช และด่านตรวจสัตว์อย่างเป็นรูปธรรม'
+      },
+      {
+        id: 'S-03',
+        type: 'systemic',
+        tag: 'SYSTEMIC • BAGGAGE & AIRCRAFT',
+        title: 'การส่งมอบสัมภาระล่าช้าและขัดแย้งระหว่างการตรวจค้นกับสายพาน',
+        mapNode: { x: 405, y: 265, label: 'Baggage & Transfer Hub' },
+        affectedFlows: ['baggage', 'aircraft'],
+        flowLabels: ['Baggage Flow (สัมภาระ)', 'Aircraft Flow (อากาศยาน)'],
+        description: 'กระเป๋าผู้โดยสารต่อเครื่อง (Transfer Baggage) ตกค้างบ่อยครั้ง ส่งผลให้เที่ยวบินขาออกล่าช้า (Off-block Delay) เนื่องจากขั้นตอนการสแกนของ AVSEC และศุลกากรในระบบสายพานไม่สอดประสานกับเวลา Turnaround ของอากาศยาน',
+        siloFailureNote: 'เมื่อมาตรฐานตรวจค้นและพิธีการศุลกากรไม่เชื่อมโยงกับเวลา Turnaround จะกระทบทั้งความคล่องตัวของสัมภาระและตารางบินของอากาศยาน',
+        bestRegs: ['R-01', 'R-02', 'R-05'],
+        acceptableRegs: ['R-03', 'R-04'],
+        keyStakeholders: ['airport_ops', 'avsec', 'customs'],
+        debrief: 'ข้อกำหนด กพท. ฉบับที่ 7 (R-05) ว่าด้วยสิ่งอำนวยความสะดวกสำหรับคนโดยสารและสัมภาระ เมื่อผสานกับ ICAO Annex 9 (R-01) และ Doc 9957 (R-02) ช่วยให้ฝ่ายการท่าฯ AVSEC และศุลกากรกำหนดมาตรฐานเวลาส่งต่อสัมภาระได้ทันรอบบิน'
+      },
+      {
+        id: 'S-04',
+        type: 'systemic',
+        tag: 'SYSTEMIC • AIRCRAFT & CREW',
+        title: 'ความซ้ำซ้อนของการตรวจเอกสารลูกเรือและอากาศยาน',
+        mapNode: { x: 135, y: 120, label: 'Airside Apron & Crew' },
+        affectedFlows: ['aircraft', 'pax'],
+        flowLabels: ['Aircraft Flow (อากาศยาน)', 'Pax & Crew Flow (ผู้โดยสารและลูกเรือ)'],
+        description: 'สายการบินร้องเรียนว่าลูกเรือต้องยื่นเอกสารชุดเดียวกันซ้ำหลายจุดทั้งที่ ตม. ศุลกากร และด่านควบคุมโรคฯ ทำให้ใช้เวลาเตรียมเครื่องนานเกินจำเป็นและกระทบตารางการบิน',
+        siloFailureNote: 'การต่างคนต่างเรียกเก็บเอกสารซ้ำซ้อนขัดต่อหลักการลดขั้นตอนพิธีการตาม SARPs ของ ICAO Annex 9',
+        bestRegs: ['R-01', 'R-03', 'R-04'],
+        acceptableRegs: ['R-02'],
+        keyStakeholders: ['immigration', 'customs', 'quarantine_health', 'airport_ops'],
+        debrief: 'ICAO Annex 9 (R-01) ร่วมกับแผน NATFP (R-03) และ พ.ร.บ. การเดินอากาศ (R-04) สนับสนุนการใช้เอกสารมาตรฐานสากลและระบบข้อมูลร่วมกัน ลดการตรวจซ้ำซ้อนของ ตม. ศุลกากร และด่านควบคุมโรคฯ'
+      },
+      {
+        id: 'S-05',
+        type: 'systemic',
+        tag: 'SYSTEMIC • PRM (กพท. 90 / 95)',
+        title: 'การส่งต่อและอำนวยความสะดวกแก่ผู้โดยสาร PRM ขาดความต่อเนื่องข้ามจุดตรวจ',
+        mapNode: { x: 405, y: 82, label: 'PRM Corridor (Landside→Airside)' },
+        affectedFlows: ['pax', 'aircraft'],
+        flowLabels: ['Pax & Crew Flow (PRM)', 'Aircraft Flow (อากาศยาน)'],
+        description: 'ผู้โดยสารที่ต้องการความช่วยเหลือพิเศษ (PRM) ต้องรอนานและเผชิญขั้นตอนตรวจค้นซ้ำซ้อนตั้งแต่จุดส่งมอบหน้าอาคาร ผ่านจุดตรวจค้น AVSEC ตม. และศุลกากร จนถึงประตูขึ้นเครื่อง เนื่องจากหน่วยงานยังสับสนเกณฑ์กฎหมายเดิมและขาดมาตรฐานส่งต่อร่วมกัน',
+        siloFailureNote: 'ฝ่ายการท่าฯ มองเพียงสิ่งอำนวยความสะดวกฝั่ง Landside ขณะที่ AVSEC และ CIQ ยังอ้างอิงเกณฑ์เก่าตามข้อกำหนดฉบับที่ 7 โดยไม่เชื่อม Flow จนถึง Airside',
+        bestRegs: ['R-07', 'R-06', 'R-01'],
+        acceptableRegs: ['R-02', 'R-03'],
+        keyStakeholders: ['airport_ops', 'avsec', 'immigration', 'customs', 'quarantine_health'],
+        debrief: 'การนำข้อกำหนด กพท. ฉบับที่ 95 (R-07) มายืนยันการยกเลิกเรื่องบุคคลที่ต้องการความช่วยเหลือเป็นกรณีพิเศษออกจากฉบับที่ 7 เพื่อไปใช้ตามข้อกำหนด กพท. ฉบับที่ 90 (R-06) ร่วมกับ ICAO Annex 9 (R-01) ช่วยสร้างมาตรฐานการดูแลผู้โดยสาร PRM แบบไร้รอยต่อตั้งแต่ Landside จนถึง Airside'
+      },
+      {
+        id: 'D-01',
+        type: 'distractor',
+        tag: 'OPERATIONAL DISTRACTOR',
+        title: 'เครื่องปรับอากาศบริเวณโถงผู้โดยสารขาออกขัดข้องชั่วคราว',
+        mapNode: { x: 665, y: 92, label: 'Terminal Landside Zone B' },
+        affectedFlows: ['pax'],
+        flowLabels: ['ความพึงพอใจ Landside ชั่วคราว'],
+        description: 'ผู้โดยสารร้องเรียนเรื่องอากาศร้อนในโถงเช็กอินเนื่องจากระบบปรับอากาศโซน B ขัดข้อง ช่างซ่อมบำรุงกำลังเร่งแก้ไขให้เสร็จภายใน 2 ชั่วโมง',
+        siloFailureNote: 'กับดัก: งานซ่อมบำรุงปกติของฝ่ายการท่าฯ ไม่ใช่วาระเชิงโครงสร้างของ AFC — คณะกรรมการ AFC ประชุมตามรอบเวลาเพื่อวางนโยบายระดับยุทธศาสตร์ ไม่ใช่สั่งการแก้หน้างานเฉพาะหน้า',
+        bestRegs: [],
+        acceptableRegs: [],
+        keyStakeholders: ['airport_ops'],
+        debrief: 'AFC ไม่ใช่คณะกรรมการแก้ปัญหาเฉพาะหน้าหรือสั่งงานซ่อมบำรุงประจำวัน การนำเรื่องระบบปรับอากาศขัดข้องเข้าสู่วาระประชุมทำให้เสียโควตาการตัดสินใจเชิงยุทธศาสตร์'
+      },
+      {
+        id: 'D-02',
+        type: 'distractor',
+        tag: 'OPERATIONAL DISTRACTOR',
+        title: 'พนักงานหน้างาน ตม. และศุลกากร 1 คู่ มีปากเสียงเรื่องการจอดรถหน้าอาคาร',
+        mapNode: { x: 665, y: 155, label: 'Staff Parking Frontage' },
+        affectedFlows: [],
+        flowLabels: ['ไม่กระทบ 4 Flows หลักโดยตรง'],
+        description: 'เจ้าหน้าที่ปฏิบัติการระดับหน้างานของ ตม. และศุลกากร 1 คู่ เกิดปากเสียงกันเรื่องการจอดรถซ้อนคันบริเวณหน้าอาคาร',
+        siloFailureNote: 'กับดัก: ปัญหาส่วนบุคคลระดับปฏิบัติการ ไม่ใช่วาระของคณะกรรมการ AFC — หัวหน้าหน่วยควรประสานจัดการกันเองตามสายบังคับบัญชา',
+        bestRegs: [],
+        acceptableRegs: [],
+        keyStakeholders: ['immigration', 'customs'],
+        debrief: 'การประชุม AFC มีบทบาทระดับยุทธศาสตร์เพื่อกำหนด Shared Vision มาตรฐาน SARPs และแบ่ง Accountability ข้ามหน่วยงาน ไม่ใช่เวทีไกล่เกลี่ยข้อพิพาทส่วนบุคคลหน้างาน'
+      }
+    ];
+
+    /* -------------------------------------------------------------------------
+       3. SIMULATION STATE
+       ------------------------------------------------------------------------- */
+    const state = {
+      round: 1,
+      phase: 1, // 1: Briefing, 2: Agenda, 3: Council, 4: Debrief
+      timerSeconds: 12 * 60,
+      timerRunning: true,
+      soundEnabled: true,
+      stats: {
+        aircraft: 65,
+        pax: 60,
+        baggage: 62,
+        cargo: 55,
+        silo: 70,
+        asq: 58
+      },
+      drawnScenarios: [],
+      inspectedScenarioId: null,
+      selectedAgendaIds: [],
+      activeAgendaIndex: 0,
+      councilPlans: {},
+      lastEvaluation: null
+    };
+
+    /* -------------------------------------------------------------------------
+       4. SUBTLE LUXURY AUDIO ENGINE (SOFT HARMONIC CHIMES - NO HARSH BEEPS)
+       ------------------------------------------------------------------------- */
+    let audioCtx = null;
+    function playChime(type = 'tap') {
+      if (!state.soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const now = audioCtx.currentTime;
+
+        if (type === 'tap') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(528, now);
+          gain.gain.setValueAtTime(0.025, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.14);
+        } else if (type === 'warn') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(220, now);
+          gain.gain.setValueAtTime(0.035, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.22);
+        } else if (type === 'resolve') {
+          const chord = [440, 554.37, 659.25];
+          chord.forEach((freq, i) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            const start = now + i * 0.08;
+            osc.frequency.setValueAtTime(freq, start);
+            gain.gain.setValueAtTime(0.03, start);
+            gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.55);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(start);
+            osc.stop(start + 0.55);
+          });
+        }
+      } catch (e) {
+        // Ignore browser autoplay restrictions
+      }
+    }
+
+    function toggleSound() {
+      state.soundEnabled = !state.soundEnabled;
+      document.getElementById('soundToggleBtn').textContent = state.soundEnabled ? 'SFX: ON' : 'SFX: OFF';
+      if (state.soundEnabled) playChime('tap');
+    }
+
+    /* -------------------------------------------------------------------------
+       5. 12:00 AFC MEETING COUNTDOWN TIMER
+       ------------------------------------------------------------------------- */
+    const PHASE_DURATIONS = { 1: 120, 2: 180, 3: 300, 4: 120 }; // 12 Minutes Total
+
+    setInterval(() => {
+      if (state.timerRunning && state.timerSeconds > 0) {
+        state.timerSeconds--;
+        updateTimerUI();
+      }
+    }, 1000);
+
+    function updateTimerUI() {
+      const mins = Math.floor(state.timerSeconds / 60);
+      const secs = state.timerSeconds % 60;
+      const el = document.getElementById('timerDisplay');
+      const dot = document.getElementById('timerDot');
+      el.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+      if (state.timerSeconds <= 60) {
+        el.classList.remove('text-gray-100');
+        el.classList.add('text-[#F87171]');
+        dot.classList.remove('bg-[#34D399]');
+        dot.classList.add('bg-[#F87171]');
+      } else {
+        el.classList.add('text-gray-100');
+        el.classList.remove('text-[#F87171]');
+        dot.classList.add('bg-[#34D399]');
+        dot.classList.remove('bg-[#F87171]');
+      }
+    }
+
+    function toggleTimer() {
+      playChime('tap');
+      state.timerRunning = !state.timerRunning;
+      document.getElementById('timerToggleBtn').textContent = state.timerRunning ? 'PAUSE' : 'START';
+    }
+
+    function addOneMinute() {
+      playChime('tap');
+      state.timerSeconds += 60;
+      updateTimerUI();
+    }
+
+    function resetPhaseTimer() {
+      playChime('tap');
+      state.timerSeconds = PHASE_DURATIONS[state.phase] || 720;
+      state.timerRunning = true;
+      document.getElementById('timerToggleBtn').textContent = 'PAUSE';
+      updateTimerUI();
+    }
+
+    /* -------------------------------------------------------------------------
+       6. SCENARIO DEALING & PRESET LOADER
+       ------------------------------------------------------------------------- */
+    function dealNewScenarios() {
+      playChime('tap');
+      const systemics = SCENARIOS.filter(s => s.type === 'systemic');
+      const distractors = SCENARIOS.filter(s => s.type === 'distractor');
+
+      const shuffledSys = [...systemics].sort(() => Math.random() - 0.5);
+      const shuffledDist = [...distractors].sort(() => Math.random() - 0.5);
+
+      const useThreeSystemic = Math.random() < 0.25;
+      if (useThreeSystemic) {
+        state.drawnScenarios = [shuffledSys[0], shuffledSys[1], shuffledSys[2]];
+      } else {
+        state.drawnScenarios = [shuffledSys[0], shuffledSys[1], shuffledDist[0]].sort(() => Math.random() - 0.5);
+      }
+
+      state.inspectedScenarioId = state.drawnScenarios[0].id;
+      state.selectedAgendaIds = [];
+      state.councilPlans = {};
+      state.lastEvaluation = null;
+      state.phase = 1;
+      state.timerSeconds = PHASE_DURATIONS[1];
+      updateAdvisor(
+        `AFC CYCLE #${String(state.round).padStart(2, '0')} • PRE-AFC BRIEFING (2 นาที)`,
+        'สุ่มรายงานสถานการณ์สะสมชุดใหม่เรียบร้อยแล้ว คลิกตรวจสอบแต่ละจุดบนแผนผังเพื่อแยกแยะประเด็นเชิงโครงสร้างออกจากงานปฏิบัติการเฉพาะหน้า'
+      );
+      renderAll();
+    }
+
+    function loadPrmPreset() {
+      playChime('tap');
+      state.drawnScenarios = [
+        SCENARIOS.find(s => s.id === 'S-05'),
+        SCENARIOS.find(s => s.id === 'S-02'),
+        SCENARIOS.find(s => s.id === 'D-01')
+      ];
+      state.inspectedScenarioId = 'S-05';
+      state.selectedAgendaIds = [];
+      state.councilPlans = {};
+      state.lastEvaluation = null;
+      state.phase = 1;
+      state.timerSeconds = PHASE_DURATIONS[1];
+      updateAdvisor(
+        'MISSION PRESET • กรณีศึกษาผู้โดยสาร PRM (กพท. 90/95) & คาร์โก้',
+        'ตรวจสอบจุด S-05 (การส่งต่อผู้โดยสาร PRM), S-02 (สินค้าเกษตรและสัตว์มีชีวิต) และ D-01 (ระบบปรับอากาศขัดข้อง) ก่อนเข้าสู่การคัดเลือกวาระประชุม AFC'
+      );
+      renderAll();
+    }
+
+    /* -------------------------------------------------------------------------
+       7. PHASE NAVIGATION & ADVISOR MESSAGING
+       ------------------------------------------------------------------------- */
+    function jumpToPhase(targetPhase) {
+      if (targetPhase === 3 && state.selectedAgendaIds.length !== 2) {
+        playChime('warn');
+        updateAdvisor(
+          'ACTION REQUIRED • กรุณาคัดเลือกวาระประชุมให้ครบ 2 เรื่อง',
+          'ในขั้นตอน Agenda Setting ประธาน AFC และคณะกรรมการต้องเลือกวาระเชิงยุทธศาสตร์เข้าสู่โต๊ะประชุมให้ครบ 2 เรื่องก่อนดำเนินการขั้นถัดไป'
+        );
+        state.phase = 2;
+        renderAll();
+        return;
+      }
+      if (targetPhase === 4 && !state.lastEvaluation) {
+        evaluateCouncil();
+        return;
+      }
+      playChime('tap');
+      state.phase = targetPhase;
+      state.timerSeconds = PHASE_DURATIONS[targetPhase] || 180;
+      updatePhaseAdvisorText();
+      renderAll();
+    }
+
+    function updateAdvisor(title, message) {
+      document.getElementById('advisorTitle').textContent = title;
+      document.getElementById('advisorMessage').textContent = message;
+    }
+
+    function updatePhaseAdvisorText() {
+      if (state.phase === 1) {
+        updateAdvisor(
+          'PHASE 01 • PRE-AFC BRIEFING (2 นาที — รับทราบรายงานปัญหาสะสม)',
+          'ตรวจสอบจุดแจ้งเตือนทั้ง 3 จุดบนแผนผังท่าอากาศยาน เพื่อวิเคราะห์ผลกระทบต่อทั้ง 4 Flows หลัก และแยกแยะประเด็นเชิงโครงสร้างออกจากงานปฏิบัติการเฉพาะหน้า'
+        );
+      } else if (state.phase === 2) {
+        updateAdvisor(
+          'PHASE 02 • STRATEGIC AGENDA SETTING (3 นาที — คัดเลือกวาระเชิงยุทธศาสตร์)',
+          'AFC ประชุมตามรอบเวลาเพื่อแก้ปัญหาเชิงโครงสร้างและวางนโยบายร่วมกัน คัดเลือก 2 วาระสำคัญที่สุดเข้าสู่ที่ประชุม และคัดกรองงานซ่อมบำรุงหรือข้อพิพาทส่วนบุคคลออก'
+        );
+      } else if (state.phase === 3) {
+        updateAdvisor(
+          'PHASE 03 • SARPs & ACCOUNTABILITY COUNCIL (5 นาที — อ้างอิงกฎหมายและแบ่งหน้าที่)',
+          'เลือกใช้มาตรฐานสากล/กฎหมายไทยที่ตรงกับแต่ละวาระ (สูงสุด 2 ใบ) พร้อมยืนยัน Accountability ของหน่วยงานที่เกี่ยวข้องเพื่อทลายกำแพง Silo'
+        );
+      } else if (state.phase === 4) {
+        updateAdvisor(
+          'PHASE 04 • ASQ SIMULATION & KNOWLEDGE DEBRIEF (2 นาที — ประเมินผลเชิงโครงสร้าง)',
+          'ทบทวนผลลัพธ์ที่มีต่อทั้ง 4 Flows ระดับ Silo Friction และรากฐาน ASQ พร้อมถอดบทเรียนด้านการประยุกต์ใช้ SARPs และกฎระเบียบไทย'
+        );
+      }
+    }
+
+    /* -------------------------------------------------------------------------
+       8. HUD & PERSISTENT STAKEHOLDER DIRECTORY
+       ------------------------------------------------------------------------- */
+    function getFlowBarColor(val) {
+      if (val >= 70) return 'bg-[#34D399]';
+      if (val >= 55) return 'bg-[#F59E0B]';
+      return 'bg-[#F87171]';
+    }
+
+    function updateHudUI() {
+      const s = state.stats;
+      document.getElementById('roundBadge').textContent = `AFC CYCLE #${String(state.round).padStart(2, '0')}`;
+
+      document.getElementById('statAircraftText').textContent = `${s.aircraft}%`;
+      const airBar = document.getElementById('statAircraftBar');
+      airBar.style.width = `${s.aircraft}%`;
+      airBar.className = `progress-bar ${getFlowBarColor(s.aircraft)}`;
+
+      document.getElementById('statPaxText').textContent = `${s.pax}%`;
+      const paxBar = document.getElementById('statPaxBar');
+      paxBar.style.width = `${s.pax}%`;
+      paxBar.className = `progress-bar ${getFlowBarColor(s.pax)}`;
+
+      document.getElementById('statBaggageText').textContent = `${s.baggage}%`;
+      const bagBar = document.getElementById('statBaggageBar');
+      bagBar.style.width = `${s.baggage}%`;
+      bagBar.className = `progress-bar ${getFlowBarColor(s.baggage)}`;
+
+      document.getElementById('statCargoText').textContent = `${s.cargo}%`;
+      const cargoBar = document.getElementById('statCargoBar');
+      cargoBar.style.width = `${s.cargo}%`;
+      cargoBar.className = `progress-bar ${getFlowBarColor(s.cargo)}`;
+
+      document.getElementById('statSiloText').textContent = `${s.silo}%`;
+      const siloBar = document.getElementById('statSiloBar');
+      siloBar.style.width = `${s.silo}%`;
+      siloBar.className = `progress-bar ${s.silo <= 40 ? 'bg-[#34D399]' : s.silo <= 60 ? 'bg-[#F59E0B]' : 'bg-[#F87171]'}`;
+
+      document.getElementById('statAsqText').textContent = `${s.asq}%`;
+      document.getElementById('statAsqBar').style.width = `${s.asq}%`;
+
+      // Update Stepper Styling
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`stepBtn${i}`);
+        const badge = btn.querySelector('span');
+        if (state.phase === i) {
+          btn.className = 'phase-step-btn flex items-center gap-3 px-3.5 py-2.5 rounded-lg border border-[#C9A96E] bg-[#C9A96E]/10 text-gray-100 text-left transition';
+          badge.className = 'w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold shrink-0 bg-[#C9A96E] text-[#090B0E]';
+        } else if (state.phase > i) {
+          btn.className = 'phase-step-btn flex items-center gap-3 px-3.5 py-2.5 rounded-lg border border-[#34D399]/35 bg-[#11141B] text-gray-300 text-left transition';
+          badge.className = 'w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold shrink-0 bg-[#34D399]/20 text-[#34D399]';
+        } else {
+          btn.className = 'phase-step-btn flex items-center gap-3 px-3.5 py-2.5 rounded-lg border border-white/[0.06] bg-[#11141B]/60 text-gray-500 text-left transition';
+          badge.className = 'w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold shrink-0 bg-white/[0.06] text-gray-400';
+        }
+      }
+    }
+
+    function renderStakeholderStrip() {
+      const container = document.getElementById('stakeholderStrip');
+      container.innerHTML = STAKEHOLDERS.map(st => `
+        <button onclick="openStakeholderDetail('${st.id}')" class="lux-card p-3.5 text-left flex items-start gap-3 group">
+          <div class="w-8 h-8 rounded-lg bg-[#090B0E] border border-white/[0.08] group-hover:border-[#C9A96E]/50 flex items-center justify-center shrink-0 mt-0.5">
+            ${getStakeholderIcon(st.id)}
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="text-xs font-semibold text-gray-100 group-hover:text-[#C9A96E] leading-snug">
+              ${st.shortName}
+            </div>
+            <div class="text-[11px] text-gray-500 mt-1 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#F87171]/70"></span>
+              <span>ตรวจสอบ Mandate & Silo Trap</span>
+            </div>
+          </div>
+        </button>
+      `).join('');
+    }
+
+    /* -------------------------------------------------------------------------
+       9. PHASE 1: PRE-AFC BRIEFING & ARCHITECTURAL AIRPORT SCHEMATIC
+       ------------------------------------------------------------------------- */
+    function renderPhase1() {
+      const inspected = state.drawnScenarios.find(s => s.id === state.inspectedScenarioId) || state.drawnScenarios[0];
+
+      return `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <!-- Left 7 Cols: Minimalist Architectural Airport Blueprint -->
+          <div class="lg:col-span-7 lux-panel p-5 flex flex-col justify-between">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div>
+                <span class="text-[11px] font-semibold uppercase tracking-widest text-[#C9A96E]">
+                  AIRPORT ARCHITECTURAL SCHEMATIC
+                </span>
+                <h2 class="text-base sm:text-lg font-bold text-gray-100 mt-0.5">
+                  แผนผังจุดเชื่อมต่อ 4 Flows และจุดเกิดปัญหาสะสม
+                </h2>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 text-[11px] text-gray-400">
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#C9A96E]"></span>Active Focus</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#F87171]"></span>Bottleneck Node</span>
+              </div>
+            </div>
+
+            <!-- Ultra-Clean Dark Blueprint SVG -->
+            <div class="relative w-full rounded-xl border border-white/[0.08] bg-[#0B0E14] overflow-hidden">
+              <svg viewBox="0 0 800 340" class="w-full h-auto block select-none">
+                <defs>
+                  <pattern id="luxuryGrid" width="32" height="32" patternUnits="userSpaceOnUse">
+                    <path d="M 32 0 L 0 0 0 32" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                  </pattern>
+                </defs>
+                <rect x="0" y="0" width="800" height="340" fill="url(#luxuryGrid)" />
+
+                <!-- ZONE 1: AIRSIDE APRON (Left) -->
+                <rect x="16" y="16" width="220" height="308" rx="8" fill="#11151E" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <text x="30" y="38" font-size="11" font-weight="700" fill="#9CA3AF" letter-spacing="1">01 // AIRSIDE APRON</text>
+                <!-- Minimalist Runway Schematic -->
+                <rect x="32" y="56" width="38" height="248" rx="4" fill="#171C28" stroke="rgba(255,255,255,0.10)" stroke-width="1" />
+                <line x1="51" y1="70" x2="51" y2="290" stroke="rgba(201,169,110,0.45)" stroke-width="1.5" stroke-dasharray="10 10" />
+                <!-- Minimalist Aircraft Silhouette -->
+                <g transform="translate(115, 102)" stroke="#C9A96E" stroke-width="1.5" fill="none">
+                  <path d="M4 18 L42 18 L52 14 L52 22 L42 18" />
+                  <path d="M22 18 L30 4 L34 4 L30 18" />
+                  <path d="M22 18 L30 32 L34 32 L30 18" />
+                </g>
+
+                <!-- ZONE 2: TERMINAL, CIQ & BAGGAGE HUB (Center) -->
+                <rect x="252" y="16" width="306" height="308" rx="8" fill="#11151E" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <text x="266" y="38" font-size="11" font-weight="700" fill="#9CA3AF" letter-spacing="1">02 // TERMINAL &amp; CIQ HUB</text>
+
+                <!-- PRM Corridor -->
+                <rect x="268" y="56" width="274" height="54" rx="6" fill="#161B26" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <text x="405" y="102" text-anchor="middle" font-size="10" fill="#6B7280">SEAMLESS PRM CORRIDOR</text>
+
+                <!-- CIQ & AVSEC Checkpoint -->
+                <rect x="268" y="132" width="274" height="76" rx="6" fill="#161B26" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <text x="405" y="198" text-anchor="middle" font-size="10" fill="#6B7280">CIQ &amp; AVSEC PROCESSING</text>
+
+                <!-- Baggage & Transfer Hub -->
+                <rect x="268" y="230" width="274" height="74" rx="6" fill="#161B26" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <text x="405" y="294" text-anchor="middle" font-size="10" fill="#6B7280">BAGGAGE HBS &amp; TRANSFER</text>
+
+                <!-- ZONE 3: CARGO, QUARANTINE & LANDSIDE (Right) -->
+                <rect x="574" y="16" width="210" height="308" rx="8" fill="#11151E" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <text x="588" y="38" font-size="11" font-weight="700" fill="#9CA3AF" letter-spacing="1">03 // CARGO &amp; LANDSIDE</text>
+
+                <!-- Landside Dropoff -->
+                <rect x="590" y="56" width="178" height="122" rx="6" fill="#161B26" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <text x="679" y="170" text-anchor="middle" font-size="10" fill="#6B7280">LANDSIDE TERMINAL</text>
+
+                <!-- Cargo & Quarantine -->
+                <rect x="590" y="196" width="178" height="108" rx="6" fill="#161B26" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+                <text x="679" y="294" text-anchor="middle" font-size="10" fill="#6B7280">CARGO / PLANT / ANIMAL</text>
+
+                <!-- THIN ANIMATED ARCHITECTURAL FLOW LINES -->
+                <path d="M 70 120 L 268 120" stroke="rgba(201,169,110,0.45)" stroke-width="1.5" fill="none" class="blueprint-flow" />
+                <path d="M 268 82 L 590 82" stroke="rgba(52,211,153,0.45)" stroke-width="1.5" fill="none" class="blueprint-flow" />
+                <path d="M 268 170 L 590 170" stroke="rgba(52,211,153,0.45)" stroke-width="1.5" fill="none" class="blueprint-flow" />
+                <path d="M 160 265 L 542 265" stroke="rgba(245,158,11,0.45)" stroke-width="1.5" fill="none" class="blueprint-flow" />
+                <path d="M 160 245 L 590 245" stroke="rgba(156,163,175,0.45)" stroke-width="1.5" fill="none" class="blueprint-flow" />
+
+                <!-- 3 ACTIVE SCENARIO BEACON NODES -->
+                ${state.drawnScenarios.map(sc => {
+                  const isSelected = sc.id === inspected.id;
+                  const nodeColor = isSelected ? '#C9A96E' : (sc.type === 'systemic' ? '#F87171' : '#F59E0B');
+                  return `
+                    <g onclick="inspectScenario('${sc.id}')" style="cursor: pointer;">
+                      <circle cx="${sc.mapNode.x}" cy="${sc.mapNode.y}" r="18" fill="${nodeColor}" fill-opacity="0.16" class="beacon-ring" />
+                      <circle cx="${sc.mapNode.x}" cy="${sc.mapNode.y}" r="12" fill="#090B0E" stroke="${nodeColor}" stroke-width="2" />
+                      <text x="${sc.mapNode.x}" y="${sc.mapNode.y + 3.5}" text-anchor="middle" font-size="9.5" font-weight="700" fill="${nodeColor}">
+                        ${sc.id}
+                      </text>
+                      <rect x="${sc.mapNode.x - 84}" y="${sc.mapNode.y + 15}" width="168" height="20" rx="4" fill="#090B0E" fill-opacity="0.92" stroke="rgba(255,255,255,0.14)" stroke-width="1" />
+                      <text x="${sc.mapNode.x}" y="${sc.mapNode.y + 28}" text-anchor="middle" font-size="9.5" font-weight="600" fill="#E5E7EB">
+                        ${sc.mapNode.label}
+                      </text>
+                    </g>
+                  `;
+                }).join('')}
+              </svg>
+            </div>
+
+            <!-- 3 Scenario Selector Cards Below Map -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-4">
+              ${state.drawnScenarios.map(sc => {
+                const active = sc.id === inspected.id;
+                return `
+                  <button onclick="inspectScenario('${sc.id}')" class="lux-card p-3.5 text-left ${active ? 'lux-card-selected' : ''}">
+                    <div class="flex items-center justify-between gap-2 mb-1.5">
+                      <span class="text-xs font-bold ${active ? 'text-[#C9A96E]' : 'text-gray-400'}">
+                        ${sc.id}
+                      </span>
+                      <span class="w-2 h-2 rounded-full ${sc.type === 'systemic' ? 'bg-[#F87171]' : 'bg-[#F59E0B]'}"></span>
+                    </div>
+                    <div class="text-xs sm:text-sm font-semibold text-gray-100 line-clamp-2 leading-snug">
+                      ${sc.title}
+                    </div>
+                  </button>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Selected Scenario Executive Dossier -->
+          <div class="lg:col-span-5 flex flex-col">
+            <div class="lux-panel p-5 sm:p-6 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 pb-3 border-b border-white/[0.07]">
+                  <span class="text-xs font-semibold tracking-wider text-[#C9A96E]">
+                    ${inspected.tag}
+                  </span>
+                  <span class="text-xs font-bold text-gray-400 px-2.5 py-0.5 rounded bg-white/[0.04] border border-white/[0.08]">
+                    CASE ${inspected.id}
+                  </span>
+                </div>
+
+                <h3 class="text-lg sm:text-xl font-bold text-gray-100 mt-4 mb-3 leading-snug">
+                  ${inspected.title}
+                </h3>
+
+                <p class="text-sm text-gray-300 bg-[#0B0E14] border border-white/[0.07] rounded-lg p-4 leading-relaxed mb-4">
+                  ${inspected.description}
+                </p>
+
+                <!-- Impacted Flows -->
+                <div class="mb-4">
+                  <div class="text-xs font-semibold text-gray-400 mb-2">ผลกระทบต่อ Airport Flows:</div>
+                  <div class="flex flex-wrap gap-2">
+                    ${inspected.flowLabels.map(fl => `
+                      <span class="px-2.5 py-1 text-xs font-medium rounded-md bg-white/[0.04] text-gray-200 border border-white/[0.09]">
+                        ${fl}
+                      </span>
+                    `).join('')}
+                  </div>
+                </div>
+
+                <!-- Involved Stakeholders -->
+                <div class="mb-4">
+                  <div class="text-xs font-semibold text-gray-400 mb-2">หน่วยงานที่เกี่ยวข้องในพื้นที่:</div>
+                  <div class="flex flex-wrap gap-1.5">
+                    ${inspected.keyStakeholders.map(stId => {
+                      const st = STAKEHOLDERS.find(item => item.id === stId);
+                      return `
+                        <span class="px-2.5 py-1 text-xs rounded-md bg-[#161A23] text-gray-300 border border-white/[0.07]">
+                          ${st.shortName}
+                        </span>
+                      `;
+                    }).join('')}
+                  </div>
+                </div>
+
+                <!-- Analytical Observation -->
+                <div class="p-3.5 rounded-lg bg-[#C9A96E]/[0.07] border border-[#C9A96E]/25 text-xs sm:text-sm text-gray-200 leading-relaxed">
+                  <span class="font-bold text-[#C9A96E]">ข้อสังเกตเชิงโครงสร้าง:</span> ${inspected.siloFailureNote}
+                </div>
+              </div>
+
+              <div class="mt-6 pt-4 border-t border-white/[0.08]">
+                <button onclick="jumpToPhase(2)" class="btn-lux btn-lux-gold w-full px-5 py-3 text-sm flex items-center justify-center gap-2">
+                  <span>เข้าสู่วาระการประชุม AFC (Proceed to Agenda Setting)</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function inspectScenario(id) {
+      playChime('tap');
+      state.inspectedScenarioId = id;
+      renderAll();
+    }
+
+    /* -------------------------------------------------------------------------
+       10. PHASE 2: STRATEGIC AGENDA SETTING (SELECT EXACTLY 2 OF 3)
+       ------------------------------------------------------------------------- */
+    function renderPhase2() {
+      const selectedCount = state.selectedAgendaIds.length;
+      return `
+        <div class="space-y-5">
+          <div class="lux-panel p-5 sm:p-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <span class="text-xs font-semibold uppercase tracking-widest text-[#C9A96E]">
+                  PHASE 02 • STRATEGIC AGENDA SETTING (3 นาที)
+                </span>
+                <h2 class="text-lg sm:text-xl font-bold text-gray-100 mt-1">
+                  ประธาน AFC และคณะกรรมการคัดเลือก "2 วาระเชิงยุทธศาสตร์"
+                </h2>
+                <p class="text-sm text-gray-400 mt-1 leading-relaxed">
+                  เนื่องจากการประชุม AFC จัดขึ้นตามรอบเวลาที่กำหนดจึงมีเวลาจำกัด กรุณาเลือกเฉพาะประเด็นเชิงโครงสร้างข้ามหน่วยงานจำนวน <strong class="text-gray-200">2 วาระ</strong> และคัดกรองงานซ่อมบำรุงปกติหรือข้อพิพาทส่วนบุคคลออก
+                </p>
+              </div>
+              <div class="bg-[#161A23] border border-[#C9A96E]/40 rounded-xl px-5 py-3 text-center shrink-0">
+                <div class="text-[11px] font-semibold tracking-wider text-[#C9A96E]">SELECTED AGENDA</div>
+                <div class="text-2xl font-bold text-gray-100 mt-0.5">${selectedCount} / 2</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 Scenario Cards for Selection -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            ${state.drawnScenarios.map(sc => {
+              const isSelected = state.selectedAgendaIds.includes(sc.id);
+              return `
+                <div onclick="toggleAgendaSelection('${sc.id}')" class="lux-card p-5 cursor-pointer flex flex-col justify-between ${isSelected ? 'lux-card-selected' : ''}">
+                  <div>
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                      <span class="text-xs font-bold text-[#C9A96E] px-2.5 py-0.5 rounded bg-white/[0.04] border border-white/[0.08]">
+                        ${sc.id}
+                      </span>
+                      <span class="px-2.5 py-1 text-xs font-semibold rounded-md ${isSelected ? 'bg-[#C9A96E] text-[#090B0E]' : 'bg-white/[0.05] text-gray-300 border border-white/[0.08]'}">
+                        ${isSelected ? '✓ บรรจุเข้าวาระ' : '+ เลือกเข้าวาระ'}
+                      </span>
+                    </div>
+
+                    <div class="text-[11px] font-semibold tracking-wider text-gray-400 mb-1.5">${sc.tag}</div>
+                    <h3 class="text-base font-bold text-gray-100 mb-2.5 leading-snug">${sc.title}</h3>
+                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-4">
+                      ${sc.description}
+                    </p>
+                  </div>
+
+                  <div class="pt-3 border-t border-white/[0.07]">
+                    <div class="text-[11px] font-semibold text-gray-400 mb-2">หน่วยงานที่เกี่ยวข้อง:</div>
+                    <div class="flex flex-wrap gap-1.5">
+                      ${sc.keyStakeholders.map(stId => {
+                        const st = STAKEHOLDERS.find(i => i.id === stId);
+                        return `<span class="text-[11px] px-2 py-0.5 rounded bg-[#090B0E] border border-white/[0.07] text-gray-300">${st.shortName}</span>`;
+                      }).join('')}
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Action Footer -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <button onclick="jumpToPhase(1)" class="btn-lux btn-lux-ghost px-4 py-2.5 text-xs sm:text-sm">
+              ← กลับไปหน้า Briefing
+            </button>
+            <button onclick="confirmAgendasAndGoPhase3()" ${selectedCount !== 2 ? 'disabled' : ''} class="btn-lux btn-lux-gold px-6 py-3 text-sm flex items-center gap-2">
+              <span>ยืนยัน 2 วาระ และเข้าสู่การพิจารณามาตรฐาน SARPs</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleAgendaSelection(id) {
+      const idx = state.selectedAgendaIds.indexOf(id);
+      if (idx > -1) {
+        playChime('tap');
+        state.selectedAgendaIds.splice(idx, 1);
+      } else {
+        if (state.selectedAgendaIds.length >= 2) {
+          playChime('warn');
+          updateAdvisor(
+            'AGENDA QUOTA FULL • บรรจุวาระครบ 2 เรื่องแล้ว',
+            'กรุณากดยกเลิกวาระที่เลือกไว้ 1 รายการก่อน หากต้องการเปลี่ยนเป็นวาระอื่น'
+          );
+          return;
+        }
+        playChime('tap');
+        state.selectedAgendaIds.push(id);
+      }
+      renderAll();
+    }
+
+    function confirmAgendasAndGoPhase3() {
+      if (state.selectedAgendaIds.length !== 2) return;
+      playChime('tap');
+      state.selectedAgendaIds.forEach(id => {
+        if (!state.councilPlans[id]) {
+          state.councilPlans[id] = { regs: [], stakeholders: ['director'] };
+        }
+      });
+      state.activeAgendaIndex = 0;
+      jumpToPhase(3);
+    }
+
+    /* -------------------------------------------------------------------------
+       11. PHASE 3: SARPs & ACCOUNTABILITY COUNCIL
+       ------------------------------------------------------------------------- */
+    function renderPhase3() {
+      const currentAgendaId = state.selectedAgendaIds[state.activeAgendaIndex];
+      const scenario = SCENARIOS.find(s => s.id === currentAgendaId);
+      const plan = state.councilPlans[currentAgendaId] || { regs: [], stakeholders: [] };
+
+      const agenda1 = SCENARIOS.find(s => s.id === state.selectedAgendaIds[0]);
+      const agenda2 = SCENARIOS.find(s => s.id === state.selectedAgendaIds[1]);
+
+      const plan1Ready = (state.councilPlans[agenda1.id]?.regs.length || 0) >= 1 && (state.councilPlans[agenda1.id]?.stakeholders.length || 0) >= 2;
+      const plan2Ready = (state.councilPlans[agenda2.id]?.regs.length || 0) >= 1 && (state.councilPlans[agenda2.id]?.stakeholders.length || 0) >= 2;
+
+      return `
+        <div class="space-y-5">
+          <!-- Agenda Switcher Tabs -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            ${[agenda1, agenda2].map((ag, idx) => {
+              const isActive = state.activeAgendaIndex === idx;
+              const p = state.councilPlans[ag.id] || { regs: [], stakeholders: [] };
+              const isConfigured = p.regs.length >= 1 && p.stakeholders.length >= 2;
+              return `
+                <button onclick="switchActiveAgenda(${idx})" class="lux-card p-4 text-left flex items-center justify-between gap-3 ${isActive ? 'lux-card-selected' : ''}">
+                  <div class="min-w-0">
+                    <div class="text-xs font-semibold text-[#C9A96E]">AGENDA 0${idx + 1} • ${ag.id}</div>
+                    <div class="text-sm sm:text-base font-bold text-gray-100 truncate mt-0.5">${ag.title}</div>
+                  </div>
+                  <span class="px-2.5 py-1 text-xs font-semibold rounded-md shrink-0 ${isConfigured ? 'bg-[#34D399]/15 text-[#34D399] border border-[#34D399]/35' : 'bg-white/[0.05] text-gray-400 border border-white/[0.08]'}">
+                    ${isConfigured ? '✓ พร้อมลงมติ' : 'รอกำหนดมติ'}
+                  </span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Active Agenda Workspace -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <!-- Left 5 Cols: Scenario Brief & Accountability Commitments -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="lux-panel p-5">
+                <span class="text-xs font-semibold text-[#C9A96E]">${scenario.tag}</span>
+                <h3 class="text-base sm:text-lg font-bold text-gray-100 mt-1.5 mb-2.5 leading-snug">
+                  ${scenario.title}
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-300 bg-[#0B0E14] p-3.5 rounded-lg border border-white/[0.07] leading-relaxed">
+                  ${scenario.description}
+                </p>
+
+                ${scenario.type === 'distractor' ? `
+                  <div class="mt-3 p-3.5 rounded-lg bg-[#F87171]/10 border border-[#F87171]/35 text-xs text-[#FCA5A5] leading-relaxed">
+                    <strong>ข้อสังเกต:</strong> ประเด็นนี้เป็นงานปฏิบัติการเฉพาะหน้า ไม่ใช่ปัญหาเชิงโครงสร้างในอำนาจหน้าที่ของสภา AFC
+                  </div>
+                ` : ''}
+              </div>
+
+              <!-- Step 2: Stakeholder Accountability Commitments -->
+              <div class="lux-panel p-5">
+                <div class="flex items-center justify-between gap-2 mb-1.5">
+                  <h4 class="text-sm sm:text-base font-bold text-gray-100">
+                    2. กำหนดผู้รับผิดชอบ (Accountability)
+                  </h4>
+                  <span class="text-xs font-semibold px-2.5 py-0.5 rounded bg-[#34D399]/15 text-[#34D399] border border-[#34D399]/30">
+                    ${plan.stakeholders.length} หน่วยงาน
+                  </span>
+                </div>
+                <p class="text-xs text-gray-400 mb-3.5">
+                  เลือกหน่วยงานที่ต้องร่วมรับผิดชอบและประสานงานข้าม Silo ในวาระนี้:
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  ${STAKEHOLDERS.map(st => {
+                    const committed = plan.stakeholders.includes(st.id);
+                    return `
+                      <button onclick="toggleStakeholderCommit('${st.id}')" class="p-2.5 rounded-lg border text-left transition flex items-center gap-2.5 ${committed ? 'bg-[#34D399]/10 border-[#34D399]/50 text-gray-100' : 'bg-[#161A23] hover:border-white/20 border-white/[0.07] text-gray-400'}">
+                        <div class="w-6 h-6 rounded bg-[#090B0E] flex items-center justify-center shrink-0">
+                          ${getStakeholderIcon(st.id)}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                          <div class="text-xs font-semibold truncate">${st.shortName}</div>
+                          <div class="text-[11px] ${committed ? 'text-[#34D399]' : 'text-gray-500'}">
+                            ${committed ? '✓ Committed' : '+ Assign'}
+                          </div>
+                        </div>
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Right 7 Cols: Regulatory & SARPs Deck (Equip 1-2 Cards) -->
+            <div class="lg:col-span-7 lux-panel p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                  <div>
+                    <h4 class="text-sm sm:text-base font-bold text-gray-100">
+                      1. อ้างอิงมาตรฐานสากล & กฎระเบียบไทย (สูงสุด 2 ฉบับ)
+                    </h4>
+                    <p class="text-xs text-gray-400 mt-0.5">
+                      เลือกกรอบมาตรฐานที่ตรงกับปัญหาเพื่อสร้าง Shared Vision และปลดล็อกทางออกเชิงระบบ
+                    </p>
+                  </div>
+                  <span class="px-2.5 py-1 rounded text-xs font-bold bg-[#C9A96E]/15 text-[#C9A96E] border border-[#C9A96E]/35">
+                    SELECTED: ${plan.regs.length} / 2
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                  ${REGULATIONS.map(reg => {
+                    const equipped = plan.regs.includes(reg.id);
+                    return `
+                      <div onclick="toggleRegCard('${reg.id}')" class="lux-card p-3.5 cursor-pointer flex flex-col justify-between ${equipped ? 'lux-card-selected' : ''}">
+                        <div>
+                          <div class="flex items-center justify-between gap-1 mb-2">
+                            <span class="text-xs font-bold text-[#C9A96E]">
+                              ${reg.id} • ${reg.code}
+                            </span>
+                            <span class="text-[11px] font-semibold ${equipped ? 'text-[#34D399]' : 'text-gray-500'}">
+                              ${equipped ? '✓ ใช้งาน' : '+ เลือก'}
+                            </span>
+                          </div>
+                          <div class="text-xs sm:text-sm font-bold text-gray-100 mb-1.5 leading-snug">${reg.title}</div>
+                          <p class="text-xs text-gray-300 leading-relaxed mb-2.5">
+                            ${reg.summary}
+                          </p>
+                        </div>
+                        <div class="text-[11px] text-gray-400 bg-[#0B0E14] px-2.5 py-1.5 rounded border border-white/[0.06]">
+                          <span class="text-[#C9A96E] font-semibold">ผลลัพธ์:</span> ${reg.power}
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+
+              <!-- Bottom Navigation & Finalize Council Resolution -->
+              <div class="mt-5 pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
+                <button onclick="jumpToPhase(2)" class="btn-lux btn-lux-ghost px-4 py-2.5 text-xs sm:text-sm">
+                  ← แก้ไขวาระประชุม
+                </button>
+
+                <div class="flex items-center gap-3 ml-auto">
+                  ${state.activeAgendaIndex === 0 ? `
+                    <button onclick="switchActiveAgenda(1)" class="btn-lux btn-lux-emerald px-5 py-2.5 text-xs sm:text-sm">
+                      ไปพิจารณาวาระที่ 2 →
+                    </button>
+                  ` : `
+                    <button onclick="evaluateCouncil()" ${!(plan1Ready && plan2Ready) ? 'disabled' : ''} class="btn-lux btn-lux-gold px-5 py-3 text-xs sm:text-sm flex items-center gap-2">
+                      <span>รับรองมติ AFC และประเมินผล ASQ</span>
+                      <span>→</span>
+                    </button>
+                  `}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function switchActiveAgenda(idx) {
+      playChime('tap');
+      state.activeAgendaIndex = idx;
+      renderAll();
+    }
+
+    function toggleRegCard(regId) {
+      const agendaId = state.selectedAgendaIds[state.activeAgendaIndex];
+      const plan = state.councilPlans[agendaId];
+      const idx = plan.regs.indexOf(regId);
+
+      if (idx > -1) {
+        playChime('tap');
+        plan.regs.splice(idx, 1);
+      } else {
+        if (plan.regs.length >= 2) {
+          playChime('warn');
+          updateAdvisor(
+            'REGULATION LIMIT • เลือกกฎหมายอ้างอิงครบ 2 ฉบับแล้ว',
+            'คลิกที่การ์ดกฎหมายที่เลือกไว้เพื่อนำออกก่อน หากต้องการเปลี่ยนไปใช้ฉบับอื่น'
+          );
+          return;
+        }
+        playChime('tap');
+        plan.regs.push(regId);
+      }
+      renderAll();
+    }
+
+    function toggleStakeholderCommit(stId) {
+      playChime('tap');
+      const agendaId = state.selectedAgendaIds[state.activeAgendaIndex];
+      const plan = state.councilPlans[agendaId];
+      const idx = plan.stakeholders.indexOf(stId);
+
+      if (idx > -1) {
+        plan.stakeholders.splice(idx, 1);
+      } else {
+        plan.stakeholders.push(stId);
+      }
+      renderAll();
+    }
+
+    /* -------------------------------------------------------------------------
+       12. EVALUATION ENGINE & PHASE 4: ASQ SIMULATION & EXECUTIVE DEBRIEF
+       ------------------------------------------------------------------------- */
+    function evaluateCouncil() {
+      playChime('resolve');
+      const prevStats = { ...state.stats };
+      let deltaAircraft = 0;
+      let deltaPax = 0;
+      let deltaBaggage = 0;
+      let deltaCargo = 0;
+      let deltaSilo = 0;
+      let distractorCount = 0;
+      const agendaReports = [];
+
+      state.selectedAgendaIds.forEach(agId => {
+        const sc = SCENARIOS.find(s => s.id === agId);
+        const plan = state.councilPlans[agId] || { regs: [], stakeholders: [] };
+
+        if (sc.type === 'distractor') {
+          distractorCount++;
+          deltaSilo += 6;
+          agendaReports.push({
+            scenario: sc,
+            status: 'distractor',
+            scoreLabel: 'วาระไม่ตรงบทบาท AFC (Distractor)',
+            feedback: sc.debrief,
+            matchedRegs: plan.regs,
+            missingStakeholders: []
+          });
+          return;
+        }
+
+        const bestMatches = plan.regs.filter(r => sc.bestRegs.includes(r));
+        const accMatches = plan.regs.filter(r => sc.acceptableRegs.includes(r));
+        const regScore = bestMatches.length * 2 + accMatches.length * 1;
+
+        const committedKey = sc.keyStakeholders.filter(st => plan.stakeholders.includes(st));
+        const missingKey = sc.keyStakeholders.filter(st => !plan.stakeholders.includes(st));
+        const coverageRatio = committedKey.length / sc.keyStakeholders.length;
+
+        const hasCoordTool = plan.regs.includes('R-02') || plan.regs.includes('R-03');
+        const hasPrmCombo = sc.id === 'S-05' && plan.regs.includes('R-06') && plan.regs.includes('R-07');
+
+        let flowGain = Math.round((regScore * 3.5 + coverageRatio * 10) * (hasPrmCombo ? 1.3 : 1));
+        if (flowGain < 4) flowGain = 4;
+
+        if (sc.affectedFlows.includes('aircraft')) deltaAircraft += flowGain;
+        if (sc.affectedFlows.includes('pax')) deltaPax += flowGain;
+        if (sc.affectedFlows.includes('baggage')) deltaBaggage += flowGain;
+        if (sc.affectedFlows.includes('cargo')) deltaCargo += flowGain;
+
+        if (coverageRatio >= 0.75) {
+          deltaSilo -= (hasCoordTool ? 16 : 11);
+        } else {
+          deltaSilo += 4;
+        }
+
+        let status = 'good';
+        let scoreLabel = 'มติเชิงโครงสร้างสมบูรณ์ (Optimal)';
+        if (coverageRatio < 0.75 || regScore < 2) {
+          status = 'partial';
+          scoreLabel = 'แก้ไขได้บางส่วน (Partial Alignment)';
+        }
+
+        agendaReports.push({
+          scenario: sc,
+          status,
+          scoreLabel,
+          feedback: sc.debrief,
+          matchedRegs: plan.regs,
+          missingStakeholders: missingKey.map(id => STAKEHOLDERS.find(s => s.id === id).shortName),
+          hasPrmCombo
+        });
+      });
+
+      const clamp = (val) => Math.max(15, Math.min(100, Math.round(val)));
+
+      state.stats.aircraft = clamp(state.stats.aircraft + deltaAircraft - 2);
+      state.stats.pax = clamp(state.stats.pax + deltaPax - 2);
+      state.stats.baggage = clamp(state.stats.baggage + deltaBaggage - 2);
+      state.stats.cargo = clamp(state.stats.cargo + deltaCargo - 2);
+      state.stats.silo = clamp(state.stats.silo + deltaSilo);
+
+      const avgAllFlows = (state.stats.aircraft + state.stats.pax + state.stats.baggage + state.stats.cargo) / 4;
+      const siloPenalty = Math.max(0, (state.stats.silo - 30) * 0.35);
+      state.stats.asq = clamp(avgAllFlows - siloPenalty + 8);
+
+      state.lastEvaluation = {
+        prevStats,
+        newStats: { ...state.stats },
+        distractorCount,
+        agendaReports
+      };
+
+      state.phase = 4;
+      state.timerSeconds = PHASE_DURATIONS[4];
+      updatePhaseAdvisorText();
+      renderAll();
+    }
+
+    function renderPhase4() {
+      const ev = state.lastEvaluation;
+      if (!ev) return '';
+
+      const asqDiff = ev.newStats.asq - ev.prevStats.asq;
+      const siloDiff = ev.newStats.silo - ev.prevStats.silo;
+
+      return `
+        <div class="space-y-5">
+          <!-- Executive Outcomes Summary -->
+          <div class="lux-panel p-5 sm:p-6 border border-[#C9A96E]/35">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div>
+                <span class="text-xs font-semibold uppercase tracking-widest text-[#C9A96E]">
+                  EXECUTIVE DEBRIEF • AFC CYCLE #${String(state.round).padStart(2, '0')}
+                </span>
+                <h2 class="text-lg sm:text-xl font-bold text-gray-100 mt-1">
+                  ${asqDiff >= 5 ? 'การประสานงานข้ามหน่วยงานลด Silo Friction และยกระดับรากฐาน ASQ' : 'ผลการนำมติคณะกรรมการ AFC ไปสู่การปฏิบัติ'}
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-400 mt-1 leading-relaxed">
+                  คุณภาพการให้บริการท่าอากาศยาน (ASQ) ที่ยั่งยืนเกิดจากความสมดุลของทั้ง 4 Flows และความชัดเจนใน Accountability ของผู้ให้บริการทุกภาคส่วน
+                </p>
+              </div>
+
+              <!-- Key Metric Deltas -->
+              <div class="flex flex-wrap items-center gap-3 shrink-0">
+                <div class="bg-[#161A23] border border-[#C9A96E]/40 rounded-xl px-4 py-3 text-center">
+                  <div class="text-[11px] font-semibold text-gray-400">ASQ FOUNDATION</div>
+                  <div class="text-xl sm:text-2xl font-bold text-gray-100 mt-0.5">
+                    ${ev.newStats.asq}%
+                    <span class="text-xs font-semibold ${asqDiff >= 0 ? 'text-[#34D399]' : 'text-[#F87171]'}">
+                      (${asqDiff >= 0 ? '+' : ''}${asqDiff}%)
+                    </span>
+                  </div>
+                </div>
+                <div class="bg-[#161A23] border border-white/[0.09] rounded-xl px-4 py-3 text-center">
+                  <div class="text-[11px] font-semibold text-gray-400">SILO FRICTION</div>
+                  <div class="text-xl sm:text-2xl font-bold text-gray-100 mt-0.5">
+                    ${ev.newStats.silo}%
+                    <span class="text-xs font-semibold ${siloDiff <= 0 ? 'text-[#34D399]' : 'text-[#F87171]'}">
+                      (${siloDiff > 0 ? '+' : ''}${siloDiff}%)
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4-Point Executive Evaluation Checklist -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5 pt-4 border-t border-white/[0.08] text-xs">
+              <div class="p-3 rounded-lg bg-[#0B0E14] border border-white/[0.06]">
+                <span class="font-bold text-[#C9A96E]">1. การคัดกรองวาระเชิงยุทธศาสตร์:</span>
+                <p class="text-gray-300 mt-1">
+                  ${ev.distractorCount === 0
+                    ? 'ยอดเยี่ยม — คณะกรรมการคัดกรองเฉพาะปัญหาเชิงโครงสร้างเข้าประชุม และแยกงานปฏิบัติการเฉพาะหน้าออกได้อย่างถูกต้อง'
+                    : `พบการนำเรื่องปฏิบัติการเฉพาะหน้าเข้าประชุม ${ev.distractorCount} วาระ ซึ่งทำให้เสียเวลาเชิงยุทธศาสตร์ของ AFC`}
+                </p>
+              </div>
+              <div class="p-3 rounded-lg bg-[#0B0E14] border border-white/[0.06]">
+                <span class="font-bold text-[#C9A96E]">2. รากฐาน Facilitation สู่ ASQ:</span>
+                <p class="text-gray-300 mt-1">
+                  การพัฒนาความพึงพอใจผู้โดยสารเพียงจุดเดียวไม่เพียงพอ แต่ต้องเชื่อมโยงทั้งอากาศยาน ผู้โดยสาร/PRM สัมภาระ และคาร์โก้เข้าด้วยกัน
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Detailed Agenda Debrief Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${ev.agendaReports.map((rep, i) => `
+              <div class="lux-card p-5 flex flex-col justify-between ${rep.status === 'distractor' ? 'lux-card-crimson' : rep.status === 'good' ? 'lux-card-emerald' : ''}">
+                <div>
+                  <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <span class="text-xs font-bold text-[#C9A96E]">
+                      AGENDA 0${i + 1} • ${rep.scenario.id}
+                    </span>
+                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-md ${rep.status === 'good' ? 'bg-[#34D399]/15 text-[#34D399]' : rep.status === 'partial' ? 'bg-[#F59E0B]/15 text-[#F59E0B]' : 'bg-[#F87171]/15 text-[#F87171]'}">
+                      ${rep.scoreLabel}
+                    </span>
+                  </div>
+
+                  <h3 class="text-base font-bold text-gray-100 mb-3 leading-snug">
+                    ${rep.scenario.title}
+                  </h3>
+
+                  <div class="p-3.5 rounded-lg bg-[#0B0E14] border border-white/[0.07] text-xs sm:text-sm text-gray-300 leading-relaxed mb-3">
+                    <strong class="text-[#C9A96E]">บทวิเคราะห์ SARPs & กฎระเบียบ:</strong><br/>
+                    ${rep.feedback}
+                  </div>
+
+                  ${rep.missingStakeholders && rep.missingStakeholders.length > 0 ? `
+                    <div class="p-3 rounded-lg bg-[#F59E0B]/10 border border-[#F59E0B]/30 text-xs text-[#FCD34D] mb-3">
+                      <strong>หน่วยงานหลักที่ยังขาดการยืนยัน Accountability:</strong> ${rep.missingStakeholders.join(', ')}
+                    </div>
+                  ` : ''}
+
+                  <div class="text-xs text-gray-400">
+                    <strong class="text-gray-200">มาตรฐานที่แนะนำ:</strong>
+                    ${rep.scenario.bestRegs.length > 0
+                      ? rep.scenario.bestRegs.map(rId => {
+                          const r = REGULATIONS.find(x => x.id === rId);
+                          return `<span class="inline-block px-2 py-0.5 mr-1.5 mt-1 rounded bg-white/[0.05] border border-white/[0.1] text-[#C9A96E] font-semibold">${r.id} (${r.code})</span>`;
+                        }).join('')
+                      : '<span class="text-[#F87171]">ไม่ควรบรรจุเข้าวาระประชุม AFC</span>'
+                    }
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Next Cycle Footer -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <button onclick="openCodexModal('regulations')" class="btn-lux btn-lux-ghost px-4 py-2.5 text-xs sm:text-sm">
+              เปิดดูคลังกฎหมายและ SARPs ทั้งหมด
+            </button>
+            <button onclick="startNextRound()" class="btn-lux btn-lux-gold px-6 py-3 text-xs sm:text-sm flex items-center gap-2">
+              <span>เริ่มรอบการประชุม AFC ถัดไป (CYCLE #${String(state.round + 1).padStart(2, '0')})</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function startNextRound() {
+      state.round += 1;
+      dealNewScenarios();
+    }
+
+    /* -------------------------------------------------------------------------
+       13. CODEX & REFERENCE MODAL
+       ------------------------------------------------------------------------- */
+    function openCodexModal(tab = 'rules') {
+      playChime('tap');
+      const modal = document.getElementById('codexModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      switchCodexTab(tab);
+    }
+
+    function closeCodexModal() {
+      playChime('tap');
+      const modal = document.getElementById('codexModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function openStakeholderDetail(stId) {
+      playChime('tap');
+      openCodexModal('stakeholders');
+      setTimeout(() => {
+        const el = document.getElementById(`codex-st-${stId}`);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 80);
+    }
+
+    function switchCodexTab(tab) {
+      document.querySelectorAll('.codex-tab').forEach(btn => {
+        btn.className = 'codex-tab btn-lux btn-lux-ghost px-3.5 py-1.5 text-xs';
+      });
+      const activeBtn = document.getElementById(`codexTab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
+      if (activeBtn) {
+        activeBtn.className = 'codex-tab btn-lux btn-lux-gold px-3.5 py-1.5 text-xs';
+      }
+
+      const body = document.getElementById('codexModalBody');
+
+      if (tab === 'rules') {
+        body.innerHTML = `
+          <div class="p-4 rounded-xl bg-[#161A23] border border-[#C9A96E]/30">
+            <h4 class="font-bold text-[#C9A96E] text-sm sm:text-base mb-2">หลักการสำคัญของ Civil Aviation Facilitation</h4>
+            <ul class="list-disc pl-5 space-y-2 text-xs sm:text-sm text-gray-300 leading-relaxed">
+              <li><strong class="text-gray-100">Facilitation ครอบคลุมทั้ง 4 Flows:</strong> ไม่ใช่เพียงความพึงพอใจของผู้โดยสารฝั่ง Landside แต่หมายถึงความรวดเร็วและประสิทธิภาพของ <em>อากาศยาน, ผู้โดยสารและลูกเรือ (รวม PRM), สัมภาระ และสินค้า/ไปรษณียภัณฑ์</em></li>
+              <li><strong class="text-gray-100">AFC คือกลไกระดับยุทธศาสตร์ตามรอบเวลา:</strong> ใช้เพื่อกำหนด Shared Vision มาตรฐาน SARPs และแบ่ง Accountability ข้ามหน่วยงาน ไม่ใช่เวทีสั่งงานซ่อมบำรุงหรือแก้เหตุฉุกเฉินเฉพาะหน้า</li>
+              <li><strong class="text-gray-100">ทลายการทำงานแบบ Silo:</strong> ความร่วมมือและกรอบกฎหมายที่ชัดเจนคือรากฐานสำคัญของ Airport Service Quality (ASQ)</li>
+            </ul>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs sm:text-sm">
+            <div class="p-4 rounded-xl bg-[#161A23] border border-white/[0.07]">
+              <div class="font-bold text-[#C9A96E] mb-1">01 • Pre-AFC Briefing (2 นาที)</div>
+              <p class="text-gray-300">สำรวจปัญหาสะสม 3 รายการบนแผนผังท่าอากาศยาน วิเคราะห์ผลกระทบต่อ 4 Flows และหน่วยงานที่เกี่ยวข้อง</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[#161A23] border border-white/[0.07]">
+              <div class="font-bold text-[#C9A96E] mb-1">02 • Strategic Agenda Setting (3 นาที)</div>
+              <p class="text-gray-300">ประธาน AFC นำสมาชิกคัดเลือก <strong class="text-gray-100">2 วาระเชิงโครงสร้าง</strong> เข้าสู่การประชุม โดยตัดปัญหาเฉพาะหน้าออก</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[#161A23] border border-white/[0.07]">
+              <div class="font-bold text-[#C9A96E] mb-1">03 • SARPs & Accountability Council (5 นาที)</div>
+              <p class="text-gray-300">อ้างอิงมาตรฐาน ICAO และกฎหมายไทย (1–2 ฉบับ) พร้อมกำหนดความรับผิดชอบร่วมกันของหน่วยงานในแต่ละวาระ</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[#161A23] border border-white/[0.07]">
+              <div class="font-bold text-[#C9A96E] mb-1">04 • ASQ & Knowledge Debrief (2 นาที)</div>
+              <p class="text-gray-300">ประเมินผลลัพธ์เชิงโครงสร้างที่มีต่อทั้ง 4 Flows ค่า Silo Friction และคะแนน ASQ Foundation</p>
+            </div>
+          </div>
+        `;
+      } else if (tab === 'regulations') {
+        body.innerHTML = `
+          <div class="space-y-3">
+            ${REGULATIONS.map(r => `
+              <div class="p-4 rounded-xl bg-[#161A23] border border-white/[0.08]">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                  <span class="text-xs font-bold text-[#C9A96E]">${r.id} • ${r.code}</span>
+                  <span class="text-[11px] text-gray-400">${r.category}</span>
+                </div>
+                <h4 class="font-bold text-gray-100 text-sm sm:text-base mb-1">${r.title}</h4>
+                <p class="text-xs sm:text-sm text-gray-300 mb-2.5 leading-relaxed">${r.summary}</p>
+                <div class="text-xs text-[#34D399] bg-[#34D399]/10 border border-[#34D399]/25 px-3 py-1.5 rounded-lg inline-block">
+                  บทบาทในสภา AFC: ${r.power}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (tab === 'stakeholders') {
+        body.innerHTML = `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            ${STAKEHOLDERS.map(st => `
+              <div id="codex-st-${st.id}" class="p-4 rounded-xl bg-[#161A23] border border-white/[0.08]">
+                <div class="flex items-center gap-2.5 mb-2.5">
+                  <div class="w-7 h-7 rounded-lg bg-[#090B0E] border border-white/[0.08] flex items-center justify-center">
+                    ${getStakeholderIcon(st.id)}
+                  </div>
+                  <h4 class="font-bold text-gray-100 text-xs sm:text-sm">${st.fullName}</h4>
+                </div>
+                <div class="p-2.5 rounded-lg bg-[#34D399]/[0.07] border border-[#34D399]/20 text-xs text-gray-200 mb-2 leading-relaxed">
+                  <strong class="text-[#34D399]">Mandate:</strong> ${st.role}
+                </div>
+                <div class="p-2.5 rounded-lg bg-[#F87171]/[0.07] border border-[#F87171]/20 text-xs text-gray-200 leading-relaxed">
+                  <strong class="text-[#F87171]">Silo Trap:</strong> ${st.siloTrap}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (tab === 'flows') {
+        body.innerHTML = `
+          <div class="space-y-3 text-xs sm:text-sm">
+            <div class="p-4 rounded-xl bg-[#161A23] border border-white/[0.08]">
+              <h4 class="font-bold text-[#C9A96E] mb-1">1. Aircraft Flow (อากาศยาน)</h4>
+              <p class="text-gray-300">การบริหารหลุมจอด เวลา Turnaround พิธีการตรวจเอกสารอากาศยาน และการประสานงานระหว่างฝ่ายปฏิบัติการสนามบิน สายการบิน และหน่วยงาน CIQ</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[#161A23] border border-white/[0.08]">
+              <h4 class="font-bold text-[#C9A96E] mb-1">2. Pax & Crew Flow (ผู้โดยสารและลูกเรือ — รวมถึง PRM)</h4>
+              <p class="text-gray-300">การเดินทางตั้งแต่ Landside ผ่านจุดตรวจค้น AVSEC ด่านควบคุมโรคฯ ตม. และศุลกากร จนถึง Airside รวมถึงมาตรฐานดูแลผู้โดยสาร PRM ตามข้อกำหนด กพท. ฉบับที่ 90 และ 95</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[#161A23] border border-white/[0.08]">
+              <h4 class="font-bold text-[#C9A96E] mb-1">3. Baggage Flow (สัมภาระ)</h4>
+              <p class="text-gray-300">ระบบสายพานลำเลียง การคัดกรองสัมภาระบรรทุก (HBS) โดย AVSEC และศุลกากร และการส่งต่อสัมภาระต่อเครื่อง (Transfer Baggage) ให้ทันเที่ยวบิน</p>
+            </div>
+            <div class="p-4 rounded-xl bg-[#161A23] border border-white/[0.08]">
+              <h4 class="font-bold text-[#C9A96E] mb-1">4. Cargo & Mail Flow (สินค้าและไปรษณียภัณฑ์)</h4>
+              <p class="text-gray-300">การตรวจปล่อยสินค้าทางอากาศ สินค้าเน่าเสียง่าย สินค้าเกษตร และสัตว์มีชีวิต ผ่านความร่วมมือระหว่างศุลกากร ด่านตรวจพืช ด่านตรวจสัตว์ และคลังสินค้า</p>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeCodexModal();
+    });
+
+    /* -------------------------------------------------------------------------
+       14. MASTER RENDER & INITIALIZATION
+       ------------------------------------------------------------------------- */
+    function renderAll() {
+      updateHudUI();
+      updateTimerUI();
+      renderStakeholderStrip();
+
+      const board = document.getElementById('gameBoardContainer');
+      if (state.phase === 1) {
+        board.innerHTML = renderPhase1();
+      } else if (state.phase === 2) {
+        board.innerHTML = renderPhase2();
+      } else if (state.phase === 3) {
+        board.innerHTML = renderPhase3();
+      } else if (state.phase === 4) {
+        board.innerHTML = renderPhase4();
+      }
+    }
+
+    window.onload = function () {
+      // Cycle #01 starts with S-05 (PRM CAAT 90/95), S-02 (Cargo/Quarantine), and D-01 (AC Distractor)
+      state.drawnScenarios = [
+        SCENARIOS.find(s => s.id === 'S-05'),
+        SCENARIOS.find(s => s.id === 'S-02'),
+        SCENARIOS.find(s => s.id === 'D-01')
+      ];
+      state.inspectedScenarioId = 'S-05';
+      renderAll();
+    };
+  </script>
+</body>
+</html>
