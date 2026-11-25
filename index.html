@@ -31,7 +31,6 @@
             pokered: '#D82820',
             pokeblue: '#2058B8',
             pikagold: '#F8B800',
-            // Aliases kept compatible with existing utility classes in JS templates
             alabaster: '#9BBC0F',
             warmwhite: '#E8F4D8',
             platinum: '#E8F4D8',
@@ -64,10 +63,10 @@
 
     *, *::before, *::after {
       box-sizing: border-box;
-      border-radius: 0px !important; /* Strict 16-bit sharp pixel corners everywhere */
+      border-radius: 0px !important;
     }
 
-    /* Base Root Font Size: 17px on Mobile/Tablet, 18px on Desktop >= 1024px for crisp Thai readability */
+    /* Base Root Font Size: 17px on Mobile/Tablet, 18px on Desktop >= 1024px */
     html {
       font-size: 17px;
       scroll-behavior: smooth;
@@ -112,7 +111,6 @@
       background: var(--gb-3);
     }
 
-    /* Pixel Heading Utility */
     .pixel-font {
       font-family: 'Press Start 2P', 'Silkscreen', 'IBM Plex Sans Thai', monospace;
       letter-spacing: 0.04em;
@@ -134,17 +132,15 @@
       box-shadow:
         inset 0 0 0 3px var(--gb-0),
         inset 0 0 0 6px var(--gb-3),
-        6px 6px 0px var(--gb-3);
+        5px 5px 0px var(--gb-3);
       color: var(--poke-white);
     }
 
-    /* Gold / GB Lightest Highlight Text on Dark HUD */
     .gold-foil-text {
       color: var(--pika-gold);
       text-shadow: 2px 2px 0px #000000;
     }
 
-    /* Pixelated Aviation Poké-Crest Frame */
     .gold-crest {
       background-color: var(--gb-0);
       border: 3px solid var(--gb-3);
@@ -154,17 +150,17 @@
         3px 3px 0px #000000;
     }
 
-    /* Classic Pokémon Off-White RPG Dialog Box (.luxury-card & .luxury-card-gold) */
+    /* Standard Poké-Dialog Card */
     .luxury-card {
       background-color: var(--poke-white);
-      border: 4px solid var(--gb-3);
+      border: 3px solid var(--gb-3);
       box-shadow:
-        inset 0 0 0 3px var(--poke-white),
-        inset 0 0 0 6px var(--gb-3),
-        6px 6px 0px var(--gb-3);
+        inset 0 0 0 2px var(--gb-1),
+        4px 4px 0px var(--gb-3);
       color: var(--gb-3);
     }
 
+    /* Primary Gold-Trimmed Poké-Dialog Frame */
     .luxury-card-gold {
       background-color: var(--poke-white);
       background-image: linear-gradient(180deg, #F8F8F8 0%, #E8F4D8 100%);
@@ -172,11 +168,11 @@
       box-shadow:
         inset 0 0 0 3px var(--pika-gold),
         inset 0 0 0 6px var(--gb-3),
-        6px 6px 0px var(--gb-3);
+        5px 5px 0px var(--gb-3);
       color: var(--gb-3);
     }
 
-    /* Sealed 16-Bit Mystery Poké-Cards (Step 2 Random Draw Board) */
+    /* Sealed 16-Bit Mystery Poké-Cards */
     .mystery-card {
       background-color: var(--gb-3);
       background-image:
@@ -188,7 +184,7 @@
       box-shadow:
         inset 0 0 0 3px var(--gb-1),
         inset 0 0 0 6px var(--gb-3),
-        6px 6px 0px var(--gb-3);
+        5px 5px 0px var(--gb-3);
       transition: transform 0.08s steps(2);
     }
     .mystery-card:hover:not(:disabled) {
@@ -196,7 +192,7 @@
       box-shadow:
         inset 0 0 0 3px var(--pika-gold),
         inset 0 0 0 6px var(--gb-3),
-        8px 8px 0px var(--gb-3);
+        7px 7px 0px var(--gb-3);
     }
     .mystery-card:active:not(:disabled) {
       transform: translate(3px, 3px);
@@ -211,12 +207,10 @@
       box-shadow:
         inset 0 0 0 4px var(--gb-0),
         inset 0 0 0 7px var(--gb-3),
-        8px 8px 0px var(--gb-3);
+        7px 7px 0px var(--gb-3);
     }
 
-    /* =====================================================================
-       PRIMARY POKÉMON BATTLE COMMAND BUTTON (.gold-btn)
-       ===================================================================== */
+    /* Primary Pokémon Battle Command Button (.gold-btn) */
     .gold-btn {
       background-color: var(--poke-blue);
       border: 3px solid var(--gb-3);
@@ -248,7 +242,7 @@
       cursor: not-allowed;
     }
 
-    /* Secondary Poké-Menu Button on Light Dialogs */
+    /* Secondary Poké-Menu Button */
     .ghost-btn {
       background-color: var(--poke-white);
       border: 3px solid var(--gb-3);
@@ -292,7 +286,7 @@
       box-shadow: 1px 1px 0px #000000;
     }
 
-    /* Ultra-Legible Unselected & Selected Poké-Menu Option States */
+    /* Option States */
     .option-unselected {
       background-color: var(--poke-white);
       border: 3px solid var(--gb-3);
@@ -342,7 +336,6 @@
         3px 3px 0px var(--gb-3);
     }
 
-    /* Generous Reading Typography for Blended Case Narratives */
     .case-narrative-text {
       font-size: 1.05rem;
       line-height: 1.88;
@@ -354,7 +347,6 @@
       }
     }
 
-    /* Blinking Classic RPG Cursor Animation */
     @keyframes pixelBlink {
       0%, 49% { opacity: 1; }
       50%, 100% { opacity: 0; }
@@ -371,7 +363,6 @@
       animation: fadeInScale 0.14s steps(3) forwards;
     }
 
-    /* Pixelated HP Bar Segments */
     .hp-bar-track {
       height: 10px;
       background-color: var(--gb-3);
@@ -388,10 +379,10 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- UNIFIED FULL-WIDTH PAGE WRAPPER (IDENTICAL WIDTH FOR BANNER HEADER AND ALL STEP CARDS) -->
+  <!-- UNIFIED FULL-WIDTH PAGE WRAPPER -->
   <div class="w-full max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 flex flex-col gap-5 sm:gap-6 flex-1 box-border">
 
-    <!-- TOP GAME BOY POKÉMON TRAINER / GYM STATUS HUD HEADER (W-FULL) -->
+    <!-- TOP GAME BOY POKÉMON TRAINER / GYM STATUS HUD HEADER -->
     <header class="w-full obsidian-velvet text-white overflow-hidden box-border">
       <div class="px-5 sm:px-7 lg:px-8 py-5 sm:py-6 flex flex-col xl:flex-row xl:items-center justify-between gap-5">
         <!-- Brand Identity & Pixel Crest -->
@@ -399,7 +390,6 @@
           <div class="w-14 h-14 gold-crest flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
             <!-- 16-Bit Pixel-Art Aviation Poké-Crest SVG -->
             <svg class="w-9 h-9" viewBox="0 0 16 16" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
-              <!-- Outer Pixel Pokeball / Radar Ring -->
               <rect x="5" y="1" width="6" height="1" fill="#0F380F"/>
               <rect x="3" y="2" width="2" height="1" fill="#0F380F"/>
               <rect x="11" y="2" width="2" height="1" fill="#0F380F"/>
@@ -407,21 +397,16 @@
               <rect x="13" y="3" width="1" height="2" fill="#0F380F"/>
               <rect x="1" y="5" width="1" height="6" fill="#0F380F"/>
               <rect x="14" y="5" width="1" height="6" fill="#0F380F"/>
-              <!-- Top Red Half -->
               <rect x="5" y="2" width="6" height="1" fill="#D82820"/>
               <rect x="3" y="3" width="10" height="2" fill="#D82820"/>
               <rect x="2" y="5" width="12" height="2" fill="#D82820"/>
-              <!-- Pixel Shine -->
               <rect x="4" y="3" width="2" height="1" fill="#F8F8F8"/>
-              <!-- Center Band & Aviation Wing Emblem -->
               <rect x="2" y="7" width="12" height="2" fill="#0F380F"/>
               <rect x="6" y="6" width="4" height="4" fill="#0F380F"/>
               <rect x="7" y="7" width="2" height="2" fill="#F8B800"/>
-              <!-- Bottom White Half -->
               <rect x="2" y="9" width="12" height="2" fill="#F8F8F8"/>
               <rect x="3" y="11" width="10" height="2" fill="#F8F8F8"/>
               <rect x="5" y="13" width="6" height="1" fill="#F8F8F8"/>
-              <!-- Bottom Outline -->
               <rect x="2" y="11" width="1" height="2" fill="#0F380F"/>
               <rect x="13" y="11" width="1" height="2" fill="#0F380F"/>
               <rect x="3" y="13" width="2" height="1" fill="#0F380F"/>
@@ -452,9 +437,9 @@
           </div>
         </div>
 
-        <!-- Step Navigation & Utility Actions (Two Symmetrical Equal-Width 3-Column Rows) -->
+        <!-- Step Navigation & Utility Actions (Two Symmetrical Equal-Width Rows) -->
         <div class="w-full xl:w-[540px] shrink-0 flex flex-col gap-2.5 box-border">
-          <!-- Row 1: Step Navigation Pills -->
+          <!-- Row A: Step Navigation Pills -->
           <nav aria-label="Workshop Phases" class="grid grid-cols-3 gap-2 w-full bg-gbdark p-2 border-2 border-gblightest box-border">
             <button id="nav-step-1" onclick="navigateStep(1)" class="w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-bold gold-btn text-center whitespace-nowrap flex items-center justify-center">
               1. ตั้งค่ากลุ่ม
@@ -466,7 +451,8 @@
               3. ห้องวิเคราะห์
             </button>
           </nav>
-          <!-- Row 2: Utility Buttons (Responsive 2-Col Mobile / 3-Col Tablet+ Grid, Zero Overflow) -->
+
+          <!-- Row B: Utility Buttons (Responsive 2-Col Mobile / 3-Col Tablet+ Grid, Zero Overflow) -->
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full box-border">
             <button onclick="openCodexModal()" class="header-ghost-btn w-full min-w-0 max-w-full overflow-hidden min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm whitespace-nowrap flex items-center justify-center gap-1.5">
               <span class="pixel-font text-[10px] sm:text-xs text-pikagold shrink-0">DEX</span>
@@ -525,13 +511,13 @@
 
   <!-- 2. FACILITATOR PIN MODAL -->
   <div id="modal-pin" class="fixed inset-0 z-50 hidden items-center justify-center bg-gbdarkest/80 p-4">
-    <div class="luxury-card-gold max-w-md w-full p-6 sm:p-7 animate-modal">
-      <div class="flex items-center justify-between mb-4 border-b-3 border-gbdarkest pb-3">
-        <h3 class="text-lg font-bold text-gbdarkest flex items-center gap-2">
-          <span class="pixel-font text-xs text-pokered">KEY</span>
-          <span>เข้าสู่โหมดวิทยากร (Facilitator)</span>
+    <div class="luxury-card-gold max-w-md w-full p-6 sm:p-7 animate-modal overflow-hidden box-border">
+      <div class="flex items-center justify-between gap-2 mb-4 border-b-3 border-gbdarkest pb-3">
+        <h3 class="text-base sm:text-lg font-bold text-gbdarkest flex items-center gap-2 min-w-0">
+          <span class="pixel-font text-xs text-pokered shrink-0">KEY</span>
+          <span class="truncate">เข้าสู่โหมดวิทยากร (Facilitator)</span>
         </h3>
-        <button onclick="closeModal('modal-pin')" class="min-w-[40px] min-h-[40px] bg-pokered text-white border-2 border-gbdarkest font-bold text-xl leading-none">X</button>
+        <button onclick="closeModal('modal-pin')" class="min-w-[40px] min-h-[40px] bg-pokered text-white border-2 border-gbdarkest font-bold text-xl leading-none shrink-0">X</button>
       </div>
       <p class="text-sm text-gbdarkest mb-4 leading-relaxed">
         โหมดวิทยากรจะปลดล็อก <span class="font-bold underline">แนวทางเฉลย (Facilitator Answer Keys)</span> สำหรับทั้ง 10 Scenarios เพื่อใช้ประกอบการถอดบทเรียน (Debriefing)
@@ -539,15 +525,15 @@
       <div class="space-y-4">
         <div>
           <label class="block text-sm font-bold text-gbdarkest mb-2">กรอกรหัสผ่านวิทยากร (PIN: 2568)</label>
-          <div class="flex gap-2.5">
-            <input id="input-pin" type="password" inputmode="numeric" maxlength="6" placeholder="••••" class="flex-1 min-h-[48px] px-4 py-2.5 silk-font text-base tracking-widest" onkeydown="if(event.key==='Enter') submitPin()" />
-            <button onclick="submitPin()" class="gold-btn min-h-[48px] px-5 py-2.5 text-sm whitespace-nowrap">ยืนยัน PIN</button>
+          <div class="flex flex-col sm:flex-row gap-2.5 w-full box-border">
+            <input id="input-pin" type="password" inputmode="numeric" maxlength="6" placeholder="••••" class="min-w-0 w-full flex-1 min-h-[48px] px-4 py-2.5 silk-font text-base tracking-widest box-border" onkeydown="if(event.key==='Enter') submitPin()" />
+            <button onclick="submitPin()" class="gold-btn min-h-[48px] px-5 py-2.5 text-sm shrink-0 whitespace-nowrap">ยืนยัน PIN</button>
           </div>
           <p id="pin-error" class="text-sm text-pokered font-bold mt-2 hidden">! รหัส PIN ไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง</p>
         </div>
-        <div class="pt-4 border-t-3 border-gbdarkest flex flex-wrap items-center justify-between gap-2">
+        <div class="pt-4 border-t-3 border-gbdarkest flex flex-wrap items-center justify-between gap-2.5">
           <span class="text-sm font-semibold text-gbdark">สำหรับการทดสอบระบบ:</span>
-          <button onclick="unlockFacilitatorDemo()" class="ghost-btn min-h-[44px] px-4 py-2 text-sm">
+          <button onclick="unlockFacilitatorDemo()" class="ghost-btn min-h-[44px] px-4 py-2 text-sm shrink-0 max-w-full">
             ปลดล็อกด่วน (Demo)
           </button>
         </div>
@@ -621,17 +607,17 @@
 
   <!-- 6. CUSTOM CONFIRM RESET MODAL -->
   <div id="modal-reset" class="fixed inset-0 z-50 hidden items-center justify-center bg-gbdarkest/80 p-4">
-    <div class="luxury-card max-w-md w-full p-6 sm:p-7 animate-modal">
+    <div class="luxury-card max-w-md w-full p-6 sm:p-7 animate-modal overflow-hidden box-border">
       <h3 class="text-lg font-bold text-pokered mb-2 flex items-center gap-2">
-        <span class="pixel-font text-sm">!</span>
+        <span class="pixel-font text-sm shrink-0">!</span>
         <span>ยืนยันการรีเซ็ตข้อมูล Workshop?</span>
       </h3>
       <p class="text-base text-gbdarkest leading-relaxed mb-6">
         การดำเนินการนี้จะล้างผลการสุ่มสถานการณ์ คำตอบของทุกกลุ่ม และกลับไปยังหน้าตั้งค่าเริ่มต้น (Step 1) ทั้งหมด
       </p>
-      <div class="flex justify-end gap-3">
-        <button onclick="closeModal('modal-reset')" class="ghost-btn min-h-[46px] px-5 py-2.5 text-sm">ยกเลิก</button>
-        <button onclick="confirmResetWorkshop()" class="min-h-[46px] px-5 py-2.5 text-sm font-bold bg-pokered hover:bg-red-700 text-white border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F]">
+      <div class="flex flex-wrap justify-end gap-3">
+        <button onclick="closeModal('modal-reset')" class="ghost-btn min-h-[46px] px-5 py-2.5 text-sm shrink-0">ยกเลิก</button>
+        <button onclick="confirmResetWorkshop()" class="min-h-[46px] px-5 py-2.5 text-sm font-bold bg-pokered hover:bg-red-700 text-white border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F] shrink-0">
           ยืนยันการรีเซ็ต
         </button>
       </div>
@@ -1361,7 +1347,7 @@
     }
 
     // -----------------------------------------------------------------------
-    // 6. STEP 1: ORGANIZER SETUP VIEW (W-FULL IDENTICAL TO TOP BANNER)
+    // 6. STEP 1: ORGANIZER SETUP VIEW
     // -----------------------------------------------------------------------
     function renderSetupView() {
       const n = state.numGroups;
@@ -1508,7 +1494,7 @@
     }
 
     // -----------------------------------------------------------------------
-    // 7. STEP 2: NON-REPEATING RANDOM DRAW BOARD (W-FULL)
+    // 7. STEP 2: NON-REPEATING RANDOM DRAW BOARD
     // -----------------------------------------------------------------------
     function renderDrawBoardView() {
       const n = state.numGroups;
@@ -1597,7 +1583,6 @@
             </div>
 
             <div class="my-3 flex flex-col items-center">
-              <!-- 16-Bit Pixel-Art Mystery Pokéball Sprite -->
               <div class="w-16 h-16 bg-gblightest border-3 border-gbdarkest flex items-center justify-center mb-3 shadow-[3px_3px_0px_#000000]">
                 <svg class="w-11 h-11" viewBox="0 0 16 16" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
                   <rect x="5" y="1" width="6" height="1" fill="#0F380F"/>
@@ -1644,14 +1629,15 @@
               !allDrawn
                 ? `
                   <div>
-                    <div class="flex flex-wrap items-center gap-2.5 mb-2">
+                    <div class="flex flex-wrap items-center gap-2.5 mb-3.5">
                       <span class="pixel-font text-xs font-bold text-pokered uppercase">▶ STEP 02 • RANDOM DRAW</span>
-                      <span class="px-3 py-0.5 bg-gbdarkest text-gblightest text-xs sm:text-sm silk-font font-bold">เหลือบนกระดาน ${remainingCardsCount} ใบ</span>
+                      <span class="px-3 py-1 bg-gbdarkest text-gblightest text-xs sm:text-sm silk-font font-bold leading-snug">เหลือบนกระดาน ${remainingCardsCount} ใบ</span>
                     </div>
-                    <h2 class="text-xl sm:text-2xl lg:text-[28px] font-bold text-gbdarkest leading-snug">
-                      ถึงคิวสุ่มโจทย์ของ: <span class="bg-pikagold px-2.5 py-0.5 border-2 border-gbdarkest text-gbdarkest">${escapeHtml(currentGroupName)}</span>
+                    <h2 class="text-xl sm:text-2xl lg:text-[28px] font-bold text-gbdarkest leading-relaxed flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
+                      <span>ถึงคิวสุ่มโจทย์ของ:</span>
+                      <span class="inline-flex items-center bg-pikagold px-3 py-1 border-3 border-gbdarkest text-lg sm:text-xl leading-snug align-middle mt-1 sm:mt-0 text-gbdarkest shadow-[2px_2px_0px_#0F380F]">${escapeHtml(currentGroupName)}</span>
                     </h2>
-                    <p class="text-base text-gbdarkest mt-2 leading-relaxed">
+                    <p class="text-base text-gbdarkest mt-2.5 leading-relaxed">
                       กดปุ่ม "สุ่มอัตโนมัติ" หรือเลือกคลิกการ์ดซองปริศนาใบใดก็ได้บนกระดาน (โจทย์ที่สุ่มแล้วจะถูกตัดออกทันที)
                     </p>
                   </div>
@@ -1780,7 +1766,9 @@
     }
 
     // -----------------------------------------------------------------------
-    // 8. STEP 3: GROUP ANALYSIS & PRESENTATION WORKSPACE (W-FULL)
+    // 8. STEP 3: GROUP ANALYSIS & PRESENTATION WORKSPACE
+    //    - Top Bar: Single non-sliding group tabs row + full-width symmetrical action row
+    //    - Sequential Vertical Row Layout: Background Case Study first, then 3 Tasks
     // -----------------------------------------------------------------------
     function renderWorkspaceView() {
       if (!state.draws[state.activeWorkspaceGroup]) {
@@ -1796,30 +1784,44 @@
       const ans = getGroupAnswer(gIdx);
       const gName = escapeHtml(state.groupNames[gIdx] || `กลุ่มที่ ${gIdx + 1}`);
 
+      let drawnGroupsCount = 0;
       let tabsHtml = '';
       for (let i = 0; i < state.numGroups; i++) {
         const drawnScId = state.draws[i];
         const isSelected = i === gIdx;
         const tabLabel = escapeHtml(state.groupNames[i] || `กลุ่มที่ ${i + 1}`);
         if (drawnScId) {
+          drawnGroupsCount++;
           tabsHtml += `
             <button
               onclick="selectWorkspaceGroup(${i})"
-              class="min-h-[48px] px-4 py-2.5 text-sm font-bold flex items-center gap-2 shrink-0 ${
+              class="w-full min-w-0 min-h-[46px] px-2.5 py-2 text-xs sm:text-sm font-bold flex items-center justify-center gap-1.5 whitespace-nowrap overflow-hidden ${
                 isSelected
                   ? 'option-selected'
                   : 'option-unselected'
               }"
             >
-              ${isSelected ? '<span class="text-pikagold">▶</span>' : ''}
-              <span>${tabLabel}</span>
-              <span class="silk-font text-xs px-2 py-0.5 font-bold ${
+              ${isSelected ? '<span class="text-pikagold shrink-0">▶</span>' : ''}
+              <span class="truncate">${tabLabel}</span>
+              <span class="silk-font text-[11px] sm:text-xs px-1.5 py-0.5 font-bold shrink-0 ${
                 isSelected ? 'bg-pikagold text-gbdarkest' : 'bg-pokecream border-2 border-gbdarkest text-gbdarkest'
               }">${drawnScId}</span>
             </button>
           `;
         }
       }
+
+      const lgGridColsMap = {
+        1: 'lg:grid-cols-1',
+        2: 'lg:grid-cols-2',
+        3: 'lg:grid-cols-3',
+        4: 'lg:grid-cols-4',
+        5: 'lg:grid-cols-5',
+        6: 'lg:grid-cols-6',
+        7: 'lg:grid-cols-7',
+        8: 'lg:grid-cols-8'
+      };
+      const lgColsClass = lgGridColsMap[Math.min(Math.max(drawnGroupsCount, 1), 8)] || 'lg:grid-cols-4';
 
       const agencyChipsHtml = MASTER_AGENCIES.map(agency => {
         const checked = ans.t2_agencies.includes(agency);
@@ -1833,9 +1835,9 @@
                 : 'option-unselected font-semibold'
             }"
           >
-            <span class="w-6 h-6 flex items-center justify-center silk-font text-xs shrink-0 border-2 ${
+            <span class="w-5 h-5 flex items-center justify-center text-xs shrink-0 border-2 ${
               checked
-                ? 'bg-pikagold border-pikagold text-gbdarkest font-bold'
+                ? 'bg-pikagold border-gbdarkest text-gbdarkest font-bold'
                 : 'bg-pokewhite border-gbdarkest text-transparent'
             }">${checked ? '✓' : ''}</span>
             <span class="leading-snug">${escapeHtml(agency)}</span>
@@ -1845,90 +1847,97 @@
 
       return `
         <div id="step3View" class="w-full space-y-5 sm:space-y-6 animate-modal box-border">
-          <!-- Top Group Tabs & Presentation / Facilitator Actions -->
-          <div class="w-full luxury-card p-5 sm:p-6 flex flex-col xl:flex-row xl:items-center justify-between gap-3.5 box-border">
-            <div class="flex items-center gap-2.5 overflow-x-auto pb-1.5">
+          <!-- Top Group Tabs & Action Bar (Non-Sliding Single-Row Group Tabs + Full-Width Symmetrical Action Row) -->
+          <div class="w-full luxury-card p-4 sm:p-5 flex flex-col gap-3.5 box-border">
+            <!-- Row 1: Responsive Non-Sliding Group Tabs Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 ${lgColsClass} gap-2 w-full">
               ${tabsHtml}
             </div>
 
-            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+            <!-- Row 2: Full-Width Responsive Action Buttons Row (Complete Text, Zero Truncation) -->
+            <div class="flex flex-wrap items-stretch gap-2.5 w-full pt-3.5 border-t-2 border-[#306230]/30 box-border">
               ${
                 state.facilitatorUnlocked
                   ? `
-                    <button onclick="openAnswerKeyModal('${sc.id}')" class="min-h-[48px] px-4 py-2.5 text-sm font-bold bg-pikagold hover:bg-amber-400 border-3 border-gbdarkest text-gbdarkest shadow-[3px_3px_0px_#0F380F] flex items-center gap-2">
-                      <span class="pixel-font text-xs">KEY</span>
+                    <button onclick="openAnswerKeyModal('${sc.id}')" class="w-full sm:w-auto sm:flex-1 min-h-[50px] px-4 py-2.5 text-sm sm:text-base font-bold bg-pikagold hover:bg-amber-400 border-3 border-gbdarkest text-gbdarkest shadow-[3px_3px_0px_#0F380F] flex items-center justify-center text-center gap-2 leading-snug">
+                      <span class="pixel-font text-xs shrink-0">KEY</span>
                       <span>ดูแนวทางเฉลยสำหรับวิทยากร</span>
                     </button>
                   `
                   : ''
               }
-              <button onclick="copyGroupSummary(${gIdx})" class="ghost-btn min-h-[48px] px-4 py-2.5 text-sm flex items-center gap-2">
+              <button onclick="copyGroupSummary(${gIdx})" class="ghost-btn flex-1 sm:flex-initial min-h-[50px] px-4 py-2.5 text-sm sm:text-base flex items-center justify-center text-center gap-2 leading-snug">
                 <span id="copy-summary-label">คัดลอกสรุปผล</span>
               </button>
-              <button onclick="exportGroupJson(${gIdx})" class="ghost-btn min-h-[48px] px-4 py-2.5 text-sm flex items-center gap-2">
+              <button onclick="exportGroupJson(${gIdx})" class="ghost-btn flex-1 sm:flex-initial min-h-[50px] px-4 py-2.5 text-sm sm:text-base flex items-center justify-center text-center gap-2 leading-snug">
                 <span class="silk-font">EXPORT JSON</span>
               </button>
-              <button onclick="openPresentationModal(${gIdx})" class="gold-btn min-h-[48px] px-5 py-2.5 text-sm sm:text-base flex items-center gap-2">
-                <span class="pixel-font text-xs text-pikagold">▶</span>
+              <button onclick="openPresentationModal(${gIdx})" class="gold-btn w-full lg:w-auto lg:flex-1 min-h-[50px] px-5 py-2.5 text-sm sm:text-base flex items-center justify-center text-center gap-2 leading-snug">
+                <span class="pixel-font text-xs text-pikagold shrink-0">▶</span>
                 <span>สรุปขึ้นจอสำหรับนำเสนอ (Presentation View)</span>
               </button>
             </div>
           </div>
 
-          <!-- Split Two-Column Analytical Workspace -->
-          <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start box-border">
+          <!-- SEQUENTIAL VERTICAL ROW LAYOUT: PART 01 (CASE BRIEFING FIRST) -> PART 02 (3 ANALYTICAL TASKS) -->
+          <div class="w-full flex flex-col space-y-5 sm:space-y-6 box-border">
 
-            <!-- LEFT PANE: UNSTRUCTURED CASE FILE (NO HINTS / NO TAGS) -->
-            <div class="lg:col-span-5 luxury-card-gold p-6 sm:p-8 space-y-5 lg:sticky lg:top-6 min-w-0 box-border">
+            <!-- ROW 1: BACKGROUND STUDY & UNSTRUCTURED CASE FILE (COMES FIRST) -->
+            <section aria-label="ข้อมูลเบื้องต้นและสถานการณ์จำลอง" class="w-full luxury-card-gold p-6 sm:p-8 space-y-5 box-border">
               <div class="border-b-3 border-gbdarkest pb-4">
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <span class="silk-font text-sm font-bold text-pokered tracking-wider">▶ ${sc.code} • ${gName}</span>
-                  <span class="px-2.5 py-0.5 bg-gbdarkest text-gblightest text-xs silk-font font-bold">CASE FILE</span>
+                  <span class="pixel-font text-xs font-bold text-pokered tracking-wider">▶ PART 01 • CASE BRIEFING (ศึกษาข้อมูลเบื้องต้นก่อนเข้าสู่ภารกิจ)</span>
+                  <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 bg-pikagold text-gbdarkest border-2 border-gbdarkest text-xs sm:text-sm font-bold">${gName}</span>
+                    <span class="px-2.5 py-0.5 bg-gbdarkest text-gblightest text-xs silk-font font-bold">${sc.code} • CASE FILE</span>
+                  </div>
                 </div>
-                <h2 class="text-xl sm:text-2xl font-bold text-gbdarkest leading-snug">${escapeHtml(sc.title)}</h2>
+                <h2 class="text-xl sm:text-2xl lg:text-[26px] font-bold text-gbdarkest leading-snug">${escapeHtml(sc.title)}</h2>
               </div>
 
-              <!-- Simulated Airport Profile & AFC Roster -->
-              <div class="space-y-4">
-                <div class="bg-pokecream border-3 border-gbdarkest p-4 sm:p-5 shadow-[3px_3px_0px_#0F380F]">
-                  <div class="text-xs silk-font font-bold text-gbdarkest uppercase mb-1.5">1. ข้อมูลสนามบินจำลอง (SIMULATED AIRPORT)</div>
-                  <div class="text-base sm:text-lg font-bold text-gbdarkest mb-1.5">${escapeHtml(sc.airportName)}</div>
-                  <p class="text-base text-gbdarkest leading-relaxed">${escapeHtml(sc.airportProfile)}</p>
+              <!-- Balanced 2-Column Sub-Grid for Airport Profile & AFC Roster -->
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-stretch">
+                <div class="lg:col-span-5 bg-pokecream border-3 border-gbdarkest p-4 sm:p-5 shadow-[3px_3px_0px_#0F380F] flex flex-col justify-between min-w-0">
+                  <div>
+                    <h3 class="text-lg sm:text-xl font-bold text-pokered leading-snug mb-2">1. ข้อมูลสนามบินจำลอง (Simulated Airport)</h3>
+                    <div class="text-base sm:text-lg font-bold text-gbdarkest mb-1.5 leading-snug">${escapeHtml(sc.airportName)}</div>
+                    <p class="text-base text-gbdarkest leading-relaxed">${escapeHtml(sc.airportProfile)}</p>
+                  </div>
                 </div>
 
-                <div class="bg-pokecream border-3 border-gbdarkest p-4 sm:p-5 shadow-[3px_3px_0px_#0F380F]">
-                  <div class="text-xs silk-font font-bold text-gbdarkest uppercase mb-2.5">
+                <div class="lg:col-span-7 bg-pokecream border-3 border-gbdarkest p-4 sm:p-5 shadow-[3px_3px_0px_#0F380F] min-w-0">
+                  <h3 class="text-lg sm:text-xl font-bold text-pokered leading-snug mb-3">
                     2. รายชื่อผู้แทนคณะกรรมการ AFC ตามคำสั่งแต่งตั้งปัจจุบัน
-                  </div>
-                  <ul class="space-y-2 text-base text-gbdarkest font-medium">
+                  </h3>
+                  <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-base text-gbdarkest font-medium leading-relaxed">
                     ${sc.afcRoster.map((member, idx) => `
-                      <li class="flex items-start gap-2.5">
+                      <li class="flex items-start gap-2 min-w-0">
                         <span class="silk-font font-bold text-pokered shrink-0">${String(idx + 1).padStart(2, '0')}.</span>
-                        <span class="leading-snug">${escapeHtml(member)}</span>
+                        <span class="leading-relaxed">${escapeHtml(member)}</span>
                       </li>
                     `).join('')}
                   </ul>
                 </div>
               </div>
 
-              <!-- Blended Narrative Case Study (Zero Hints / Seamless Prose) -->
-              <div class="bg-pokewhite border-3 border-gbdarkest p-4 sm:p-6 shadow-[inset_3px_3px_0px_#D4DEC4]">
-                <div class="text-xs silk-font font-bold text-gbdarkest uppercase mb-2.5">
+              <!-- Full-Width Blended Narrative Case Study (Zero Hints / Seamless Prose) -->
+              <div class="bg-pokewhite border-3 border-gbdarkest p-5 sm:p-6 shadow-[inset_3px_3px_0px_#D4DEC4] min-w-0">
+                <h3 class="text-lg sm:text-xl font-bold text-pokered leading-snug mb-3">
                   3. บันทึกสถานการณ์และสภาพปัญหาในสนามบิน
-                </div>
-                <p class="case-narrative-text whitespace-pre-line">
+                </h3>
+                <p class="text-base text-gbdarkest leading-relaxed whitespace-pre-line">
                   ${escapeHtml(sc.blendedNarrative)}
                 </p>
               </div>
-            </div>
+            </section>
 
-            <!-- RIGHT PANE: 3 CORE ANALYTICAL TASKS WORKSHEET -->
-            <div class="lg:col-span-7 space-y-5 sm:space-y-6 min-w-0 box-border">
+            <!-- ROW 2: 3 CORE ANALYTICAL TASKS WORKSHEET (SEQUENTIAL FULL-WIDTH CARDS) -->
+            <div class="w-full flex flex-col space-y-5 sm:space-y-6 box-border">
 
               <!-- TASK 1 -->
-              <section class="luxury-card p-6 sm:p-8 space-y-4 box-border">
+              <section class="w-full luxury-card p-6 sm:p-8 space-y-4 box-border">
                 <div class="border-b-3 border-gbdarkest pb-3.5">
-                  <span class="pixel-font text-xs font-bold text-pokered">▶ TASK 01 • ISSUE SCREENING</span>
+                  <span class="pixel-font text-xs font-bold text-pokered">▶ PART 02 • TASK 01 • ISSUE SCREENING</span>
                   <h3 class="text-lg sm:text-xl font-bold text-gbdarkest mt-1.5 leading-snug">
                     ภารกิจที่ 1: คัดกรองประเด็น FAL จริง vs. ประเด็นหลอก &amp; เทียบเคียงมาตรฐานสากล
                   </h3>
@@ -1974,9 +1983,9 @@
               </section>
 
               <!-- TASK 2 -->
-              <section class="luxury-card p-6 sm:p-8 space-y-5 box-border">
+              <section class="w-full luxury-card p-6 sm:p-8 space-y-5 box-border">
                 <div class="border-b-3 border-gbdarkest pb-3.5">
-                  <span class="pixel-font text-xs font-bold text-pokered">▶ TASK 02 • NATFP 2568 AUDIT</span>
+                  <span class="pixel-font text-xs font-bold text-pokered">▶ PART 02 • TASK 02 • NATFP 2568 AUDIT</span>
                   <h3 class="text-lg sm:text-xl font-bold text-gbdarkest mt-1.5 leading-snug">
                     ภารกิจที่ 2: วิเคราะห์หน่วยงานที่เกี่ยวข้อง &amp; ตรวจสอบองค์ประกอบ AFC ตามแผน NATFP 2568
                   </h3>
@@ -1986,7 +1995,7 @@
                   <label class="block text-base font-bold text-gbdarkest mb-2.5">
                     2.1 เลือกหน่วยงานที่เกี่ยวข้องกับประเด็นปัญหาด้าน FAL ในสถานการณ์นี้ (เลือกได้หลายหน่วยงาน)
                   </label>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
                     ${agencyChipsHtml}
                   </div>
                 </div>
@@ -2035,9 +2044,9 @@
               </section>
 
               <!-- TASK 3 -->
-              <section class="luxury-card p-6 sm:p-8 space-y-4 box-border">
+              <section class="w-full luxury-card p-6 sm:p-8 space-y-4 box-border">
                 <div class="border-b-3 border-gbdarkest pb-3.5">
-                  <span class="pixel-font text-xs font-bold text-pokered">▶ TASK 03 • STRATEGIC AFC PLAN</span>
+                  <span class="pixel-font text-xs font-bold text-pokered">▶ PART 02 • TASK 03 • STRATEGIC AFC PLAN</span>
                   <h3 class="text-lg sm:text-xl font-bold text-gbdarkest mt-1.5 leading-snug">
                     ภารกิจที่ 3: แนวทางการหารือเชิงยุทธศาสตร์เพื่อแก้ไขปัญหาในที่ประชุม AFC (คำถามปลายเปิด)
                   </h3>
