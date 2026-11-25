@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AFC FACILITATION CHALLENGE — Civil Aviation Facilitation Workshop</title>
+  <title>AFC FACILITATION CHALLENGE — 16-Bit Game Boy Pokémon Edition</title>
 
-  <!-- Google Fonts: IBM Plex Sans Thai & JetBrains Mono -->
+  <!-- Google Fonts: Press Start 2P, Silkscreen, IBM Plex Sans Thai & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -18,24 +18,31 @@
         extend: {
           fontFamily: {
             sans: ['"IBM Plex Sans Thai"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', '"IBM Plex Sans Thai"', 'monospace'],
+            mono: ['"Silkscreen"', '"JetBrains Mono"', '"IBM Plex Sans Thai"', 'monospace'],
+            pixel: ['"Press Start 2P"', '"Silkscreen"', '"IBM Plex Sans Thai"', 'monospace'],
           },
           colors: {
-            alabaster: '#F4F7FB',
-            warmwhite: '#FAF9F5',
-            platinum: '#ECEFF5',
-            obsidian: '#0D1017',
-            charcoal: '#161B26',
-            ink: '#0F172A',
-            slateink: '#334155',
-            champagne: '#D4AF37',
-            gold: '#D4AF37',
-            golddark: '#8C6214',
-            goldlight: '#F6E299',
-            midnight: '#00244A',
-            stockholm: '#003265',
-            bondi: '#004489',
-            metallicgold: '#D4B139',
+            gblightest: '#9BBC0F',
+            gblight: '#8BAC0F',
+            gbdark: '#306230',
+            gbdarkest: '#0F380F',
+            pokewhite: '#F8F8F8',
+            pokecream: '#E8F4D8',
+            pokered: '#D82820',
+            pokeblue: '#2058B8',
+            pikagold: '#F8B800',
+            // Aliases kept compatible with existing utility classes in JS templates
+            alabaster: '#9BBC0F',
+            warmwhite: '#E8F4D8',
+            platinum: '#E8F4D8',
+            obsidian: '#0F380F',
+            charcoal: '#306230',
+            ink: '#0F380F',
+            slateink: '#306230',
+            champagne: '#F8B800',
+            gold: '#F8B800',
+            golddark: '#0F380F',
+            goldlight: '#9BBC0F',
           }
         }
       }
@@ -44,31 +51,27 @@
 
   <style>
     :root {
-      --bg-alabaster: #F4F7FB;
-      --bg-warmwhite: #FAF9F5;
-      --bg-platinum: #ECEFF5;
-      --obsidian-deep: #0D1017;
-      --obsidian-mid: #161B26;
-      --obsidian-dark: #0A0D12;
-      --champagne-gold: #D4AF37;
-      --gold-luminous: #F6E299;
-      --gold-dark: #8C6214;
-      --midnight-ocean: #00244A;
-      --midnight-stockholm: #003265;
-      --midnight-bondi: #004489;
-      --metallic-gold: #D4B139;
-      --ink-primary: #0F172A;
-      --ink-secondary: #334155;
+      --gb-0: #9BBC0F; /* Classic Game Boy Lightest Olive */
+      --gb-1: #8BAC0F; /* Classic Game Boy Light Olive */
+      --gb-2: #306230; /* Classic Game Boy Dark Olive */
+      --gb-3: #0F380F; /* Classic Game Boy Darkest Green-Black */
+      --poke-white: #F8F8F8;
+      --poke-cream: #E8F4D8;
+      --poke-red: #D82820;
+      --poke-blue: #2058B8;
+      --pika-gold: #F8B800;
     }
 
     *, *::before, *::after {
       box-sizing: border-box;
+      border-radius: 0px !important; /* Strict 16-bit sharp pixel corners everywhere */
     }
 
-    /* Base Root Font Size: 17px on Mobile/Tablet, 18px on Desktop >= 1024px */
+    /* Base Root Font Size: 17px on Mobile/Tablet, 18px on Desktop >= 1024px for crisp Thai readability */
     html {
       font-size: 17px;
       scroll-behavior: smooth;
+      image-rendering: pixelated;
     }
     @media (min-width: 1024px) {
       html {
@@ -76,219 +79,274 @@
       }
     }
 
+    /* Classic Game Boy LCD Dot-Matrix Olive Grid Background */
     body {
-      background-color: var(--bg-alabaster);
-      color: var(--ink-primary);
+      background-color: var(--gb-0);
+      background-image:
+        linear-gradient(to right, rgba(15, 56, 15, 0.14) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(15, 56, 15, 0.14) 2px, transparent 2px);
+      background-size: 8px 8px;
+      color: var(--gb-3);
       font-family: 'IBM Plex Sans Thai', sans-serif;
       font-size: 1rem;
       line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
+      -webkit-font-smoothing: none;
       overflow-x: hidden;
       margin: 0;
     }
 
-    /* Custom subtle scrollbar */
+    /* Custom 16-bit Pixel Scrollbar */
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 12px;
+      height: 12px;
     }
     ::-webkit-scrollbar-track {
-      background: #E2E8F0;
+      background: var(--gb-1);
+      border-left: 2px solid var(--gb-3);
     }
     ::-webkit-scrollbar-thumb {
-      background: #64748B;
-      border-radius: 9999px;
+      background: var(--gb-2);
+      border: 2px solid var(--gb-3);
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #8C6214;
+      background: var(--gb-3);
+    }
+
+    /* Pixel Heading Utility */
+    .pixel-font {
+      font-family: 'Press Start 2P', 'Silkscreen', 'IBM Plex Sans Thai', monospace;
+      letter-spacing: 0.04em;
+    }
+    .silk-font {
+      font-family: 'Silkscreen', 'JetBrains Mono', 'IBM Plex Sans Thai', monospace;
     }
 
     /* =====================================================================
-       DARK OBSIDIAN LUXURY SURFACE (Top Banner, Mystery Cards, Selected States)
+       CLASSIC POKÉMON DOUBLE-BORDER RPG DIALOG & STATUS HUD WINDOWS
        ===================================================================== */
     .obsidian-velvet {
-      background:
-        radial-gradient(circle at 88% 12%, rgba(212, 175, 55, 0.24), transparent 52%),
-        radial-gradient(circle at 12% 88%, rgba(246, 226, 153, 0.10), transparent 46%),
-        linear-gradient(145deg, #0D1017 0%, #161B26 55%, #0A0D12 100%);
-      border: 1px solid #D4AF37;
+      background-color: var(--gb-3);
+      background-image:
+        linear-gradient(to right, rgba(155, 188, 15, 0.07) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(155, 188, 15, 0.07) 2px, transparent 2px);
+      background-size: 6px 6px;
+      border: 4px solid var(--gb-3);
       box-shadow:
-        inset 0 1px 0 rgba(246, 226, 153, 0.28),
-        0 14px 34px -10px rgba(9, 11, 14, 0.45);
+        inset 0 0 0 3px var(--gb-0),
+        inset 0 0 0 6px var(--gb-3),
+        6px 6px 0px var(--gb-3);
+      color: var(--poke-white);
     }
 
-    /* Metallic Brushed Gold Foil Text on Dark Obsidian Backgrounds */
+    /* Gold / GB Lightest Highlight Text on Dark HUD */
     .gold-foil-text {
-      background: linear-gradient(135deg, #FFF6D6 0%, #F6E299 42%, #D4AF37 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--pika-gold);
+      text-shadow: 2px 2px 0px #000000;
     }
 
-    /* Metallic Gold Crest Badge */
+    /* Pixelated Aviation Poké-Crest Frame */
     .gold-crest {
-      background:
-        radial-gradient(circle at 30% 25%, rgba(246, 226, 153, 0.30), transparent 60%),
-        linear-gradient(145deg, #1E2534 0%, #0D1017 100%);
-      border: 1.5px solid #D4AF37;
+      background-color: var(--gb-0);
+      border: 3px solid var(--gb-3);
       box-shadow:
-        inset 0 1px 0 rgba(246, 226, 153, 0.38),
-        0 4px 14px rgba(212, 175, 55, 0.28);
+        inset 2px 2px 0px var(--poke-white),
+        inset -2px -2px 0px var(--gb-2),
+        3px 3px 0px #000000;
     }
 
-    /* Elevated Pure White Luxury Cards */
+    /* Classic Pokémon Off-White RPG Dialog Box (.luxury-card & .luxury-card-gold) */
     .luxury-card {
-      background: #FFFFFF;
-      border: 1px solid #CBD5E1;
-      box-shadow: 0 10px 28px -12px rgba(15, 23, 42, 0.08);
+      background-color: var(--poke-white);
+      border: 4px solid var(--gb-3);
+      box-shadow:
+        inset 0 0 0 3px var(--poke-white),
+        inset 0 0 0 6px var(--gb-3),
+        6px 6px 0px var(--gb-3);
+      color: var(--gb-3);
     }
 
     .luxury-card-gold {
-      background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F5 100%);
-      border: 1.5px solid #C9A96E;
+      background-color: var(--poke-white);
+      background-image: linear-gradient(180deg, #F8F8F8 0%, #E8F4D8 100%);
+      border: 4px solid var(--gb-3);
       box-shadow:
-        inset 0 1px 0 #FFFFFF,
-        0 14px 32px -12px rgba(15, 23, 42, 0.11),
-        0 0 0 1px rgba(212, 175, 55, 0.14);
+        inset 0 0 0 3px var(--pika-gold),
+        inset 0 0 0 6px var(--gb-3),
+        6px 6px 0px var(--gb-3);
+      color: var(--gb-3);
     }
 
-    /* Sealed Mystery Cards (Dark Obsidian & Champagne Gold) */
+    /* Sealed 16-Bit Mystery Poké-Cards (Step 2 Random Draw Board) */
     .mystery-card {
-      background:
-        radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.25), transparent 62%),
-        linear-gradient(145deg, #0D1017 0%, #161B26 55%, #0A0D12 100%);
-      border: 1.5px solid rgba(212, 175, 55, 0.72);
-      color: #F8FAFC;
+      background-color: var(--gb-3);
+      background-image:
+        linear-gradient(to right, rgba(139, 172, 15, 0.12) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(139, 172, 15, 0.12) 2px, transparent 2px);
+      background-size: 6px 6px;
+      border: 4px solid var(--gb-3);
+      color: var(--poke-white);
       box-shadow:
-        inset 0 1px 0 rgba(246, 226, 153, 0.28),
-        0 12px 28px -8px rgba(9, 11, 14, 0.36);
-      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+        inset 0 0 0 3px var(--gb-1),
+        inset 0 0 0 6px var(--gb-3),
+        6px 6px 0px var(--gb-3);
+      transition: transform 0.08s steps(2);
     }
     .mystery-card:hover:not(:disabled) {
-      transform: translateY(-4px);
-      border-color: #F6E299;
+      transform: translate(-2px, -2px);
       box-shadow:
-        inset 0 1px 0 rgba(255, 248, 224, 0.45),
-        0 18px 36px -8px rgba(9, 11, 14, 0.46),
-        0 0 24px rgba(212, 175, 55, 0.36);
+        inset 0 0 0 3px var(--pika-gold),
+        inset 0 0 0 6px var(--gb-3),
+        8px 8px 0px var(--gb-3);
+    }
+    .mystery-card:active:not(:disabled) {
+      transform: translate(3px, 3px);
+      box-shadow:
+        inset 0 0 0 3px var(--pika-gold),
+        inset 0 0 0 6px var(--gb-3),
+        2px 2px 0px var(--gb-3);
     }
     .mystery-card.shuffle-highlight {
-      transform: translateY(-6px) scale(1.02);
-      border-color: #FFF4CC;
-      background:
-        radial-gradient(circle at 50% 25%, rgba(246, 226, 153, 0.40), transparent 65%),
-        linear-gradient(145deg, #222A3C 0%, #121620 100%);
-      box-shadow: 0 0 34px rgba(212, 175, 55, 0.62);
+      transform: translate(-3px, -3px);
+      background-color: var(--gb-2);
+      box-shadow:
+        inset 0 0 0 4px var(--gb-0),
+        inset 0 0 0 7px var(--gb-3),
+        8px 8px 0px var(--gb-3);
     }
 
     /* =====================================================================
-       PRIMARY ACTION BUTTON (.gold-btn): MIDNIGHT BLUE & METALLIC GOLD
+       PRIMARY POKÉMON BATTLE COMMAND BUTTON (.gold-btn)
        ===================================================================== */
     .gold-btn {
-      background:
-        radial-gradient(circle at 88% 12%, rgba(212, 177, 57, 0.25), transparent 54%),
-        linear-gradient(135deg, #00244A 0%, #003265 52%, #004489 100%);
-      border: 1.5px solid #D4B139;
+      background-color: var(--poke-blue);
+      border: 3px solid var(--gb-3);
       color: #FFFFFF;
       font-weight: 700;
       box-shadow:
-        inset 0 1px 0 rgba(246, 226, 153, 0.35),
-        0 8px 22px -6px rgba(0, 36, 74, 0.44);
-      transition: all 0.2s ease;
+        inset 2px 2px 0px #6098F8,
+        inset -2px -2px 0px #102C68,
+        4px 4px 0px var(--gb-3);
+      transition: transform 0.06s steps(1), box-shadow 0.06s steps(1);
     }
     .gold-btn:hover:not(:disabled) {
-      background:
-        radial-gradient(circle at 88% 12%, rgba(212, 177, 57, 0.38), transparent 58%),
-        linear-gradient(135deg, #003265 0%, #004489 55%, #00244A 100%);
-      border-color: #F6E299;
-      color: #F6E299;
-      transform: translateY(-1px);
+      background-color: #2868D8;
+      color: #FFF6A8;
+      transform: translate(-1px, -1px);
       box-shadow:
-        inset 0 1px 0 rgba(255, 248, 224, 0.50),
-        0 12px 26px -6px rgba(0, 36, 74, 0.52),
-        0 0 18px rgba(212, 177, 57, 0.36);
+        inset 2px 2px 0px #88B8FF,
+        inset -2px -2px 0px #102C68,
+        5px 5px 0px var(--gb-3);
+    }
+    .gold-btn:active:not(:disabled) {
+      transform: translate(3px, 3px);
+      box-shadow:
+        inset 2px 2px 0px #102C68,
+        1px 1px 0px var(--gb-3);
     }
     .gold-btn:disabled {
-      opacity: 0.45;
+      opacity: 0.5;
       cursor: not-allowed;
     }
 
-    /* Secondary Button on Light Canvas */
+    /* Secondary Poké-Menu Button on Light Dialogs */
     .ghost-btn {
-      background: #FFFFFF;
-      border: 1.5px solid #94A3B8;
-      color: #0F172A;
-      font-weight: 600;
-      transition: all 0.2s ease;
+      background-color: var(--poke-white);
+      border: 3px solid var(--gb-3);
+      color: var(--gb-3);
+      font-weight: 700;
+      box-shadow:
+        inset 2px 2px 0px #FFFFFF,
+        inset -2px -2px 0px #C8D4B8,
+        3px 3px 0px var(--gb-3);
+      transition: transform 0.06s steps(1);
     }
     .ghost-btn:hover {
-      background: #FAF9F5;
-      border-color: #B38728;
-      color: #0F172A;
+      background-color: var(--poke-cream);
+      transform: translate(-1px, -1px);
+      box-shadow:
+        inset 2px 2px 0px #FFFFFF,
+        inset -2px -2px 0px #B8C8A8,
+        4px 4px 0px var(--gb-3);
+    }
+    .ghost-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px var(--gb-3);
     }
 
-    /* Header Dark Luxury Ghost Button */
+    /* Header HUD Utility Buttons */
     .header-ghost-btn {
-      background: rgba(255, 255, 255, 0.09);
-      border: 1px solid rgba(212, 175, 57, 0.52);
-      color: #F8FAFC;
-      transition: all 0.2s ease;
+      background-color: var(--gb-2);
+      border: 3px solid var(--gb-0);
+      color: var(--poke-white);
+      font-weight: 700;
+      box-shadow: 3px 3px 0px #000000;
+      transition: transform 0.06s steps(1);
     }
     .header-ghost-btn:hover {
-      background: rgba(212, 175, 57, 0.22);
-      border-color: #F6E299;
-      color: #F6E299;
+      background-color: var(--gb-1);
+      color: var(--gb-3);
+      border-color: var(--poke-white);
+    }
+    .header-ghost-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #000000;
     }
 
-    /* Ultra-Legible Unselected & Selected Option States */
+    /* Ultra-Legible Unselected & Selected Poké-Menu Option States */
     .option-unselected {
-      background-color: #FFFFFF;
-      border: 1.5px solid #94A3B8;
-      color: #0F172A;
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
-      transition: all 0.18s ease;
+      background-color: var(--poke-white);
+      border: 3px solid var(--gb-3);
+      color: var(--gb-3);
+      box-shadow:
+        inset 2px 2px 0px #FFFFFF,
+        inset -2px -2px 0px #D4DEC4,
+        3px 3px 0px var(--gb-3);
+      transition: transform 0.06s steps(1);
     }
     .option-unselected:hover {
-      background-color: #FAF9F5;
-      border-color: #B38728;
-      color: #0F172A;
+      background-color: var(--poke-cream);
+      transform: translate(-1px, -1px);
+      box-shadow:
+        inset 2px 2px 0px #FFFFFF,
+        inset -2px -2px 0px #B8C8A8,
+        4px 4px 0px var(--gb-3);
     }
 
     .option-selected {
-      background:
-        radial-gradient(circle at 86% 14%, rgba(212, 175, 55, 0.25), transparent 56%),
-        linear-gradient(145deg, #0D1017 0%, #161B26 55%, #0A0D12 100%);
-      border: 1.5px solid #D4AF37;
-      color: #FFFFFF;
+      background-color: var(--gb-3);
+      border: 3px solid var(--gb-3);
+      color: var(--gb-0);
       box-shadow:
-        inset 0 1px 0 rgba(246, 226, 153, 0.28),
-        0 6px 16px -4px rgba(9, 11, 14, 0.42);
-      transition: all 0.18s ease;
+        inset 0 0 0 2px var(--gb-0),
+        3px 3px 0px var(--gb-2);
+      transition: transform 0.06s steps(1);
     }
 
-    /* Form Inputs & Textareas (16px-17px+ to prevent iOS Safari auto-zoom) */
+    /* Retro Pixel Form Inputs & Textareas */
     textarea, input[type="text"], input[type="password"], select {
-      background-color: #FFFFFF;
-      border: 1.5px solid #94A3B8;
-      color: #0F172A;
+      background-color: var(--poke-white);
+      border: 3px solid var(--gb-3);
+      color: var(--gb-3);
       font-size: 1rem;
       line-height: 1.75;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: inset 3px 3px 0px #D4DEC4;
     }
     textarea::placeholder, input::placeholder {
-      color: #475569;
+      color: var(--gb-2);
     }
     textarea:focus, input[type="text"]:focus, input[type="password"]:focus, select:focus {
       outline: none;
-      border-color: #B38728;
-      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.26);
+      background-color: #FFFFFF;
+      box-shadow:
+        inset 0 0 0 2px var(--pika-gold),
+        3px 3px 0px var(--gb-3);
     }
 
     /* Generous Reading Typography for Blended Case Narratives */
     .case-narrative-text {
       font-size: 1.05rem;
       line-height: 1.88;
-      color: #0F172A;
+      color: var(--gb-3);
     }
     @media (min-width: 1024px) {
       .case-narrative-text {
@@ -296,12 +354,35 @@
       }
     }
 
+    /* Blinking Classic RPG Cursor Animation */
+    @keyframes pixelBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    .pixel-blink {
+      animation: pixelBlink 0.9s steps(1) infinite;
+    }
+
     @keyframes fadeInScale {
-      from { opacity: 0; transform: scale(0.98) translateY(6px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     .animate-modal {
-      animation: fadeInScale 0.22s ease-out forwards;
+      animation: fadeInScale 0.14s steps(3) forwards;
+    }
+
+    /* Pixelated HP Bar Segments */
+    .hp-bar-track {
+      height: 10px;
+      background-color: var(--gb-3);
+      border: 2px solid var(--gb-0);
+      padding: 1px;
+      display: flex;
+      gap: 2px;
+    }
+    .hp-bar-fill {
+      height: 100%;
+      background-color: var(--gb-0);
     }
   </style>
 </head>
@@ -310,68 +391,96 @@
   <!-- UNIFIED FULL-WIDTH PAGE WRAPPER (IDENTICAL WIDTH FOR BANNER HEADER AND ALL STEP CARDS) -->
   <div class="w-full max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 flex flex-col gap-5 sm:gap-6 flex-1 box-border">
 
-    <!-- TOP DARK OBSIDIAN LUXURY HEADER BLOCK (W-FULL) -->
-    <header class="w-full rounded-2xl obsidian-velvet text-white overflow-hidden box-border">
-      <div class="px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex flex-col xl:flex-row xl:items-center justify-between gap-4">
-        <!-- Brand Identity -->
-        <div class="flex items-start sm:items-center gap-3.5">
-          <div class="w-12 h-12 rounded-xl gold-crest flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
-            <!-- Aviation Crest SVG -->
-            <svg class="w-6 h-6 text-goldlight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
-              <path d="M12 2L14.8 8.5L22 9.2L16.5 14L18.2 21L12 17.3L5.8 21L7.5 14L2 9.2L9.2 8.5L12 2Z" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- TOP GAME BOY POKÉMON TRAINER / GYM STATUS HUD HEADER (W-FULL) -->
+    <header class="w-full obsidian-velvet text-white overflow-hidden box-border">
+      <div class="px-5 sm:px-7 lg:px-8 py-5 sm:py-6 flex flex-col xl:flex-row xl:items-center justify-between gap-5">
+        <!-- Brand Identity & Pixel Crest -->
+        <div class="flex items-start sm:items-center gap-4 min-w-0">
+          <div class="w-14 h-14 gold-crest flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+            <!-- 16-Bit Pixel-Art Aviation Poké-Crest SVG -->
+            <svg class="w-9 h-9" viewBox="0 0 16 16" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+              <!-- Outer Pixel Pokeball / Radar Ring -->
+              <rect x="5" y="1" width="6" height="1" fill="#0F380F"/>
+              <rect x="3" y="2" width="2" height="1" fill="#0F380F"/>
+              <rect x="11" y="2" width="2" height="1" fill="#0F380F"/>
+              <rect x="2" y="3" width="1" height="2" fill="#0F380F"/>
+              <rect x="13" y="3" width="1" height="2" fill="#0F380F"/>
+              <rect x="1" y="5" width="1" height="6" fill="#0F380F"/>
+              <rect x="14" y="5" width="1" height="6" fill="#0F380F"/>
+              <!-- Top Red Half -->
+              <rect x="5" y="2" width="6" height="1" fill="#D82820"/>
+              <rect x="3" y="3" width="10" height="2" fill="#D82820"/>
+              <rect x="2" y="5" width="12" height="2" fill="#D82820"/>
+              <!-- Pixel Shine -->
+              <rect x="4" y="3" width="2" height="1" fill="#F8F8F8"/>
+              <!-- Center Band & Aviation Wing Emblem -->
+              <rect x="2" y="7" width="12" height="2" fill="#0F380F"/>
+              <rect x="6" y="6" width="4" height="4" fill="#0F380F"/>
+              <rect x="7" y="7" width="2" height="2" fill="#F8B800"/>
+              <!-- Bottom White Half -->
+              <rect x="2" y="9" width="12" height="2" fill="#F8F8F8"/>
+              <rect x="3" y="11" width="10" height="2" fill="#F8F8F8"/>
+              <rect x="5" y="13" width="6" height="1" fill="#F8F8F8"/>
+              <!-- Bottom Outline -->
+              <rect x="2" y="11" width="1" height="2" fill="#0F380F"/>
+              <rect x="13" y="11" width="1" height="2" fill="#0F380F"/>
+              <rect x="3" y="13" width="2" height="1" fill="#0F380F"/>
+              <rect x="11" y="13" width="2" height="1" fill="#0F380F"/>
+              <rect x="5" y="14" width="6" height="1" fill="#0F380F"/>
             </svg>
           </div>
           <div class="min-w-0">
             <div class="flex flex-wrap items-center gap-2.5">
-              <h1 class="font-mono text-lg sm:text-xl lg:text-2xl font-bold tracking-wide gold-foil-text leading-tight">
+              <h1 class="pixel-font text-sm sm:text-base lg:text-lg font-bold gold-foil-text leading-relaxed">
                 AFC FACILITATION CHALLENGE
               </h1>
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-mono font-semibold bg-champagne/20 text-goldlight border border-champagne/55">
+              <span class="inline-flex items-center px-2.5 py-1 text-xs sm:text-sm silk-font font-bold bg-gbdark text-gblightest border-2 border-gblightest whitespace-nowrap">
                 PHASE 1 • v2.0
               </span>
             </div>
-            <p class="text-sm sm:text-base text-slate-200 mt-1 leading-snug">
+            <p class="text-sm sm:text-base text-pokecream mt-1 leading-snug font-medium">
               Workshop การอำนวยความสะดวกในการบินพลเรือน (ICAO Annex 9, Doc 9957 &amp; NATFP 2568)
             </p>
+            <!-- Retro Game Boy HP-style Workshop Status Bar -->
+            <div class="mt-2 flex items-center gap-2 max-w-xs">
+              <span class="pixel-font text-[10px] text-pikagold whitespace-nowrap">FAL-HP</span>
+              <div class="hp-bar-track flex-1">
+                <div class="hp-bar-fill w-full"></div>
+              </div>
+              <span class="silk-font text-xs text-gblightest font-bold whitespace-nowrap">MAX</span>
+            </div>
           </div>
         </div>
 
-        <!-- Step Navigation & Utility Actions -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between xl:justify-end gap-3">
-          <!-- Step Navigation Pills -->
-          <nav aria-label="Workshop Phases" class="grid grid-cols-3 sm:flex items-center gap-1.5 bg-obsidian/90 p-1.5 rounded-xl border border-champagne/45">
-            <button id="nav-step-1" onclick="navigateStep(1)" class="min-h-[44px] px-3 sm:px-4 py-2 rounded-lg text-sm font-bold transition gold-btn text-center">
+        <!-- Step Navigation & Utility Actions (Two Symmetrical Equal-Width 3-Column Rows) -->
+        <div class="w-full xl:w-[540px] shrink-0 flex flex-col gap-2.5 box-border">
+          <!-- Row 1: Step Navigation Pills -->
+          <nav aria-label="Workshop Phases" class="grid grid-cols-3 gap-2 w-full bg-gbdark p-2 border-2 border-gblightest box-border">
+            <button id="nav-step-1" onclick="navigateStep(1)" class="w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-bold gold-btn text-center whitespace-nowrap flex items-center justify-center">
               1. ตั้งค่ากลุ่ม
             </button>
-            <button id="nav-step-2" onclick="navigateStep(2)" class="min-h-[44px] px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition text-slate-300 opacity-50 cursor-not-allowed text-center" disabled>
+            <button id="nav-step-2" onclick="navigateStep(2)" class="w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-pokecream opacity-50 cursor-not-allowed text-center whitespace-nowrap flex items-center justify-center" disabled>
               2. สุ่มโจทย์
             </button>
-            <button id="nav-step-3" onclick="navigateStep(3)" class="min-h-[44px] px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition text-slate-300 opacity-50 cursor-not-allowed text-center" disabled>
+            <button id="nav-step-3" onclick="navigateStep(3)" class="w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-pokecream opacity-50 cursor-not-allowed text-center whitespace-nowrap flex items-center justify-center" disabled>
               3. ห้องวิเคราะห์
             </button>
           </nav>
 
-          <!-- Utility Buttons -->
-          <div class="flex flex-wrap items-center gap-2">
-            <button onclick="openCodexModal()" class="header-ghost-btn min-h-[44px] px-3.5 py-2 rounded-xl text-sm font-semibold flex items-center gap-2">
-              <svg class="w-4 h-4 text-goldlight shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-              </svg>
+          <!-- Row 2: Utility Buttons (Aligned Symmetrically Beneath Row 1) -->
+          <div class="grid grid-cols-3 gap-2 w-full px-2 box-border">
+            <button onclick="openCodexModal()" class="header-ghost-btn w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm whitespace-nowrap flex items-center justify-center gap-1.5">
+              <span class="pixel-font text-[10px] sm:text-xs text-pikagold">DEX</span>
               <span>คู่มือ Codex</span>
             </button>
 
-            <button id="btn-facilitator-toggle" onclick="handleFacilitatorClick()" class="header-ghost-btn min-h-[44px] px-3.5 py-2 rounded-xl text-sm font-semibold flex items-center gap-2">
-              <svg class="w-4 h-4 text-goldlight shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
-              </svg>
+            <button id="btn-facilitator-toggle" onclick="handleFacilitatorClick()" class="header-ghost-btn w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm whitespace-nowrap flex items-center justify-center gap-1.5">
+              <span class="pixel-font text-[10px] sm:text-xs text-pikagold">KEY</span>
               <span id="facilitator-status-label">โหมดวิทยากร</span>
             </button>
 
-            <button onclick="openResetModal()" class="header-ghost-btn min-h-[44px] px-3.5 py-2 rounded-xl text-sm font-semibold text-rose-300 hover:text-rose-200 hover:border-rose-400/70 flex items-center gap-1.5" title="รีเซ็ตข้อมูล Workshop">
-              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-              </svg>
-              <span>Reset</span>
+            <button onclick="openResetModal()" class="w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-bold bg-pokered text-white border-3 border-pokewhite shadow-[3px_3px_0px_#000000] hover:bg-red-700 active:translate-x-[2px] active:translate-y-[2px] whitespace-nowrap flex items-center justify-center gap-1.5" title="รีเซ็ตข้อมูล Workshop">
+              <span class="silk-font">Reset</span>
             </button>
           </div>
         </div>
@@ -384,59 +493,61 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="w-full border-t border-slate-300 bg-warmwhite py-5 px-4 text-center text-sm text-slateink">
-    AFC Facilitation Challenge Workshop • อ้างอิง ICAO Annex 9, ICAO Doc 9957 และแผนอำนวยความสะดวกในการบินพลเรือนแห่งประเทศไทย พ.ศ. 2568 (NATFP 2568)
+  <footer class="w-full border-t-4 border-gbdarkest bg-pokecream py-4 px-4 text-center text-sm font-semibold text-gbdarkest">
+    <span class="silk-font font-bold">[GAME BOY 16-BIT EDITION]</span> • AFC Facilitation Challenge Workshop • อ้างอิง ICAO Annex 9, ICAO Doc 9957 และแผนอำนวยความสะดวกในการบินพลเรือนแห่งประเทศไทย พ.ศ. 2568 (NATFP 2568)
   </footer>
 
   <!-- ===================================================================== -->
-  <!-- MODALS                                                                -->
+  <!-- MODALS (CLASSIC POKÉMON RPG DIALOG WINDOWS)                           -->
   <!-- ===================================================================== -->
 
   <!-- 1. SCENARIO DRAW REVEAL MODAL -->
-  <div id="modal-reveal" class="fixed inset-0 z-50 hidden items-center justify-center bg-obsidian/75 backdrop-blur-sm p-4">
-    <div class="luxury-card-gold rounded-2xl max-w-xl w-full p-6 sm:p-8 animate-modal text-center relative">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full obsidian-velvet text-goldlight font-mono text-sm font-bold mb-4">
-        <span>SCENARIO ASSIGNED</span>
+  <div id="modal-reveal" class="fixed inset-0 z-50 hidden items-center justify-center bg-gbdarkest/80 p-4">
+    <div class="luxury-card-gold max-w-xl w-full p-6 sm:p-8 animate-modal text-center relative">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 obsidian-velvet text-pikagold pixel-font text-xs font-bold mb-4">
+        <span class="pixel-blink">▶</span>
+        <span>WILD SCENARIO APPEARED!</span>
       </div>
-      <p id="reveal-group-name" class="text-base text-slateink font-semibold mb-1">กลุ่มที่ 1 ได้รับสถานการณ์จำลอง</p>
-      <h3 id="reveal-scenario-code" class="font-mono text-2xl sm:text-3xl font-bold text-golddark tracking-wide mb-2">SCENARIO 01</h3>
-      <h4 id="reveal-scenario-title" class="text-xl sm:text-2xl font-bold text-ink mb-5 leading-snug">ชื่อสถานการณ์</h4>
-      <div class="bg-platinum border border-slate-300 rounded-xl p-4 sm:p-5 text-left mb-6">
-        <p class="text-sm font-mono font-bold text-golddark uppercase mb-1">สนามบินจำลอง (Simulated Airport)</p>
-        <p id="reveal-airport-name" class="text-base font-bold text-ink"></p>
+      <p id="reveal-group-name" class="text-base text-gbdark font-bold mb-1">กลุ่มที่ 1 ได้รับสถานการณ์จำลอง</p>
+      <h3 id="reveal-scenario-code" class="pixel-font text-lg sm:text-xl font-bold text-pokered tracking-wide mb-2">SCENARIO 01</h3>
+      <h4 id="reveal-scenario-title" class="text-xl sm:text-2xl font-bold text-gbdarkest mb-5 leading-snug">ชื่อสถานการณ์</h4>
+      <div class="bg-pokecream border-3 border-gbdarkest p-4 sm:p-5 text-left mb-6 shadow-[3px_3px_0px_#0F380F]">
+        <p class="text-xs silk-font font-bold text-gbdark uppercase mb-1">▶ สนามบินจำลอง (SIMULATED AIRPORT)</p>
+        <p id="reveal-airport-name" class="text-base font-bold text-gbdarkest"></p>
       </div>
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <button onclick="closeRevealModal()" class="gold-btn min-h-[50px] px-8 py-3.5 rounded-xl text-base">
-          รับทราบและดำเนินการต่อ
+        <button onclick="closeRevealModal()" class="gold-btn min-h-[50px] px-8 py-3.5 text-base">
+          ▶ รับทราบและดำเนินการต่อ
         </button>
       </div>
     </div>
   </div>
 
   <!-- 2. FACILITATOR PIN MODAL -->
-  <div id="modal-pin" class="fixed inset-0 z-50 hidden items-center justify-center bg-obsidian/70 backdrop-blur-sm p-4">
-    <div class="luxury-card-gold rounded-2xl max-w-md w-full p-6 sm:p-7 animate-modal">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-lg font-bold text-ink flex items-center gap-2">
-          <span>เข้าสู่โหมดวิทยากร (Facilitator Mode)</span>
+  <div id="modal-pin" class="fixed inset-0 z-50 hidden items-center justify-center bg-gbdarkest/80 p-4">
+    <div class="luxury-card-gold max-w-md w-full p-6 sm:p-7 animate-modal">
+      <div class="flex items-center justify-between mb-4 border-b-3 border-gbdarkest pb-3">
+        <h3 class="text-lg font-bold text-gbdarkest flex items-center gap-2">
+          <span class="pixel-font text-xs text-pokered">KEY</span>
+          <span>เข้าสู่โหมดวิทยากร (Facilitator)</span>
         </h3>
-        <button onclick="closeModal('modal-pin')" class="min-w-[40px] min-h-[40px] rounded-lg text-slateink hover:text-ink text-2xl leading-none">&times;</button>
+        <button onclick="closeModal('modal-pin')" class="min-w-[40px] min-h-[40px] bg-pokered text-white border-2 border-gbdarkest font-bold text-xl leading-none">X</button>
       </div>
-      <p class="text-sm text-slateink mb-4 leading-relaxed">
-        โหมดวิทยากรจะปลดล็อก <span class="text-ink font-bold">แนวทางเฉลย (Facilitator Answer Keys)</span> สำหรับทั้ง 10 Scenarios เพื่อใช้ประกอบการถอดบทเรียน (Debriefing)
+      <p class="text-sm text-gbdarkest mb-4 leading-relaxed">
+        โหมดวิทยากรจะปลดล็อก <span class="font-bold underline">แนวทางเฉลย (Facilitator Answer Keys)</span> สำหรับทั้ง 10 Scenarios เพื่อใช้ประกอบการถอดบทเรียน (Debriefing)
       </p>
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-semibold text-ink mb-2">กรอกรหัสผ่านวิทยากร (PIN: 2568)</label>
+          <label class="block text-sm font-bold text-gbdarkest mb-2">กรอกรหัสผ่านวิทยากร (PIN: 2568)</label>
           <div class="flex gap-2.5">
-            <input id="input-pin" type="password" inputmode="numeric" maxlength="6" placeholder="••••" class="flex-1 min-h-[48px] px-4 py-2.5 rounded-xl font-mono text-base tracking-widest" onkeydown="if(event.key==='Enter') submitPin()" />
-            <button onclick="submitPin()" class="gold-btn min-h-[48px] px-5 py-2.5 rounded-xl text-sm whitespace-nowrap">ยืนยัน PIN</button>
+            <input id="input-pin" type="password" inputmode="numeric" maxlength="6" placeholder="••••" class="flex-1 min-h-[48px] px-4 py-2.5 silk-font text-base tracking-widest" onkeydown="if(event.key==='Enter') submitPin()" />
+            <button onclick="submitPin()" class="gold-btn min-h-[48px] px-5 py-2.5 text-sm whitespace-nowrap">ยืนยัน PIN</button>
           </div>
-          <p id="pin-error" class="text-sm text-rose-700 font-semibold mt-2 hidden">รหัส PIN ไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง</p>
+          <p id="pin-error" class="text-sm text-pokered font-bold mt-2 hidden">! รหัส PIN ไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง</p>
         </div>
-        <div class="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
-          <span class="text-sm text-slateink">สำหรับการทดสอบระบบ:</span>
-          <button onclick="unlockFacilitatorDemo()" class="ghost-btn min-h-[44px] px-4 py-2 rounded-xl text-sm font-semibold">
+        <div class="pt-4 border-t-3 border-gbdarkest flex flex-wrap items-center justify-between gap-2">
+          <span class="text-sm font-semibold text-gbdark">สำหรับการทดสอบระบบ:</span>
+          <button onclick="unlockFacilitatorDemo()" class="ghost-btn min-h-[44px] px-4 py-2 text-sm">
             ปลดล็อกด่วน (Demo)
           </button>
         </div>
@@ -444,47 +555,50 @@
     </div>
   </div>
 
-  <!-- 3. CODEX / REFERENCE MANUAL MODAL -->
-  <div id="modal-codex" class="fixed inset-0 z-50 hidden items-center justify-center bg-obsidian/75 backdrop-blur-sm p-3 sm:p-6">
-    <div class="luxury-card-gold rounded-2xl max-w-5xl w-full max-h-[92vh] flex flex-col animate-modal overflow-hidden">
+  <!-- 3. CODEX / REFERENCE MANUAL MODAL (POKÉDEX STYLE) -->
+  <div id="modal-codex" class="fixed inset-0 z-50 hidden items-center justify-center bg-gbdarkest/80 p-3 sm:p-6">
+    <div class="luxury-card-gold max-w-5xl w-full max-h-[92vh] flex flex-col animate-modal overflow-hidden">
       <!-- Header -->
-      <div class="px-5 sm:px-6 py-4 border-b border-champagne/50 flex items-center justify-between obsidian-velvet text-white">
+      <div class="px-5 sm:px-6 py-4 border-b-4 border-gbdarkest flex items-center justify-between bg-pokered text-white">
         <div>
-          <h3 class="text-lg sm:text-xl font-bold gold-foil-text">คู่มืออ้างอิงมาตรฐานและกฎหมาย (Facilitator &amp; Player Codex)</h3>
-          <p class="text-sm text-slate-200 mt-0.5">กรอบอ้างอิงสำหรับการวิเคราะห์ภารกิจที่ 1, 2 และ 3</p>
+          <h3 class="text-base sm:text-lg font-bold flex items-center gap-2">
+            <span class="pixel-font text-xs bg-gbdarkest text-pikagold px-2 py-1 border-2 border-white">POKÉ-CODEX</span>
+            <span>คู่มืออ้างอิงมาตรฐานและกฎหมาย (Reference Codex)</span>
+          </h3>
+          <p class="text-sm text-pokecream mt-1">กรอบอ้างอิงสำหรับการวิเคราะห์ภารกิจที่ 1, 2 และ 3</p>
         </div>
-        <button onclick="closeModal('modal-codex')" class="min-w-[44px] min-h-[44px] rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-2xl">&times;</button>
+        <button onclick="closeModal('modal-codex')" class="min-w-[44px] min-h-[44px] bg-gbdarkest text-white border-2 border-white font-bold flex items-center justify-center text-xl">X</button>
       </div>
 
       <!-- Codex Tabs -->
-      <div class="px-4 sm:px-6 pt-3 border-b border-slate-300 bg-platinum flex flex-wrap gap-2">
-        <button id="codex-tab-1" onclick="switchCodexTab(1)" class="min-h-[44px] px-4 py-2 rounded-t-xl text-sm font-bold border-b-2 transition">
+      <div class="px-4 sm:px-6 pt-3 border-b-3 border-gbdarkest bg-pokecream flex flex-wrap gap-2">
+        <button id="codex-tab-1" onclick="switchCodexTab(1)" class="min-h-[44px] px-4 py-2 text-sm font-bold border-3 border-b-0 transition">
           1. ICAO Annex 9 &amp; Doc 9957
         </button>
-        <button id="codex-tab-2" onclick="switchCodexTab(2)" class="min-h-[44px] px-4 py-2 rounded-t-xl text-sm font-bold border-b-2 transition">
+        <button id="codex-tab-2" onclick="switchCodexTab(2)" class="min-h-[44px] px-4 py-2 text-sm font-bold border-3 border-b-0 transition">
           2. แผน NATFP พ.ศ. 2568 &amp; AFC
         </button>
-        <button id="codex-tab-3" onclick="switchCodexTab(3)" class="min-h-[44px] px-4 py-2 rounded-t-xl text-sm font-bold border-b-2 transition">
+        <button id="codex-tab-3" onclick="switchCodexTab(3)" class="min-h-[44px] px-4 py-2 text-sm font-bold border-3 border-b-0 transition">
           3. พ.ร.บ.เดินอากาศ &amp; กพท. 7 / 90 / 95
         </button>
-        <button id="codex-tab-4" onclick="switchCodexTab(4)" class="hidden min-h-[44px] px-4 py-2 rounded-t-xl text-sm font-bold border-b-2 transition text-emerald-800">
+        <button id="codex-tab-4" onclick="switchCodexTab(4)" class="hidden min-h-[44px] px-4 py-2 text-sm font-bold border-3 border-b-0 transition text-gbdark">
           4. คลังเฉลยทั้ง 10 Scenarios (วิทยากร)
         </button>
       </div>
 
       <!-- Codex Body -->
-      <div id="codex-body" class="p-5 sm:p-7 overflow-y-auto space-y-5 text-base leading-relaxed text-ink bg-white"></div>
+      <div id="codex-body" class="p-5 sm:p-7 overflow-y-auto space-y-5 text-base leading-relaxed text-gbdarkest bg-pokewhite"></div>
     </div>
   </div>
 
   <!-- 4. PRESENTATION VIEW MODAL (FULL SCREEN SLIDE) -->
-  <div id="modal-presentation" class="fixed inset-0 z-50 hidden flex-col bg-alabaster overflow-y-auto">
+  <div id="modal-presentation" class="fixed inset-0 z-50 hidden flex-col bg-gblightest overflow-y-auto" style="background-image: linear-gradient(to right, rgba(15, 56, 15, 0.14) 2px, transparent 2px), linear-gradient(to bottom, rgba(15, 56, 15, 0.14) 2px, transparent 2px); background-size: 8px 8px;">
     <div class="sticky top-0 z-10 obsidian-velvet text-white px-4 sm:px-8 py-4 flex flex-wrap items-center justify-between gap-3">
       <div class="flex flex-wrap items-center gap-3">
-        <span class="px-3 py-1 rounded-lg bg-champagne/25 border border-champagne font-mono text-sm font-bold text-goldlight">PRESENTATION MODE</span>
-        <span id="pres-header-group" class="text-base sm:text-lg font-bold text-white">กลุ่มที่ 1</span>
+        <span class="px-3 py-1 bg-pokered border-2 border-white pixel-font text-xs font-bold text-white">PRESENTATION</span>
+        <span id="pres-header-group" class="text-base sm:text-lg font-bold text-gblightest">กลุ่มที่ 1</span>
       </div>
-      <button onclick="closeModal('modal-presentation')" class="header-ghost-btn min-h-[44px] px-5 py-2 rounded-xl text-sm font-semibold">
+      <button onclick="closeModal('modal-presentation')" class="header-ghost-btn min-h-[44px] px-5 py-2 text-sm">
         ปิดหน้าจอนำเสนอ (ESC)
       </button>
     </div>
@@ -492,29 +606,32 @@
   </div>
 
   <!-- 5. FACILITATOR ANSWER KEY MODAL (PER SCENARIO) -->
-  <div id="modal-answer-key" class="fixed inset-0 z-50 hidden items-center justify-center bg-obsidian/75 backdrop-blur-sm p-3 sm:p-6">
-    <div class="luxury-card-gold rounded-2xl max-w-5xl w-full max-h-[92vh] flex flex-col animate-modal overflow-hidden">
-      <div class="px-5 sm:px-6 py-4 border-b border-champagne/50 obsidian-velvet text-white flex items-center justify-between gap-3">
+  <div id="modal-answer-key" class="fixed inset-0 z-50 hidden items-center justify-center bg-gbdarkest/80 p-3 sm:p-6">
+    <div class="luxury-card-gold max-w-5xl w-full max-h-[92vh] flex flex-col animate-modal overflow-hidden">
+      <div class="px-5 sm:px-6 py-4 border-b-4 border-gbdarkest bg-gbdark text-white flex items-center justify-between gap-3">
         <div>
-          <span class="font-mono text-sm gold-foil-text font-bold uppercase">FACILITATOR DEBRIEF &amp; ANSWER KEY</span>
-          <h3 id="ak-title" class="text-lg sm:text-xl font-bold text-white mt-0.5">แนวทางเฉลยสำหรับวิทยากร</h3>
+          <span class="pixel-font text-xs text-pikagold font-bold uppercase">FACILITATOR DEBRIEF &amp; ANSWER KEY</span>
+          <h3 id="ak-title" class="text-lg sm:text-xl font-bold text-white mt-1">แนวทางเฉลยสำหรับวิทยากร</h3>
         </div>
-        <button onclick="closeModal('modal-answer-key')" class="min-w-[44px] min-h-[44px] rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-2xl shrink-0">&times;</button>
+        <button onclick="closeModal('modal-answer-key')" class="min-w-[44px] min-h-[44px] bg-gbdarkest text-white border-2 border-white font-bold flex items-center justify-center text-xl shrink-0">X</button>
       </div>
-      <div id="ak-body" class="p-5 sm:p-7 overflow-y-auto space-y-5 text-base leading-relaxed bg-white text-ink"></div>
+      <div id="ak-body" class="p-5 sm:p-7 overflow-y-auto space-y-5 text-base leading-relaxed bg-pokewhite text-gbdarkest"></div>
     </div>
   </div>
 
   <!-- 6. CUSTOM CONFIRM RESET MODAL -->
-  <div id="modal-reset" class="fixed inset-0 z-50 hidden items-center justify-center bg-obsidian/70 backdrop-blur-sm p-4">
-    <div class="luxury-card rounded-2xl max-w-md w-full p-6 sm:p-7 animate-modal">
-      <h3 class="text-lg font-bold text-rose-700 mb-2">ยืนยันการรีเซ็ตข้อมูล Workshop?</h3>
-      <p class="text-base text-slateink leading-relaxed mb-6">
+  <div id="modal-reset" class="fixed inset-0 z-50 hidden items-center justify-center bg-gbdarkest/80 p-4">
+    <div class="luxury-card max-w-md w-full p-6 sm:p-7 animate-modal">
+      <h3 class="text-lg font-bold text-pokered mb-2 flex items-center gap-2">
+        <span class="pixel-font text-sm">!</span>
+        <span>ยืนยันการรีเซ็ตข้อมูล Workshop?</span>
+      </h3>
+      <p class="text-base text-gbdarkest leading-relaxed mb-6">
         การดำเนินการนี้จะล้างผลการสุ่มสถานการณ์ คำตอบของทุกกลุ่ม และกลับไปยังหน้าตั้งค่าเริ่มต้น (Step 1) ทั้งหมด
       </p>
       <div class="flex justify-end gap-3">
-        <button onclick="closeModal('modal-reset')" class="ghost-btn min-h-[46px] px-5 py-2.5 rounded-xl text-sm">ยกเลิก</button>
-        <button onclick="confirmResetWorkshop()" class="min-h-[46px] px-5 py-2.5 rounded-xl text-sm font-bold bg-rose-600 hover:bg-rose-700 text-white transition">
+        <button onclick="closeModal('modal-reset')" class="ghost-btn min-h-[46px] px-5 py-2.5 text-sm">ยกเลิก</button>
+        <button onclick="confirmResetWorkshop()" class="min-h-[46px] px-5 py-2.5 text-sm font-bold bg-pokered hover:bg-red-700 text-white border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F]">
           ยืนยันการรีเซ็ต
         </button>
       </div>
@@ -522,7 +639,7 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- APPLICATION DATA & ENGINE                                             -->
+  <!-- APPLICATION DATA & ENGINE (100% PRESERVED LOGIC, DATA & HANDLERS)      -->
   <!-- ===================================================================== -->
   <script>
     // -----------------------------------------------------------------------
@@ -1037,16 +1154,16 @@
     const CODEX_DATA = {
       1: `
         <div class="space-y-4">
-          <div class="p-4 sm:p-5 rounded-xl bg-warmwhite border border-champagne">
-            <h4 class="text-base sm:text-lg font-bold text-golddark mb-2">ICAO Annex 9 — Facilitation (มาตรฐานและข้อพึงปฏิบัติสากล)</h4>
-            <p class="text-base text-ink leading-relaxed">
+          <div class="p-4 sm:p-5 bg-pokecream border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F]">
+            <h4 class="text-base sm:text-lg font-bold text-gbdarkest mb-2">▶ ICAO Annex 9 — Facilitation (มาตรฐานและข้อพึงปฏิบัติสากล)</h4>
+            <p class="text-base text-gbdarkest leading-relaxed">
               ภาคผนวก 9 แห่งอนุสัญญาว่าด้วยการบินพลเรือนระหว่างประเทศ (Chicago Convention) กำหนดมาตรฐานและข้อพึงปฏิบัติ (SARPs) เพื่อให้รัฐภาคีอำนวยความสะดวกและเร่งรัดการเดินอากาศระหว่างประเทศ ป้องกันความล่าช้าที่ไม่จำเป็นต่อ <strong>อากาศยาน ลูกเรือ ผู้โดยสาร สัมภาระ สินค้า และไปรษณียภัณฑ์ (4 Core Flows)</strong> โดยรักษาสมดุลระหว่างความคล่องตัว (Facilitation) กับการรักษาความปลอดภัย (Security)
             </p>
           </div>
-          <div class="p-4 sm:p-5 rounded-xl bg-platinum border border-slate-300">
-            <h4 class="text-base sm:text-lg font-bold text-ink mb-2">ICAO Doc 9957 (The Facilitation Manual) — Appendix: Recommended AFC Task Lists</h4>
-            <p class="text-sm sm:text-base text-slateink mb-3">รายการภารกิจหลักที่แนะนำให้คณะกรรมการอำนวยความสะดวก ณ สนามบิน (Airport Facilitation Committee: AFC) นำมาหารือในระดับยุทธศาสตร์:</p>
-            <ul class="space-y-2.5 text-base text-ink list-disc pl-5">
+          <div class="p-4 sm:p-5 bg-pokewhite border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F]">
+            <h4 class="text-base sm:text-lg font-bold text-gbdarkest mb-2">▶ ICAO Doc 9957 (The Facilitation Manual) — Appendix: Recommended AFC Task Lists</h4>
+            <p class="text-sm sm:text-base text-gbdark font-semibold mb-3">รายการภารกิจหลักที่แนะนำให้คณะกรรมการอำนวยความสะดวก ณ สนามบิน (Airport Facilitation Committee: AFC) นำมาหารือในระดับยุทธศาสตร์:</p>
+            <ul class="space-y-2.5 text-base text-gbdarkest list-disc pl-5">
               <li><strong>การบูรณาการหน่วยงานชายแดน (CIQ Coordination):</strong> ประสานการทำงานระหว่างตรวจคนเข้าเมือง ศุลกากร สาธารณสุข และด่านกักกันพืช/สัตว์ เพื่อลดขั้นตอนซ้ำซ้อนและใช้การบริหารความเสี่ยง (Risk Management)</li>
               <li><strong>การบริหารจัดการความแออัดและ Flow (Peak Hour &amp; Flow Management):</strong> ตรวจสอบและปรับปรุงผังการไหลเวียนผู้โดยสาร สัมภาระ และสินค้าให้สอดคล้องกับมาตรฐานเวลาสากล (เช่น ขาเข้าไม่เกิน 45 นาที / ขาออกไม่เกิน 60 นาที)</li>
               <li><strong>การยกระดับเทคโนโลยีและข้อมูลล่วงหน้า:</strong> ผลักดันการใช้ข้อมูลผู้โดยสารล่วงหน้า (API/PNR), ระบบตรวจหนังสือเดินทางอัตโนมัติ (ABC/Biometrics), และระบบ Single Window สำหรับสินค้า</li>
@@ -1058,48 +1175,48 @@
       `,
       2: `
         <div class="space-y-4">
-          <div class="p-4 sm:p-5 rounded-xl bg-warmwhite border border-champagne">
-            <h4 class="text-base sm:text-lg font-bold text-golddark mb-2">แผนอำนวยความสะดวกในการบินพลเรือนแห่งประเทศไทย พ.ศ. 2568 (NATFP 2568)</h4>
-            <p class="text-base text-ink leading-relaxed">
+          <div class="p-4 sm:p-5 bg-pokecream border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F]">
+            <h4 class="text-base sm:text-lg font-bold text-gbdarkest mb-2">▶ แผนอำนวยความสะดวกในการบินพลเรือนแห่งประเทศไทย พ.ศ. 2568 (NATFP 2568)</h4>
+            <p class="text-base text-gbdarkest leading-relaxed">
               กรอบนโยบายและกลไกระดับชาติในการขับเคลื่อนงานอำนวยความสะดวกในการบินพลเรือนของประเทศไทย กำหนดให้ทุกท่าอากาศยานที่ให้บริการระหว่างประเทศหรือตามที่กำหนด ต้องจัดตั้ง <strong>คณะกรรมการอำนวยความสะดวกในการบินพลเรือน ณ สนามบิน (Airport Facilitation Committee: AFC)</strong> เพื่อประชุมหารือเชิงยุทธศาสตร์ตามรอบเวลา (Periodic &amp; Strategic) ไม่ใช่คณะกรรมการแก้เหตุฉุกเฉินเฉพาะหน้า
             </p>
           </div>
-          <div class="p-4 sm:p-5 rounded-xl bg-platinum border border-slate-300">
-            <h4 class="text-base sm:text-lg font-bold text-ink mb-2">เกณฑ์ขั้นต่ำองค์ประกอบคณะกรรมการ AFC ตามแผน NATFP พ.ศ. 2568</h4>
-            <p class="text-sm sm:text-base text-slateink mb-3">คณะกรรมการ AFC ประจำท่าอากาศยานนานาชาติ ต้องประกอบด้วยผู้แทนหน่วยงานหลักอย่างครบถ้วน ดังนี้:</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm sm:text-base text-ink">
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">01.</span> ผู้อำนวยการท่าอากาศยาน (ประธานคณะกรรมการ)</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">02.</span> ฝ่ายการท่าอากาศยาน / บริหารอาคารผู้โดยสารและเขตการบิน</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">03.</span> ฝ่ายรักษาความปลอดภัยของสนามบิน (AVSEC)</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">04.</span> สำนักงานตรวจคนเข้าเมือง (ตม. ประจำท่าอากาศยาน)</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">05.</span> กรมศุลกากร (นายด่านศุลกากร / ผู้แทนระดับบริหาร)</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">06.</span> ด่านควบคุมโรคติดต่อระหว่างประเทศ (กรมควบคุมโรค)</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">07.</span> ด่านตรวจพืช (กรมวิชาการเกษตร)</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">08.</span> ด่านกักกันสัตว์ (กรมปศุสัตว์)</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">09.</span> ผู้แทนคณะกรรมการผู้ดำเนินงานสายการบิน (AOC)</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold"><span class="text-golddark font-mono font-bold">10.</span> ผู้แทนผู้ให้บริการภาคพื้นดิน (Ground Handling Agent)</div>
-              <div class="p-3 rounded-xl bg-white border border-slate-300 font-semibold md:col-span-2"><span class="text-golddark font-mono font-bold">11.</span> ผู้แทนผู้ประกอบการคลังสินค้า (Cargo Terminal Operator — กรณีสนามบินมีการขนส่งสินค้า)</div>
+          <div class="p-4 sm:p-5 bg-pokewhite border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F]">
+            <h4 class="text-base sm:text-lg font-bold text-gbdarkest mb-2">▶ เกณฑ์ขั้นต่ำองค์ประกอบคณะกรรมการ AFC ตามแผน NATFP พ.ศ. 2568</h4>
+            <p class="text-sm sm:text-base text-gbdark font-semibold mb-3">คณะกรรมการ AFC ประจำท่าอากาศยานนานาชาติ ต้องประกอบด้วยผู้แทนหน่วยงานหลักอย่างครบถ้วน ดังนี้:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm sm:text-base text-gbdarkest">
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">01.</span> ผู้อำนวยการท่าอากาศยาน (ประธานคณะกรรมการ)</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">02.</span> ฝ่ายการท่าอากาศยาน / บริหารอาคารผู้โดยสารและเขตการบิน</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">03.</span> ฝ่ายรักษาความปลอดภัยของสนามบิน (AVSEC)</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">04.</span> สำนักงานตรวจคนเข้าเมือง (ตม. ประจำท่าอากาศยาน)</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">05.</span> กรมศุลกากร (นายด่านศุลกากร / ผู้แทนระดับบริหาร)</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">06.</span> ด่านควบคุมโรคติดต่อระหว่างประเทศ (กรมควบคุมโรค)</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">07.</span> ด่านตรวจพืช (กรมวิชาการเกษตร)</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">08.</span> ด่านกักกันสัตว์ (กรมปศุสัตว์)</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">09.</span> ผู้แทนคณะกรรมการผู้ดำเนินงานสายการบิน (AOC)</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold"><span class="silk-font text-pokered">10.</span> ผู้แทนผู้ให้บริการภาคพื้นดิน (Ground Handling Agent)</div>
+              <div class="p-3 bg-pokecream border-2 border-gbdarkest font-bold md:col-span-2"><span class="silk-font text-pokered">11.</span> ผู้แทนผู้ประกอบการคลังสินค้า (Cargo Terminal Operator — กรณีสนามบินมีการขนส่งสินค้า)</div>
             </div>
           </div>
         </div>
       `,
       3: `
         <div class="space-y-4 text-base">
-          <div class="p-4 sm:p-5 rounded-xl bg-platinum border border-slate-300">
-            <h4 class="font-bold text-ink text-lg mb-1.5">พระราชบัญญัติการเดินอากาศ (ฉบับล่าสุด)</h4>
-            <p class="text-ink leading-relaxed">กฎหมายแม่บทในการกำกับดูแลกิจการการบินพลเรือนของประเทศไทย ให้อำนาจสำนักงานการบินพลเรือนแห่งประเทศไทย (กพท.) ในการออกข้อกำหนดและมาตรฐานด้านการอำนวยความสะดวกในการบินพลเรือน รวมถึงการกำกับดูแลผู้ดำเนินการสนามบินและผู้ดำเนินงานเดินอากาศ</p>
+          <div class="p-4 sm:p-5 bg-pokewhite border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F]">
+            <h4 class="font-bold text-gbdarkest text-lg mb-1.5">▶ พระราชบัญญัติการเดินอากาศ (ฉบับล่าสุด)</h4>
+            <p class="text-gbdarkest leading-relaxed">กฎหมายแม่บทในการกำกับดูแลกิจการการบินพลเรือนของประเทศไทย ให้อำนาจสำนักงานการบินพลเรือนแห่งประเทศไทย (กพท.) ในการออกข้อกำหนดและมาตรฐานด้านการอำนวยความสะดวกในการบินพลเรือน รวมถึงการกำกับดูแลผู้ดำเนินการสนามบินและผู้ดำเนินงานเดินอากาศ</p>
           </div>
-          <div class="p-4 sm:p-5 rounded-xl bg-platinum border border-slate-300">
-            <h4 class="font-bold text-ink text-lg mb-1.5">ข้อกำหนดของ กพท. ฉบับที่ 7</h4>
-            <p class="text-ink leading-relaxed"><strong>ว่าด้วยสิ่งอำนวยความสะดวกและบริการสำหรับคนโดยสารและสัมภาระในสนามบินที่ให้บริการสาธารณะ:</strong> กำหนดมาตรฐานขั้นต่ำของสิ่งอำนวยความสะดวก พื้นที่ให้บริการ และกระบวนการจัดการคนโดยสารทั่วไปและสัมภาระในสนามบินสาธารณะ</p>
+          <div class="p-4 sm:p-5 bg-pokewhite border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F]">
+            <h4 class="font-bold text-gbdarkest text-lg mb-1.5">▶ ข้อกำหนดของ กพท. ฉบับที่ 7</h4>
+            <p class="text-gbdarkest leading-relaxed"><strong>ว่าด้วยสิ่งอำนวยความสะดวกและบริการสำหรับคนโดยสารและสัมภาระในสนามบินที่ให้บริการสาธารณะ:</strong> กำหนดมาตรฐานขั้นต่ำของสิ่งอำนวยความสะดวก พื้นที่ให้บริการ และกระบวนการจัดการคนโดยสารทั่วไปและสัมภาระในสนามบินสาธารณะ</p>
           </div>
-          <div class="p-4 sm:p-5 rounded-xl bg-warmwhite border-2 border-champagne">
-            <h4 class="font-bold text-golddark text-lg mb-1.5">ข้อกำหนดของ กพท. ฉบับที่ 95 (จุดเชื่อมโยงสำคัญทางกฎหมาย)</h4>
-            <p class="text-ink leading-relaxed"><strong>แก้ไขเพิ่มเติมข้อกำหนด กพท. ฉบับที่ 7:</strong> โดยให้ <u>ยกเลิก</u> บทบัญญัติเรื่องสิ่งอำนวยความสะดวกและบริการสำหรับบุคคลที่ต้องการความช่วยเหลือเป็นกรณีพิเศษในข้อกำหนดฉบับที่ 7 และให้ไปบังคับใช้ตาม <strong>ข้อกำหนดของ กพท. ฉบับที่ 90</strong> แทน</p>
+          <div class="p-4 sm:p-5 bg-pokecream border-4 border-gbdarkest shadow-[4px_4px_0px_#0F380F]">
+            <h4 class="font-bold text-pokered text-lg mb-1.5">★ ข้อกำหนดของ กพท. ฉบับที่ 95 (จุดเชื่อมโยงสำคัญทางกฎหมาย)</h4>
+            <p class="text-gbdarkest leading-relaxed"><strong>แก้ไขเพิ่มเติมข้อกำหนด กพท. ฉบับที่ 7:</strong> โดยให้ <u>ยกเลิก</u> บทบัญญัติเรื่องสิ่งอำนวยความสะดวกและบริการสำหรับบุคคลที่ต้องการความช่วยเหลือเป็นกรณีพิเศษในข้อกำหนดฉบับที่ 7 และให้ไปบังคับใช้ตาม <strong>ข้อกำหนดของ กพท. ฉบับที่ 90</strong> แทน</p>
           </div>
-          <div class="p-4 sm:p-5 rounded-xl bg-platinum border border-slate-300">
-            <h4 class="font-bold text-ink text-lg mb-1.5">ข้อกำหนดของ กพท. ฉบับที่ 90</h4>
-            <p class="text-ink leading-relaxed"><strong>ว่าด้วยมาตรฐานของสิ่งอำนวยความสะดวกและบริการสำหรับบุคคลผู้ต้องการความช่วยเหลือพิเศษ (Passengers with Reduced Mobility: PRM):</strong> กำหนดหน้าที่และความรับผิดชอบของผู้ดำเนินการสนามบินและผู้ดำเนินงานเดินอากาศในการจัดเตรียมสิ่งอำนวยความสะดวก อุปกรณ์ การส่งต่อความช่วยเหลือแบบไร้รอยต่อ และการฝึกอบรมบุคลากร</p>
+          <div class="p-4 sm:p-5 bg-pokewhite border-3 border-gbdarkest shadow-[3px_3px_0px_#0F380F]">
+            <h4 class="font-bold text-gbdarkest text-lg mb-1.5">▶ ข้อกำหนดของ กพท. ฉบับที่ 90</h4>
+            <p class="text-gbdarkest leading-relaxed"><strong>ว่าด้วยมาตรฐานของสิ่งอำนวยความสะดวกและบริการสำหรับบุคคลผู้ต้องการความช่วยเหลือพิเศษ (Passengers with Reduced Mobility: PRM):</strong> กำหนดหน้าที่และความรับผิดชอบของผู้ดำเนินการสนามบินและผู้ดำเนินงานเดินอากาศในการจัดเตรียมสิ่งอำนวยความสะดวก อุปกรณ์ การส่งต่อความช่วยเหลือแบบไร้รอยต่อ และการฝึกอบรมบุคลากร</p>
           </div>
         </div>
       `
@@ -1187,6 +1304,12 @@
     // 5. NAVIGATION & HEADER SYNC
     // -----------------------------------------------------------------------
     function updateHeaderUI() {
+      const stepLabels = {
+        1: '1. ตั้งค่ากลุ่ม',
+        2: '2. สุ่มโจทย์',
+        3: '3. ห้องวิเคราะห์'
+      };
+
       [1, 2, 3].forEach(step => {
         const btn = document.getElementById(`nav-step-${step}`);
         if (!btn) return;
@@ -1198,11 +1321,14 @@
 
         btn.disabled = !canAccess;
         if (isActive) {
-          btn.className = 'min-h-[44px] px-3 sm:px-4 py-2 rounded-lg text-sm font-bold transition gold-btn text-center';
+          btn.className = 'w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-bold gold-btn text-center whitespace-nowrap flex items-center justify-center gap-1';
+          btn.innerHTML = `<span class="pixel-blink text-pikagold">▶</span><span>${stepLabels[step]}</span>`;
         } else if (canAccess) {
-          btn.className = 'min-h-[44px] px-3 sm:px-4 py-2 rounded-lg text-sm font-semibold transition text-slate-100 hover:text-goldlight hover:bg-white/10 text-center';
+          btn.className = 'w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-bold text-pokewhite bg-gbdarkest/60 border-2 border-gblightest hover:bg-gblightest hover:text-gbdarkest text-center whitespace-nowrap flex items-center justify-center';
+          btn.textContent = stepLabels[step];
         } else {
-          btn.className = 'min-h-[44px] px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition text-slate-300 opacity-50 cursor-not-allowed text-center';
+          btn.className = 'w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-semibold text-pokecream opacity-45 cursor-not-allowed text-center whitespace-nowrap flex items-center justify-center';
+          btn.textContent = stepLabels[step];
         }
       });
 
@@ -1211,11 +1337,15 @@
       const codexTab4 = document.getElementById('codex-tab-4');
       if (facBtn && facLabel) {
         if (state.facilitatorUnlocked) {
-          facBtn.classList.add('border-emerald-400', 'bg-emerald-500/25', 'text-emerald-200');
+          facBtn.style.backgroundColor = '#F8B800';
+          facBtn.style.color = '#0F380F';
+          facBtn.style.borderColor = '#FFFFFF';
           facLabel.textContent = 'วิทยากร: ปลดล็อกแล้ว';
           if (codexTab4) codexTab4.classList.remove('hidden');
         } else {
-          facBtn.classList.remove('border-emerald-400', 'bg-emerald-500/25', 'text-emerald-200');
+          facBtn.style.backgroundColor = '';
+          facBtn.style.color = '';
+          facBtn.style.borderColor = '';
           facLabel.textContent = 'โหมดวิทยากร';
           if (codexTab4) codexTab4.classList.add('hidden');
         }
@@ -1240,14 +1370,14 @@
       let groupInputsHtml = '';
       for (let i = 0; i < n; i++) {
         groupInputsHtml += `
-          <div class="flex items-center gap-3 bg-white border-[1.5px] border-slate-400 focus-within:border-champagne rounded-xl px-4 py-3 shadow-sm transition min-w-0">
-            <span class="font-mono text-sm text-golddark font-bold shrink-0">GRP #${i + 1}</span>
+          <div class="flex items-center gap-3 bg-pokewhite border-3 border-gbdarkest px-3.5 py-2.5 shadow-[3px_3px_0px_#0F380F] min-w-0">
+            <span class="silk-font text-xs sm:text-sm bg-gbdarkest text-gblightest px-2 py-1 font-bold shrink-0">GRP#${i + 1}</span>
             <input
               type="text"
               value="${escapeHtml(state.groupNames[i] || `กลุ่มที่ ${i + 1}`)}"
               oninput="updateGroupName(${i}, this.value)"
               placeholder="ระบุชื่อกลุ่ม..."
-              class="flex-1 min-w-0 bg-transparent border-none text-base font-semibold text-ink focus:ring-0 focus:shadow-none p-0"
+              class="flex-1 min-w-0 bg-transparent border-none shadow-none text-base font-bold text-gbdarkest focus:shadow-none p-0"
             />
           </div>
         `;
@@ -1255,87 +1385,87 @@
 
       return `
         <div id="step1View" class="w-full space-y-5 sm:space-y-6 animate-modal box-border">
-          <!-- Hero Intro Card (Matches Top Dark Obsidian Luxury Header Width 100%) -->
-          <div class="w-full luxury-card-gold rounded-2xl p-5 sm:p-7 lg:p-8 box-border">
+          <!-- Hero Intro Poké-Dialog Box -->
+          <div class="w-full luxury-card-gold p-6 sm:p-8 box-border">
             <div class="flex flex-wrap items-center justify-between gap-2.5 mb-3">
-              <span class="font-mono text-sm font-bold tracking-wider text-golddark uppercase">STEP 01 • ORGANIZER CONFIGURATION</span>
-              <span class="px-3.5 py-1 rounded-lg bg-white border border-slate-300 text-sm font-bold text-ink shadow-sm">คลังสถานการณ์ Phase 1: 10 Scenarios</span>
+              <span class="pixel-font text-xs sm:text-sm font-bold text-pokered uppercase">▶ STEP 01 • ORGANIZER SETUP</span>
+              <span class="px-3 py-1 bg-gbdarkest text-gblightest border-2 border-gbdarkest text-xs sm:text-sm silk-font font-bold">SCENARIO POOL: 10 CASES</span>
             </div>
-            <h2 class="text-xl sm:text-2xl lg:text-[28px] font-bold text-ink mb-2.5 leading-snug">
+            <h2 class="text-xl sm:text-2xl lg:text-[28px] font-bold text-gbdarkest mb-2.5 leading-snug">
               ตั้งค่าจำนวนกลุ่มผู้เข้าร่วม Workshop
             </h2>
-            <p class="text-base text-slateink leading-relaxed">
-              ระบบจะคัดเลือกสถานการณ์จำลองแบบสุ่มจากคลัง 10 Scenarios เข้าสู่กระดานจำนวน <span class="text-golddark font-mono font-bold">N + 2 Scenarios</span> (มากกว่าจำนวนกลุ่มอยู่ 2 โจทย์เสมอ) เพื่อให้แม้แต่กลุ่มสุดท้ายก็ยังคงมีตัวเลือกให้ลุ้นจาก 3 สถานการณ์สุดท้ายโดยไม่ซ้ำกัน
+            <p class="text-base text-gbdarkest leading-relaxed">
+              ระบบจะคัดเลือกสถานการณ์จำลองแบบสุ่มจากคลัง 10 Scenarios เข้าสู่กระดานจำนวน <span class="bg-gbdarkest text-pikagold px-2 py-0.5 silk-font font-bold">N + 2 Scenarios</span> (มากกว่าจำนวนกลุ่มอยู่ 2 โจทย์เสมอ) เพื่อให้แม้แต่กลุ่มสุดท้ายก็ยังคงมีตัวเลือกให้ลุ้นจาก 3 สถานการณ์สุดท้ายโดยไม่ซ้ำกัน
             </p>
           </div>
 
           <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-stretch box-border">
             <!-- Left: Number of Groups Selector & Pool Math -->
-            <div class="lg:col-span-5 luxury-card rounded-2xl p-5 sm:p-7 flex flex-col justify-between space-y-6 min-w-0 box-border">
+            <div class="lg:col-span-5 luxury-card p-6 sm:p-8 flex flex-col justify-between space-y-6 min-w-0 box-border">
               <div class="min-w-0">
-                <label class="block text-base sm:text-lg font-bold text-ink mb-1">1. เลือกจำนวนกลุ่มที่เข้าร่วม (N)</label>
-                <p class="text-sm text-slateink mb-4">รองรับตั้งแต่ 1 ถึง 8 กลุ่มต่อรอบการจัด Workshop</p>
+                <label class="block text-base sm:text-lg font-bold text-gbdarkest mb-1">1. เลือกจำนวนกลุ่มที่เข้าร่วม (N)</label>
+                <p class="text-sm font-semibold text-gbdark mb-4">รองรับตั้งแต่ 1 ถึง 8 กลุ่มต่อรอบการจัด Workshop</p>
 
-                <!-- Responsive Contained Grid (Zero Overflow on Mobile, Tablet, Notebook, PC) -->
-                <div class="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-4 gap-2 w-full box-border">
+                <!-- Responsive Contained Grid -->
+                <div class="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-4 gap-2.5 w-full box-border">
                   ${[1, 2, 3, 4, 5, 6, 7, 8].map(num => `
                     <button
                       type="button"
                       onclick="setNumGroups(${num})"
-                      class="w-full min-w-0 min-h-[52px] py-3 px-2 rounded-xl font-mono text-lg font-bold text-center ${
+                      class="w-full min-w-0 min-h-[54px] py-3 px-2 pixel-font text-base font-bold text-center flex items-center justify-center gap-1 ${
                         n === num
-                          ? 'option-selected text-goldlight'
+                          ? 'option-selected text-pikagold'
                           : 'option-unselected'
                       }"
                     >
-                      ${num}
+                      ${n === num ? '<span class="text-xs">▶</span>' : ''}<span>${num}</span>
                     </button>
                   `).join('')}
                 </div>
               </div>
 
               <!-- Visual Pool Formula Breakdown -->
-              <div class="bg-platinum border border-slate-300 rounded-xl p-4 sm:p-5 space-y-3.5">
-                <div class="text-sm font-mono font-bold text-golddark uppercase tracking-wider">กติกาการคัดเลือกตัวเลือกเข้ากระดาน</div>
+              <div class="bg-pokecream border-3 border-gbdarkest p-4 sm:p-5 space-y-3.5 shadow-[4px_4px_0px_#0F380F]">
+                <div class="text-xs silk-font font-bold text-gbdarkest uppercase tracking-wider">▶ สูตรคำนวณกระดานสุ่ม (POOL MATH)</div>
                 <div class="grid grid-cols-3 gap-2.5 text-center">
-                  <div class="p-3 rounded-xl bg-white border border-slate-300 shadow-sm">
-                    <div class="font-mono text-xl font-bold text-ink">10</div>
-                    <div class="text-sm font-semibold text-slateink mt-0.5">คลังทั้งหมด</div>
+                  <div class="p-3 bg-pokewhite border-3 border-gbdarkest">
+                    <div class="pixel-font text-lg font-bold text-gbdarkest">10</div>
+                    <div class="text-xs sm:text-sm font-bold text-gbdark mt-1">คลังทั้งหมด</div>
                   </div>
-                  <div class="p-3 rounded-xl bg-white border border-slate-300 shadow-sm">
-                    <div class="font-mono text-xl font-bold text-ink">${n}</div>
-                    <div class="text-sm font-semibold text-slateink mt-0.5">จำนวนกลุ่ม</div>
+                  <div class="p-3 bg-pokewhite border-3 border-gbdarkest">
+                    <div class="pixel-font text-lg font-bold text-gbdarkest">${n}</div>
+                    <div class="text-xs sm:text-sm font-bold text-gbdark mt-1">จำนวนกลุ่ม</div>
                   </div>
-                  <div class="p-3 rounded-xl obsidian-velvet">
-                    <div class="font-mono text-xl font-bold gold-foil-text">${activeCount}</div>
-                    <div class="text-sm font-semibold text-slate-100 mt-0.5">บนกระดาน</div>
+                  <div class="p-3 bg-gbdarkest border-3 border-gbdarkest">
+                    <div class="pixel-font text-lg font-bold text-pikagold">${activeCount}</div>
+                    <div class="text-xs sm:text-sm font-bold text-gblightest mt-1">บนกระดาน</div>
                   </div>
                 </div>
-                <p class="text-sm sm:text-base text-ink font-medium leading-relaxed">
-                  • กลุ่มที่ 1 เลือกจาก <span class="font-mono font-bold text-ink">${activeCount}</span> ตัวเลือก<br/>
-                  • กลุ่มสุดท้าย (กลุ่มที่ ${n}) ยังเหลือให้ลุ้นถึง <span class="text-golddark font-mono font-bold">3</span> ตัวเลือก
+                <p class="text-sm sm:text-base text-gbdarkest font-semibold leading-relaxed">
+                  • กลุ่มที่ 1 เลือกจาก <span class="silk-font font-bold underline">${activeCount}</span> ตัวเลือก<br/>
+                  • กลุ่มสุดท้าย (กลุ่มที่ ${n}) ยังเหลือให้ลุ้นถึง <span class="silk-font font-bold text-pokered">3</span> ตัวเลือก
                 </p>
               </div>
             </div>
 
             <!-- Right: Editable Group Names -->
-            <div class="lg:col-span-7 luxury-card rounded-2xl p-5 sm:p-7 flex flex-col justify-between space-y-6 min-w-0 box-border">
+            <div class="lg:col-span-7 luxury-card p-6 sm:p-8 flex flex-col justify-between space-y-6 min-w-0 box-border">
               <div class="min-w-0">
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
-                  <label class="text-base sm:text-lg font-bold text-ink">2. กำหนดชื่อกลุ่มผู้เข้าร่วม (แก้ไขได้)</label>
-                  <span class="font-mono text-sm font-bold text-golddark">${n} กลุ่ม</span>
+                  <label class="text-base sm:text-lg font-bold text-gbdarkest">2. กำหนดชื่อกลุ่มผู้เข้าร่วม (แก้ไขได้)</label>
+                  <span class="silk-font text-sm font-bold bg-gbdarkest text-gblightest px-2.5 py-0.5">${n} GROUPS</span>
                 </div>
-                <p class="text-sm text-slateink mb-4">สามารถใส่ชื่อหน่วยงานหรือชื่อทีมของแต่ละกลุ่มได้ทันที</p>
+                <p class="text-sm font-semibold text-gbdark mb-4">สามารถใส่ชื่อหน่วยงานหรือชื่อทีมของแต่ละกลุ่มได้ทันที</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   ${groupInputsHtml}
                 </div>
               </div>
 
-              <div class="pt-5 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-                <span class="text-sm font-medium text-slateink">พร้อมแล้วกดปุ่มเพื่อสุ่มคัดเลือกโจทย์เข้ากระดาน</span>
-                <button onclick="initializeRandomBoard()" class="gold-btn min-h-[64px] w-full sm:w-auto px-7 py-3 rounded-xl text-base flex flex-col items-center justify-center text-center leading-snug">
-                  <span class="text-white font-bold">สุ่มคัดเลือกโจทย์เข้าสู่กระดาน</span>
-                  <span class="font-mono text-sm font-semibold text-goldlight mt-0.5">(${activeCount} Scenarios) →</span>
+              <div class="pt-5 border-t-3 border-gbdarkest flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <span class="text-sm font-bold text-gbdark">พร้อมแล้วกดปุ่มเพื่อสุ่มคัดเลือกโจทย์เข้ากระดาน</span>
+                <button onclick="initializeRandomBoard()" class="gold-btn min-h-[64px] w-full sm:w-auto px-7 py-3 text-base flex flex-col items-center justify-center text-center leading-snug">
+                  <span class="text-white font-bold">▶ สุ่มคัดเลือกโจทย์เข้าสู่กระดาน</span>
+                  <span class="silk-font text-sm font-bold text-pikagold mt-0.5">(${activeCount} Scenarios) →</span>
                 </button>
               </div>
             </div>
@@ -1400,26 +1530,26 @@
         if (scId) {
           const sc = getScenarioById(scId);
           groupBadgesHtml += `
-            <button onclick="jumpToGroupWorkspace(${i})" class="option-selected min-h-[54px] text-left px-4 py-3 rounded-xl flex items-center justify-between gap-2 hover:border-goldlight">
+            <button onclick="jumpToGroupWorkspace(${i})" class="option-selected min-h-[56px] text-left px-4 py-3 flex items-center justify-between gap-2">
               <div class="min-w-0">
-                <div class="text-sm font-bold text-white truncate">${gName}</div>
-                <div class="font-mono text-sm text-goldlight">${sc.code}</div>
+                <div class="text-sm font-bold text-pokewhite truncate">${gName}</div>
+                <div class="silk-font text-xs sm:text-sm text-pikagold font-bold">${sc.code}</div>
               </div>
-              <span class="text-sm px-2.5 py-1 rounded-lg bg-champagne/25 text-goldlight font-semibold shrink-0">วิเคราะห์ →</span>
+              <span class="text-xs sm:text-sm px-2.5 py-1 bg-gblightest text-gbdarkest font-bold shrink-0">วิเคราะห์ →</span>
             </button>
           `;
         } else {
           groupBadgesHtml += `
-            <div class="min-h-[54px] px-4 py-3 rounded-xl border-[1.5px] ${
+            <div class="min-h-[56px] px-4 py-3 border-3 border-gbdarkest ${
               isCurrent
-                ? 'bg-warmwhite border-champagne text-ink shadow-sm'
-                : 'bg-white border-slate-300 text-ink'
+                ? 'bg-pikagold text-gbdarkest shadow-[4px_4px_0px_#0F380F]'
+                : 'bg-pokewhite text-gbdarkest shadow-[3px_3px_0px_#0F380F]'
             } flex items-center justify-between gap-2">
               <div class="min-w-0">
-                <div class="text-sm font-bold text-ink truncate">${gName}</div>
-                <div class="text-sm ${isCurrent ? 'text-golddark font-bold' : 'text-slateink font-medium'}">${isCurrent ? 'กำลังรอสุ่มโจทย์...' : 'รอคิวสุ่ม'}</div>
+                <div class="text-sm font-bold text-gbdarkest truncate">${gName}</div>
+                <div class="text-xs sm:text-sm font-bold ${isCurrent ? 'text-pokered' : 'text-gbdark'}">${isCurrent ? '▶ กำลังรอสุ่มโจทย์...' : 'รอคิวสุ่ม'}</div>
               </div>
-              ${isCurrent ? '<span class="w-3 h-3 rounded-full bg-golddark animate-ping shrink-0"></span>' : ''}
+              ${isCurrent ? '<span class="pixel-font text-xs text-pokered pixel-blink shrink-0">▼</span>' : ''}
             </div>
           `;
         }
@@ -1433,20 +1563,20 @@
         if (isTaken) {
           const ownerName = escapeHtml(state.groupNames[ownerGroupIdx] || `กลุ่มที่ ${ownerGroupIdx + 1}`);
           return `
-            <div class="rounded-2xl p-5 bg-white border-[1.5px] border-slate-300 shadow-sm flex flex-col justify-between min-h-[230px] relative overflow-hidden">
+            <div class="p-5 bg-pokewhite border-4 border-gbdarkest shadow-[4px_4px_0px_#0F380F] flex flex-col justify-between min-h-[240px] relative overflow-hidden">
               <div class="flex items-center justify-between gap-2">
-                <span class="font-mono text-sm font-bold text-slateink">SLOT #0${slotIdx + 1}</span>
-                <span class="px-2.5 py-1 rounded-md text-sm font-bold bg-platinum text-ink border border-slate-300">
-                  ถูกสุ่มไปแล้ว
+                <span class="silk-font text-xs sm:text-sm font-bold text-gbdark">SLOT #0${slotIdx + 1}</span>
+                <span class="px-2 py-0.5 text-xs silk-font font-bold bg-pokered text-white border-2 border-gbdarkest">
+                  CAUGHT!
                 </span>
               </div>
               <div class="my-3">
-                <div class="font-mono text-sm font-bold text-golddark mb-1">${sc.code}</div>
-                <div class="text-base font-bold text-ink leading-snug">${escapeHtml(sc.title)}</div>
+                <div class="silk-font text-xs sm:text-sm font-bold text-pokered mb-1">${sc.code}</div>
+                <div class="text-base font-bold text-gbdarkest leading-snug">${escapeHtml(sc.title)}</div>
               </div>
-              <div class="pt-3 border-t border-slate-200 flex items-center justify-between gap-2 text-sm">
-                <span class="text-slateink font-semibold">ผู้รับโจทย์:</span>
-                <span class="font-bold text-ink truncate">${ownerName}</span>
+              <div class="pt-3 border-t-3 border-gbdarkest flex items-center justify-between gap-2 text-sm bg-pokecream -mx-5 -mb-5 px-5 py-2.5">
+                <span class="text-gbdark font-bold">ผู้รับโจทย์:</span>
+                <span class="font-bold text-gbdarkest truncate">${ownerName}</span>
               </div>
             </div>
           `;
@@ -1457,26 +1587,50 @@
             id="mystery-slot-${slotIdx}"
             onclick="selectCardSlot(${slotIdx})"
             ${allDrawn ? 'disabled' : ''}
-            class="mystery-card rounded-2xl p-5 flex flex-col items-center justify-between min-h-[230px] text-center group relative ${
+            class="mystery-card p-5 flex flex-col items-center justify-between min-h-[240px] text-center group relative ${
               allDrawn ? 'opacity-55 cursor-not-allowed' : 'cursor-pointer'
             }"
           >
             <div class="w-full flex items-center justify-between">
-              <span class="font-mono text-sm font-bold text-goldlight">MYSTERY #0${slotIdx + 1}</span>
-              <span class="font-mono text-sm text-slate-300 group-hover:text-goldlight transition">SEALED</span>
+              <span class="silk-font text-xs sm:text-sm font-bold text-pikagold">CARD #0${slotIdx + 1}</span>
+              <span class="silk-font text-xs text-gblightest">SEALED</span>
             </div>
 
-            <div class="my-4 flex flex-col items-center">
-              <div class="w-14 h-14 rounded-2xl gold-crest flex items-center justify-center mb-3 transition">
-                <svg class="w-7 h-7 text-goldlight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
-                  <path d="M12 2L14.8 8.5L22 9.2L16.5 14L18.2 21L12 17.3L5.8 21L7.5 14L2 9.2L9.2 8.5L12 2Z" stroke-linecap="round" stroke-linejoin="round"/>
+            <div class="my-3 flex flex-col items-center">
+              <!-- 16-Bit Pixel-Art Mystery Pokéball Sprite -->
+              <div class="w-16 h-16 bg-gblightest border-3 border-gbdarkest flex items-center justify-center mb-3 shadow-[3px_3px_0px_#000000]">
+                <svg class="w-11 h-11" viewBox="0 0 16 16" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="1" width="6" height="1" fill="#0F380F"/>
+                  <rect x="3" y="2" width="2" height="1" fill="#0F380F"/>
+                  <rect x="11" y="2" width="2" height="1" fill="#0F380F"/>
+                  <rect x="2" y="3" width="1" height="2" fill="#0F380F"/>
+                  <rect x="13" y="3" width="1" height="2" fill="#0F380F"/>
+                  <rect x="1" y="5" width="1" height="6" fill="#0F380F"/>
+                  <rect x="14" y="5" width="1" height="6" fill="#0F380F"/>
+                  <rect x="5" y="2" width="6" height="1" fill="#D82820"/>
+                  <rect x="3" y="3" width="10" height="2" fill="#D82820"/>
+                  <rect x="2" y="5" width="12" height="2" fill="#D82820"/>
+                  <rect x="4" y="3" width="2" height="1" fill="#F8F8F8"/>
+                  <rect x="2" y="7" width="12" height="2" fill="#0F380F"/>
+                  <rect x="6" y="6" width="4" height="4" fill="#0F380F"/>
+                  <rect x="7" y="7" width="2" height="2" fill="#F8F8F8"/>
+                  <rect x="2" y="9" width="12" height="2" fill="#F8F8F8"/>
+                  <rect x="3" y="11" width="10" height="2" fill="#F8F8F8"/>
+                  <rect x="5" y="13" width="6" height="1" fill="#F8F8F8"/>
+                  <rect x="2" y="11" width="1" height="2" fill="#0F380F"/>
+                  <rect x="13" y="11" width="1" height="2" fill="#0F380F"/>
+                  <rect x="3" y="13" width="2" height="1" fill="#0F380F"/>
+                  <rect x="11" y="13" width="2" height="1" fill="#0F380F"/>
+                  <rect x="5" y="14" width="6" height="1" fill="#0F380F"/>
                 </svg>
               </div>
-              <div class="font-mono text-sm tracking-wider gold-foil-text font-bold uppercase">CONFIDENTIAL CASE</div>
-              <div class="text-sm text-slate-200 mt-1">${allDrawn ? 'ไม่ได้ถูกเลือกในรอบนี้' : 'คลิกเพื่อเปิดซองโจทย์'}</div>
+              <div class="pixel-font text-xs tracking-wider gold-foil-text font-bold uppercase">MYSTERY CASE</div>
+              <div class="text-sm text-gblightest font-bold mt-1.5">
+                ${allDrawn ? 'ไม่ได้ถูกเลือกในรอบนี้' : '<span class="pixel-blink text-pikagold">▶</span> คลิกเพื่อเปิดซองโจทย์'}
+              </div>
             </div>
 
-            <div class="w-full pt-2.5 border-t border-champagne/35 text-sm font-mono font-semibold text-goldlight">
+            <div class="w-full pt-2 border-t-2 border-gblight text-xs silk-font font-bold text-pokewhite">
               AFC WORKSHOP POOL
             </div>
           </button>
@@ -1485,42 +1639,39 @@
 
       return `
         <div id="step2View" class="w-full space-y-5 sm:space-y-6 animate-modal box-border">
-          <div class="w-full luxury-card-gold rounded-2xl p-5 sm:p-7 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 box-border">
+          <div class="w-full luxury-card-gold p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 box-border">
             ${
               !allDrawn
                 ? `
                   <div>
-                    <div class="flex flex-wrap items-center gap-2.5 mb-1.5">
-                      <span class="font-mono text-sm font-bold text-golddark uppercase tracking-wider">STEP 02 • NON-REPEATING RANDOM DRAW</span>
-                      <span class="px-3 py-0.5 rounded-lg bg-platinum border border-slate-300 text-sm font-semibold text-ink">เหลือตัวเลือกบนกระดาน ${remainingCardsCount} ใบ</span>
+                    <div class="flex flex-wrap items-center gap-2.5 mb-2">
+                      <span class="pixel-font text-xs font-bold text-pokered uppercase">▶ STEP 02 • RANDOM DRAW</span>
+                      <span class="px-3 py-0.5 bg-gbdarkest text-gblightest text-xs sm:text-sm silk-font font-bold">เหลือบนกระดาน ${remainingCardsCount} ใบ</span>
                     </div>
-                    <h2 class="text-xl sm:text-2xl lg:text-[28px] font-bold text-ink leading-snug">
-                      ถึงคิวสุ่มโจทย์ของ: <span class="text-golddark underline decoration-champagne underline-offset-4">${escapeHtml(currentGroupName)}</span>
+                    <h2 class="text-xl sm:text-2xl lg:text-[28px] font-bold text-gbdarkest leading-snug">
+                      ถึงคิวสุ่มโจทย์ของ: <span class="bg-pikagold px-2.5 py-0.5 border-2 border-gbdarkest text-gbdarkest">${escapeHtml(currentGroupName)}</span>
                     </h2>
-                    <p class="text-base text-slateink mt-1.5 leading-relaxed">
+                    <p class="text-base text-gbdarkest mt-2 leading-relaxed">
                       กดปุ่ม "สุ่มอัตโนมัติ" หรือเลือกคลิกการ์ดซองปริศนาใบใดก็ได้บนกระดาน (โจทย์ที่สุ่มแล้วจะถูกตัดออกทันที)
                     </p>
                   </div>
                   <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto shrink-0">
-                    <button onclick="triggerAutoRandomDraw()" class="gold-btn min-h-[52px] w-full lg:w-auto px-6 py-3.5 rounded-xl text-base flex items-center justify-center gap-2">
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                      </svg>
+                    <button onclick="triggerAutoRandomDraw()" class="gold-btn min-h-[54px] w-full lg:w-auto px-6 py-3.5 text-base flex items-center justify-center gap-2">
+                      <span class="pixel-font text-xs text-pikagold">▶</span>
                       <span>สุ่มอัตโนมัติ (Auto Random Draw)</span>
                     </button>
                   </div>
                 `
                 : `
                   <div>
-                    <div class="font-mono text-sm font-bold text-emerald-800 uppercase tracking-wider mb-1">ALL ${n} GROUPS ASSIGNED • 2 MYSTERY CARDS REMAIN UNUSED</div>
-                    <h2 class="text-xl sm:text-2xl lg:text-[28px] font-bold text-ink leading-snug">สุ่มสถานการณ์ครบทุกกลุ่มเรียบร้อยแล้ว!</h2>
-                    <p class="text-base text-slateink mt-1 leading-relaxed">
+                    <div class="pixel-font text-xs font-bold text-gbdark uppercase mb-1.5">★ ALL ${n} GROUPS ASSIGNED • 2 CARDS REMAIN</div>
+                    <h2 class="text-xl sm:text-2xl lg:text-[28px] font-bold text-gbdarkest leading-snug">สุ่มสถานการณ์ครบทุกกลุ่มเรียบร้อยแล้ว!</h2>
+                    <p class="text-base text-gbdarkest mt-1 leading-relaxed">
                       แต่ละกลุ่มได้รับโจทย์ไม่ซ้ำกัน (เหลือซองปริศนา 2 ใบบนกระดานตามกติกา) พร้อมเข้าสู่ห้องวิเคราะห์ 3 ภารกิจ
                     </p>
                   </div>
-                  <button onclick="navigateStep(3)" class="gold-btn min-h-[52px] w-full lg:w-auto px-6 py-3.5 rounded-xl text-base flex items-center justify-center gap-2 shrink-0">
-                    <span>เข้าสู่ห้องวิเคราะห์โจทย์ (Workspace)</span>
-                    <span>→</span>
+                  <button onclick="navigateStep(3)" class="gold-btn min-h-[54px] w-full lg:w-auto px-6 py-3.5 text-base flex items-center justify-center gap-2 shrink-0">
+                    <span>▶ เข้าสู่ห้องวิเคราะห์โจทย์ (Workspace)</span>
                   </button>
                 `
             }
@@ -1654,15 +1805,16 @@
           tabsHtml += `
             <button
               onclick="selectWorkspaceGroup(${i})"
-              class="min-h-[48px] px-4 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shrink-0 ${
+              class="min-h-[48px] px-4 py-2.5 text-sm font-bold flex items-center gap-2 shrink-0 ${
                 isSelected
                   ? 'option-selected'
                   : 'option-unselected'
               }"
             >
+              ${isSelected ? '<span class="text-pikagold">▶</span>' : ''}
               <span>${tabLabel}</span>
-              <span class="font-mono text-sm px-2 py-0.5 rounded font-bold ${
-                isSelected ? 'bg-champagne/25 text-goldlight' : 'bg-platinum border border-slate-300 text-ink'
+              <span class="silk-font text-xs px-2 py-0.5 font-bold ${
+                isSelected ? 'bg-pikagold text-gbdarkest' : 'bg-pokecream border-2 border-gbdarkest text-gbdarkest'
               }">${drawnScId}</span>
             </button>
           `;
@@ -1675,16 +1827,16 @@
           <button
             type="button"
             onclick="toggleAgencyChip(${gIdx}, '${escapeJsStr(agency)}')"
-            class="min-h-[50px] text-left px-3.5 py-2.5 rounded-xl text-sm sm:text-base flex items-center gap-3 ${
+            class="min-h-[50px] text-left px-3.5 py-2.5 text-sm sm:text-base flex items-center gap-3 ${
               checked
                 ? 'option-selected font-bold'
                 : 'option-unselected font-semibold'
             }"
           >
-            <span class="w-5 h-5 rounded flex items-center justify-center text-sm shrink-0 border-[1.5px] ${
+            <span class="w-6 h-6 flex items-center justify-center silk-font text-xs shrink-0 border-2 ${
               checked
-                ? 'bg-champagne border-goldlight text-obsidian font-bold'
-                : 'bg-white border-slate-500 text-transparent'
+                ? 'bg-pikagold border-pikagold text-gbdarkest font-bold'
+                : 'bg-pokewhite border-gbdarkest text-transparent'
             }">${checked ? '✓' : ''}</span>
             <span class="leading-snug">${escapeHtml(agency)}</span>
           </button>
@@ -1694,8 +1846,8 @@
       return `
         <div id="step3View" class="w-full space-y-5 sm:space-y-6 animate-modal box-border">
           <!-- Top Group Tabs & Presentation / Facilitator Actions -->
-          <div class="w-full luxury-card rounded-2xl p-4 sm:p-5 flex flex-col xl:flex-row xl:items-center justify-between gap-3.5 box-border">
-            <div class="flex items-center gap-2 overflow-x-auto pb-1">
+          <div class="w-full luxury-card p-5 sm:p-6 flex flex-col xl:flex-row xl:items-center justify-between gap-3.5 box-border">
+            <div class="flex items-center gap-2.5 overflow-x-auto pb-1.5">
               ${tabsHtml}
             </div>
 
@@ -1703,22 +1855,21 @@
               ${
                 state.facilitatorUnlocked
                   ? `
-                    <button onclick="openAnswerKeyModal('${sc.id}')" class="min-h-[48px] px-4 py-2.5 rounded-xl text-sm font-bold bg-emerald-700 hover:bg-emerald-800 border border-emerald-900 text-white shadow-sm transition flex items-center gap-2">
-                      <span>🔑 ดูแนวทางเฉลยสำหรับวิทยากร (Facilitator Key)</span>
+                    <button onclick="openAnswerKeyModal('${sc.id}')" class="min-h-[48px] px-4 py-2.5 text-sm font-bold bg-pikagold hover:bg-amber-400 border-3 border-gbdarkest text-gbdarkest shadow-[3px_3px_0px_#0F380F] flex items-center gap-2">
+                      <span class="pixel-font text-xs">KEY</span>
+                      <span>ดูแนวทางเฉลยสำหรับวิทยากร</span>
                     </button>
                   `
                   : ''
               }
-              <button onclick="copyGroupSummary(${gIdx})" class="ghost-btn min-h-[48px] px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2">
+              <button onclick="copyGroupSummary(${gIdx})" class="ghost-btn min-h-[48px] px-4 py-2.5 text-sm flex items-center gap-2">
                 <span id="copy-summary-label">คัดลอกสรุปผล</span>
               </button>
-              <button onclick="exportGroupJson(${gIdx})" class="ghost-btn min-h-[48px] px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2">
-                <span>Export JSON</span>
+              <button onclick="exportGroupJson(${gIdx})" class="ghost-btn min-h-[48px] px-4 py-2.5 text-sm flex items-center gap-2">
+                <span class="silk-font">EXPORT JSON</span>
               </button>
-              <button onclick="openPresentationModal(${gIdx})" class="gold-btn min-h-[48px] px-5 py-2.5 rounded-xl text-sm sm:text-base flex items-center gap-2">
-                <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
-                </svg>
+              <button onclick="openPresentationModal(${gIdx})" class="gold-btn min-h-[48px] px-5 py-2.5 text-sm sm:text-base flex items-center gap-2">
+                <span class="pixel-font text-xs text-pikagold">▶</span>
                 <span>สรุปขึ้นจอสำหรับนำเสนอ (Presentation View)</span>
               </button>
             </div>
@@ -1728,31 +1879,31 @@
           <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start box-border">
 
             <!-- LEFT PANE: UNSTRUCTURED CASE FILE (NO HINTS / NO TAGS) -->
-            <div class="lg:col-span-5 luxury-card-gold rounded-2xl p-5 sm:p-7 space-y-5 lg:sticky lg:top-6 min-w-0 box-border">
-              <div class="border-b border-slate-200 pb-4">
+            <div class="lg:col-span-5 luxury-card-gold p-6 sm:p-8 space-y-5 lg:sticky lg:top-6 min-w-0 box-border">
+              <div class="border-b-3 border-gbdarkest pb-4">
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <span class="font-mono text-sm font-bold text-golddark tracking-wider">${sc.code} • ${gName}</span>
-                  <span class="px-2.5 py-0.5 rounded-md bg-platinum border border-slate-300 text-sm font-mono font-bold text-ink">CASE FILE</span>
+                  <span class="silk-font text-sm font-bold text-pokered tracking-wider">▶ ${sc.code} • ${gName}</span>
+                  <span class="px-2.5 py-0.5 bg-gbdarkest text-gblightest text-xs silk-font font-bold">CASE FILE</span>
                 </div>
-                <h2 class="text-xl sm:text-2xl font-bold text-ink leading-snug">${escapeHtml(sc.title)}</h2>
+                <h2 class="text-xl sm:text-2xl font-bold text-gbdarkest leading-snug">${escapeHtml(sc.title)}</h2>
               </div>
 
               <!-- Simulated Airport Profile & AFC Roster -->
               <div class="space-y-4">
-                <div class="bg-platinum border border-slate-300 rounded-xl p-4 sm:p-5">
-                  <div class="text-sm font-mono font-bold text-golddark uppercase mb-1.5">1. ข้อมูลสนามบินจำลอง (Simulated Airport)</div>
-                  <div class="text-base sm:text-lg font-bold text-ink mb-1.5">${escapeHtml(sc.airportName)}</div>
-                  <p class="text-base text-slateink leading-relaxed">${escapeHtml(sc.airportProfile)}</p>
+                <div class="bg-pokecream border-3 border-gbdarkest p-4 sm:p-5 shadow-[3px_3px_0px_#0F380F]">
+                  <div class="text-xs silk-font font-bold text-gbdarkest uppercase mb-1.5">1. ข้อมูลสนามบินจำลอง (SIMULATED AIRPORT)</div>
+                  <div class="text-base sm:text-lg font-bold text-gbdarkest mb-1.5">${escapeHtml(sc.airportName)}</div>
+                  <p class="text-base text-gbdarkest leading-relaxed">${escapeHtml(sc.airportProfile)}</p>
                 </div>
 
-                <div class="bg-platinum border border-slate-300 rounded-xl p-4 sm:p-5">
-                  <div class="text-sm font-mono font-bold text-golddark uppercase mb-2.5">
+                <div class="bg-pokecream border-3 border-gbdarkest p-4 sm:p-5 shadow-[3px_3px_0px_#0F380F]">
+                  <div class="text-xs silk-font font-bold text-gbdarkest uppercase mb-2.5">
                     2. รายชื่อผู้แทนคณะกรรมการ AFC ตามคำสั่งแต่งตั้งปัจจุบัน
                   </div>
-                  <ul class="space-y-2 text-base text-ink font-medium">
+                  <ul class="space-y-2 text-base text-gbdarkest font-medium">
                     ${sc.afcRoster.map((member, idx) => `
                       <li class="flex items-start gap-2.5">
-                        <span class="font-mono font-bold text-golddark shrink-0">${String(idx + 1).padStart(2, '0')}.</span>
+                        <span class="silk-font font-bold text-pokered shrink-0">${String(idx + 1).padStart(2, '0')}.</span>
                         <span class="leading-snug">${escapeHtml(member)}</span>
                       </li>
                     `).join('')}
@@ -1761,8 +1912,8 @@
               </div>
 
               <!-- Blended Narrative Case Study (Zero Hints / Seamless Prose) -->
-              <div class="bg-white border border-slate-300 rounded-xl p-4 sm:p-6 shadow-inner">
-                <div class="text-sm font-mono font-bold text-golddark uppercase mb-2.5">
+              <div class="bg-pokewhite border-3 border-gbdarkest p-4 sm:p-6 shadow-[inset_3px_3px_0px_#D4DEC4]">
+                <div class="text-xs silk-font font-bold text-gbdarkest uppercase mb-2.5">
                   3. บันทึกสถานการณ์และสภาพปัญหาในสนามบิน
                 </div>
                 <p class="case-narrative-text whitespace-pre-line">
@@ -1775,64 +1926,64 @@
             <div class="lg:col-span-7 space-y-5 sm:space-y-6 min-w-0 box-border">
 
               <!-- TASK 1 -->
-              <section class="luxury-card rounded-2xl p-5 sm:p-7 space-y-4 box-border">
-                <div class="border-b border-slate-200 pb-3.5">
-                  <span class="font-mono text-sm font-bold text-golddark">TASK 01 • ISSUE SCREENING &amp; ICAO SARPs MAPPING</span>
-                  <h3 class="text-lg sm:text-xl font-bold text-ink mt-1 leading-snug">
+              <section class="luxury-card p-6 sm:p-8 space-y-4 box-border">
+                <div class="border-b-3 border-gbdarkest pb-3.5">
+                  <span class="pixel-font text-xs font-bold text-pokered">▶ TASK 01 • ISSUE SCREENING</span>
+                  <h3 class="text-lg sm:text-xl font-bold text-gbdarkest mt-1.5 leading-snug">
                     ภารกิจที่ 1: คัดกรองประเด็น FAL จริง vs. ประเด็นหลอก &amp; เทียบเคียงมาตรฐานสากล
                   </h3>
                 </div>
 
                 <div class="space-y-4">
                   <div>
-                    <label class="block text-base font-bold text-ink mb-2">
+                    <label class="block text-base font-bold text-gbdarkest mb-2">
                       1.1 ประเด็นใดในสถานการณ์คือ "ประเด็นด้านการอำนวยความสะดวก (FAL Issues)" อย่างแท้จริง? (ระบุ Flow ที่ได้รับผลกระทบ)
                     </label>
                     <textarea
                       rows="3"
                       oninput="updateAnswerField(${gIdx}, 't1_real', this.value)"
                       placeholder="วิเคราะห์ประเด็นเชิงระบบที่กระทบต่อ Aircraft, Passenger/Crew, Baggage หรือ Cargo & Mail Flow..."
-                      class="w-full rounded-xl p-3.5 text-base leading-relaxed"
+                      class="w-full p-3.5 text-base leading-relaxed"
                     >${escapeHtml(ans.t1_real)}</textarea>
                   </div>
 
                   <div>
-                    <label class="block text-base font-bold text-ink mb-2">
+                    <label class="block text-base font-bold text-gbdarkest mb-2">
                       1.2 ประเด็นดังกล่าวสอดคล้องกับรายการภารกิจ (Task Lists) ใน ICAO Annex 9 / Doc 9957 Appendix และกฎหมายไทยอย่างไร?
                     </label>
                     <textarea
                       rows="3"
                       oninput="updateAnswerField(${gIdx}, 't1_standards', this.value)"
                       placeholder="อ้างอิงหมวด/มาตรฐานใน ICAO Annex 9, Doc 9957 Appendix, แผน NATFP 2568, พ.ร.บ.เดินอากาศ หรือข้อกำหนด กพท. ฉบับที่ 7 / 90 / 95..."
-                      class="w-full rounded-xl p-3.5 text-base leading-relaxed"
+                      class="w-full p-3.5 text-base leading-relaxed"
                     >${escapeHtml(ans.t1_standards)}</textarea>
                   </div>
 
                   <div>
-                    <label class="block text-base font-bold text-ink mb-2">
+                    <label class="block text-base font-bold text-gbdarkest mb-2">
                       1.3 ประเด็นหลอก (Operational Distractors) ที่กลุ่มคัดออกมีอะไรบ้าง และเหตุใดจึงไม่ควรนำเข้าหารือในที่ประชุม AFC?
                     </label>
                     <textarea
                       rows="3"
                       oninput="updateAnswerField(${gIdx}, 't1_distractors', this.value)"
                       placeholder="ระบุปัญหาซ่อมบำรุงรายวันหรือเหตุการณ์เฉพาะหน้าที่ฝ่ายปฏิบัติการจัดการเองได้..."
-                      class="w-full rounded-xl p-3.5 text-base leading-relaxed"
+                      class="w-full p-3.5 text-base leading-relaxed"
                     >${escapeHtml(ans.t1_distractors)}</textarea>
                   </div>
                 </div>
               </section>
 
               <!-- TASK 2 -->
-              <section class="luxury-card rounded-2xl p-5 sm:p-7 space-y-5 box-border">
-                <div class="border-b border-slate-200 pb-3.5">
-                  <span class="font-mono text-sm font-bold text-golddark">TASK 02 • STAKEHOLDER &amp; NATFP 2568 AFC COMPOSITION AUDIT</span>
-                  <h3 class="text-lg sm:text-xl font-bold text-ink mt-1 leading-snug">
+              <section class="luxury-card p-6 sm:p-8 space-y-5 box-border">
+                <div class="border-b-3 border-gbdarkest pb-3.5">
+                  <span class="pixel-font text-xs font-bold text-pokered">▶ TASK 02 • NATFP 2568 AUDIT</span>
+                  <h3 class="text-lg sm:text-xl font-bold text-gbdarkest mt-1.5 leading-snug">
                     ภารกิจที่ 2: วิเคราะห์หน่วยงานที่เกี่ยวข้อง &amp; ตรวจสอบองค์ประกอบ AFC ตามแผน NATFP 2568
                   </h3>
                 </div>
 
                 <div>
-                  <label class="block text-base font-bold text-ink mb-2.5">
+                  <label class="block text-base font-bold text-gbdarkest mb-2.5">
                     2.1 เลือกหน่วยงานที่เกี่ยวข้องกับประเด็นปัญหาด้าน FAL ในสถานการณ์นี้ (เลือกได้หลายหน่วยงาน)
                   </label>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -1841,16 +1992,16 @@
                 </div>
 
                 <div class="pt-2">
-                  <label class="block text-base font-bold text-ink mb-2.5">
+                  <label class="block text-base font-bold text-gbdarkest mb-2.5">
                     2.2 องค์ประกอบคณะกรรมการ AFC ของสนามบินจำลองนี้ ครบถ้วนตามเกณฑ์ขั้นต่ำของแผน NATFP พ.ศ. 2568 หรือไม่?
                   </label>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <button
                       type="button"
                       onclick="setTask2Complete(${gIdx}, 'complete')"
-                      class="min-h-[52px] py-3 px-4 rounded-xl text-base font-bold flex items-center justify-center gap-2 ${
+                      class="min-h-[52px] py-3 px-4 text-base font-bold flex items-center justify-center gap-2 ${
                         ans.t2_complete === 'complete'
-                          ? 'bg-emerald-800 border-2 border-emerald-400 text-white shadow-sm'
+                          ? 'bg-gbdark border-3 border-gbdarkest text-gblightest shadow-[inset_0_0_0_2px_#9BBC0F,3px_3px_0px_#0F380F]'
                           : 'option-unselected'
                       }"
                     >
@@ -1859,9 +2010,9 @@
                     <button
                       type="button"
                       onclick="setTask2Complete(${gIdx}, 'incomplete')"
-                      class="min-h-[52px] py-3 px-4 rounded-xl text-base font-bold flex items-center justify-center gap-2 ${
+                      class="min-h-[52px] py-3 px-4 text-base font-bold flex items-center justify-center gap-2 ${
                         ans.t2_complete === 'incomplete'
-                          ? 'bg-amber-800 border-2 border-amber-400 text-white shadow-sm'
+                          ? 'bg-pokered border-3 border-gbdarkest text-white shadow-[inset_0_0_0_2px_#F8B800,3px_3px_0px_#0F380F]'
                           : 'option-unselected'
                       }"
                     >
@@ -1871,34 +2022,34 @@
                 </div>
 
                 <div>
-                  <label class="block text-base font-bold text-ink mb-2">
+                  <label class="block text-base font-bold text-gbdarkest mb-2">
                     2.3 ข้อเสนอแนะการแก้ไขคำสั่งแต่งตั้งคณะกรรมการ AFC (ระบุชื่อหน่วยงานที่ขาดหายไปและเหตุผลประกอบ หรือแนวทางขับเคลื่อนกรณีครบถ้วนแล้ว)
                   </label>
                   <textarea
                     rows="3"
                     oninput="updateAnswerField(${gIdx}, 't2_proposal', this.value)"
                     placeholder="หากไม่ครบถ้วน ให้ระบุชื่อหน่วยงานที่ต้องแต่งตั้งเพิ่มเติมตามแผน NATFP 2568 พร้อมเหตุผลความจำเป็น..."
-                    class="w-full rounded-xl p-3.5 text-base leading-relaxed"
+                    class="w-full p-3.5 text-base leading-relaxed"
                   >${escapeHtml(ans.t2_proposal)}</textarea>
                 </div>
               </section>
 
               <!-- TASK 3 -->
-              <section class="luxury-card rounded-2xl p-5 sm:p-7 space-y-4 box-border">
-                <div class="border-b border-slate-200 pb-3.5">
-                  <span class="font-mono text-sm font-bold text-golddark">TASK 03 • STRATEGIC AFC DISCUSSION (OPEN-ENDED)</span>
-                  <h3 class="text-lg sm:text-xl font-bold text-ink mt-1 leading-snug">
+              <section class="luxury-card p-6 sm:p-8 space-y-4 box-border">
+                <div class="border-b-3 border-gbdarkest pb-3.5">
+                  <span class="pixel-font text-xs font-bold text-pokered">▶ TASK 03 • STRATEGIC AFC PLAN</span>
+                  <h3 class="text-lg sm:text-xl font-bold text-gbdarkest mt-1.5 leading-snug">
                     ภารกิจที่ 3: แนวทางการหารือเชิงยุทธศาสตร์เพื่อแก้ไขปัญหาในที่ประชุม AFC (คำถามปลายเปิด)
                   </h3>
                 </div>
 
                 <div>
                   <div class="flex flex-wrap items-center gap-2 mb-3">
-                    <span class="text-sm font-semibold text-slateink mr-1">ประเด็นกระตุ้นความคิด (คลิกเพื่อแทรกหัวข้อ):</span>
-                    <button type="button" onclick="appendPromptChip(${gIdx}, '• เป้าหมายร่วม (Shared Vision): ')" class="option-unselected min-h-[40px] px-3 py-1.5 rounded-lg text-sm font-semibold">+ Shared Vision</button>
-                    <button type="button" onclick="appendPromptChip(${gIdx}, '• ข้อตกลงระดับบริการและกระบวนการร่วม (SLA & Joint Workflow): ')" class="option-unselected min-h-[40px] px-3 py-1.5 rounded-lg text-sm font-semibold">+ SLA &amp; Joint Workflow</button>
-                    <button type="button" onclick="appendPromptChip(${gIdx}, '• การแบ่งความรับผิดชอบและทลายการทำงานแบบแยกส่วน (Accountability & Silo-Breaking): ')" class="option-unselected min-h-[40px] px-3 py-1.5 rounded-lg text-sm font-semibold">+ Accountability</button>
-                    <button type="button" onclick="appendPromptChip(${gIdx}, '• การติดตามวัดผลและยกระดับคุณภาพบริการภาพรวม (ASQ & KPI Monitoring): ')" class="option-unselected min-h-[40px] px-3 py-1.5 rounded-lg text-sm font-semibold">+ ASQ Monitoring</button>
+                    <span class="text-sm font-bold text-gbdarkest mr-1">ประเด็นกระตุ้นความคิด (คลิกเพื่อแทรกหัวข้อ):</span>
+                    <button type="button" onclick="appendPromptChip(${gIdx}, '• เป้าหมายร่วม (Shared Vision): ')" class="option-unselected min-h-[40px] px-3 py-1.5 text-sm font-bold">+ Shared Vision</button>
+                    <button type="button" onclick="appendPromptChip(${gIdx}, '• ข้อตกลงระดับบริการและกระบวนการร่วม (SLA & Joint Workflow): ')" class="option-unselected min-h-[40px] px-3 py-1.5 text-sm font-bold">+ SLA &amp; Joint Workflow</button>
+                    <button type="button" onclick="appendPromptChip(${gIdx}, '• การแบ่งความรับผิดชอบและทลายการทำงานแบบแยกส่วน (Accountability & Silo-Breaking): ')" class="option-unselected min-h-[40px] px-3 py-1.5 text-sm font-bold">+ Accountability</button>
+                    <button type="button" onclick="appendPromptChip(${gIdx}, '• การติดตามวัดผลและยกระดับคุณภาพบริการภาพรวม (ASQ & KPI Monitoring): ')" class="option-unselected min-h-[40px] px-3 py-1.5 text-sm font-bold">+ ASQ Monitoring</button>
                   </div>
 
                   <textarea
@@ -1906,7 +2057,7 @@
                     rows="5"
                     oninput="updateAnswerField(${gIdx}, 't3_strategy', this.value)"
                     placeholder="นำเสนอแนวทางการหารือในที่ประชุม AFC ระดับยุทธศาสตร์ เพื่อสร้างความร่วมมือข้ามหน่วยงาน กำหนด SLA การเชื่อมโยงข้อมูล และกลไกติดตามผลอย่างยั่งยืน..."
-                    class="w-full rounded-xl p-4 text-base leading-relaxed"
+                    class="w-full p-4 text-base leading-relaxed"
                   >${escapeHtml(ans.t3_strategy)}</textarea>
                 </div>
               </section>
@@ -2014,7 +2165,7 @@
       const ans = getGroupAnswer(gIdx);
       const gName = state.groupNames[gIdx] || `กลุ่มที่ ${gIdx + 1}`;
       const payload = {
-        workshop: 'AFC Facilitation Challenge v2.0',
+        workshop: 'AFC Facilitation Challenge v2.0 (16-Bit Game Boy Pokémon Edition)',
         exportedAt: new Date().toISOString(),
         groupIndex: gIdx + 1,
         groupName: gName,
@@ -2049,71 +2200,71 @@
 
       const statusBadge =
         ans.t2_complete === 'complete'
-          ? '<span class="inline-block px-3.5 py-1.5 rounded-lg bg-emerald-100 border border-emerald-500 text-emerald-900 text-sm font-bold">✓ ครบถ้วนตามเกณฑ์ขั้นต่ำ NATFP 2568</span>'
+          ? '<span class="inline-block px-3.5 py-1.5 bg-gbdark border-3 border-gbdarkest text-gblightest text-sm font-bold">✓ ครบถ้วนตามเกณฑ์ขั้นต่ำ NATFP 2568</span>'
           : ans.t2_complete === 'incomplete'
-          ? '<span class="inline-block px-3.5 py-1.5 rounded-lg bg-amber-100 border border-amber-500 text-amber-900 text-sm font-bold">✕ ไม่ครบถ้วน (เสนอแก้ไขคำสั่งแต่งตั้ง AFC)</span>'
-          : '<span class="inline-block px-3.5 py-1.5 rounded-lg bg-platinum border border-slate-300 text-slateink text-sm font-semibold">ยังไม่ระบุสถานะความครบถ้วน</span>';
+          ? '<span class="inline-block px-3.5 py-1.5 bg-pokered border-3 border-gbdarkest text-white text-sm font-bold">✕ ไม่ครบถ้วน (เสนอแก้ไขคำสั่งแต่งตั้ง AFC)</span>'
+          : '<span class="inline-block px-3.5 py-1.5 bg-pokecream border-3 border-gbdarkest text-gbdarkest text-sm font-bold">ยังไม่ระบุสถานะความครบถ้วน</span>';
 
       document.getElementById('presentation-content').innerHTML = `
-        <div class="w-full luxury-card-gold rounded-2xl p-6 sm:p-8 box-border">
-          <div class="font-mono text-sm font-bold text-golddark uppercase mb-1.5">${sc.code} • ${escapeHtml(sc.airportName)}</div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-ink leading-snug">${escapeHtml(sc.title)}</h2>
+        <div class="w-full luxury-card-gold p-6 sm:p-8 box-border">
+          <div class="silk-font text-sm font-bold text-pokered uppercase mb-1.5">▶ ${sc.code} • ${escapeHtml(sc.airportName)}</div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gbdarkest leading-snug">${escapeHtml(sc.title)}</h2>
         </div>
 
         <div class="w-full grid grid-cols-1 lg:grid-cols-3 gap-6 box-border">
           <!-- Slide Card 1 -->
-          <div class="luxury-card rounded-2xl p-6 space-y-4">
-            <div class="border-b border-slate-200 pb-3">
-              <span class="font-mono text-sm font-bold text-golddark">TASK 01</span>
-              <h3 class="text-lg sm:text-xl font-bold text-ink">การคัดกรองประเด็น FAL &amp; มาตรฐานสากล</h3>
+          <div class="luxury-card p-6 sm:p-7 space-y-4">
+            <div class="border-b-3 border-gbdarkest pb-3">
+              <span class="pixel-font text-xs font-bold text-pokered">TASK 01</span>
+              <h3 class="text-lg sm:text-xl font-bold text-gbdarkest mt-1">การคัดกรองประเด็น FAL &amp; มาตรฐานสากล</h3>
             </div>
             <div>
-              <div class="text-sm font-bold text-golddark mb-1">ประเด็น FAL ที่แท้จริง:</div>
-              <p class="text-base text-ink whitespace-pre-line leading-relaxed">${escapeHtml(ans.t1_real || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
+              <div class="text-sm font-bold text-pokered mb-1">▶ ประเด็น FAL ที่แท้จริง:</div>
+              <p class="text-base text-gbdarkest whitespace-pre-line leading-relaxed">${escapeHtml(ans.t1_real || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
             </div>
             <div>
-              <div class="text-sm font-bold text-golddark mb-1">ความสอดคล้อง ICAO Annex 9 / Doc 9957 / กฎหมายไทย:</div>
-              <p class="text-base text-ink whitespace-pre-line leading-relaxed">${escapeHtml(ans.t1_standards || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
+              <div class="text-sm font-bold text-pokered mb-1">▶ ความสอดคล้อง ICAO Annex 9 / Doc 9957 / กฎหมายไทย:</div>
+              <p class="text-base text-gbdarkest whitespace-pre-line leading-relaxed">${escapeHtml(ans.t1_standards || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
             </div>
             <div>
-              <div class="text-sm font-bold text-slateink mb-1">ประเด็นหลอกที่คัดออก:</div>
-              <p class="text-sm sm:text-base text-slateink whitespace-pre-line leading-relaxed">${escapeHtml(ans.t1_distractors || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
+              <div class="text-sm font-bold text-gbdark mb-1">▶ ประเด็นหลอกที่คัดออก:</div>
+              <p class="text-sm sm:text-base text-gbdark whitespace-pre-line leading-relaxed">${escapeHtml(ans.t1_distractors || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
             </div>
           </div>
 
           <!-- Slide Card 2 -->
-          <div class="luxury-card rounded-2xl p-6 space-y-4">
-            <div class="border-b border-slate-200 pb-3">
-              <span class="font-mono text-sm font-bold text-golddark">TASK 02</span>
-              <h3 class="text-lg sm:text-xl font-bold text-ink">หน่วยงานที่เกี่ยวข้อง &amp; องค์ประกอบ AFC</h3>
+          <div class="luxury-card p-6 sm:p-7 space-y-4">
+            <div class="border-b-3 border-gbdarkest pb-3">
+              <span class="pixel-font text-xs font-bold text-pokered">TASK 02</span>
+              <h3 class="text-lg sm:text-xl font-bold text-gbdarkest mt-1">หน่วยงานที่เกี่ยวข้อง &amp; องค์ประกอบ AFC</h3>
             </div>
             <div>
-              <div class="text-sm font-bold text-golddark mb-1.5">ผลการตรวจสอบตามแผน NATFP 2568:</div>
+              <div class="text-sm font-bold text-pokered mb-1.5">▶ ผลการตรวจสอบตามแผน NATFP 2568:</div>
               <div>${statusBadge}</div>
             </div>
             <div>
-              <div class="text-sm font-bold text-golddark mb-1.5">หน่วยงานที่เกี่ยวข้อง (${ans.t2_agencies.length} หน่วยงาน):</div>
+              <div class="text-sm font-bold text-pokered mb-1.5">▶ หน่วยงานที่เกี่ยวข้อง (${ans.t2_agencies.length} หน่วยงาน):</div>
               <div class="flex flex-wrap gap-2">
                 ${
                   ans.t2_agencies.length > 0
-                    ? ans.t2_agencies.map(a => `<span class="px-3 py-1 rounded-lg bg-platinum border border-slate-300 text-sm font-semibold text-ink">${escapeHtml(a)}</span>`).join('')
-                    : '<span class="text-sm text-slateink">— ยังไม่ได้เลือกหน่วยงาน —</span>'
+                    ? ans.t2_agencies.map(a => `<span class="px-3 py-1 bg-pokecream border-2 border-gbdarkest text-sm font-bold text-gbdarkest">${escapeHtml(a)}</span>`).join('')
+                    : '<span class="text-sm text-gbdark">— ยังไม่ได้เลือกหน่วยงาน —</span>'
                 }
               </div>
             </div>
             <div>
-              <div class="text-sm font-bold text-golddark mb-1">ข้อเสนอแก้ไขคำสั่งแต่งตั้ง AFC / เหตุผลประกอบ:</div>
-              <p class="text-base text-ink whitespace-pre-line leading-relaxed">${escapeHtml(ans.t2_proposal || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
+              <div class="text-sm font-bold text-pokered mb-1">▶ ข้อเสนอแก้ไขคำสั่งแต่งตั้ง AFC / เหตุผลประกอบ:</div>
+              <p class="text-base text-gbdarkest whitespace-pre-line leading-relaxed">${escapeHtml(ans.t2_proposal || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
             </div>
           </div>
 
           <!-- Slide Card 3 -->
-          <div class="luxury-card rounded-2xl p-6 space-y-4">
-            <div class="border-b border-slate-200 pb-3">
-              <span class="font-mono text-sm font-bold text-golddark">TASK 03</span>
-              <h3 class="text-lg sm:text-xl font-bold text-ink">แนวทางการหารือเชิงยุทธศาสตร์ใน AFC</h3>
+          <div class="luxury-card p-6 sm:p-7 space-y-4">
+            <div class="border-b-3 border-gbdarkest pb-3">
+              <span class="pixel-font text-xs font-bold text-pokered">TASK 03</span>
+              <h3 class="text-lg sm:text-xl font-bold text-gbdarkest mt-1">แนวทางการหารือเชิงยุทธศาสตร์ใน AFC</h3>
             </div>
-            <p class="text-base text-ink whitespace-pre-line leading-relaxed">${escapeHtml(ans.t3_strategy || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
+            <p class="text-base text-gbdarkest whitespace-pre-line leading-relaxed">${escapeHtml(ans.t3_strategy || '— ยังไม่ได้บันทึกข้อมูล —')}</p>
           </div>
         </div>
       `;
@@ -2130,49 +2281,49 @@
 
       document.getElementById('ak-title').textContent = `${sc.code}: ${sc.title}`;
       document.getElementById('ak-body').innerHTML = `
-        <div class="p-5 rounded-xl bg-warmwhite border border-champagne space-y-3">
-          <div class="font-mono text-sm font-bold text-golddark uppercase">ภารกิจที่ 1: เฉลยการคัดกรองประเด็น FAL &amp; มาตรฐานสากล</div>
+        <div class="p-5 bg-pokecream border-3 border-gbdarkest space-y-3 shadow-[4px_4px_0px_#0F380F]">
+          <div class="pixel-font text-xs font-bold text-pokered uppercase">▶ ภารกิจที่ 1: เฉลยการคัดกรองประเด็น FAL &amp; มาตรฐานสากล</div>
           <div>
-            <div class="text-base font-bold text-emerald-800 mb-1">✓ ประเด็น FAL ที่แท้จริง:</div>
-            <ul class="list-disc pl-5 text-base text-ink space-y-1.5">
+            <div class="text-base font-bold text-gbdark mb-1">✓ ประเด็น FAL ที่แท้จริง:</div>
+            <ul class="list-disc pl-5 text-base text-gbdarkest space-y-1.5">
               ${ak.task1.realIssues.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
             </ul>
           </div>
           <div>
-            <div class="text-base font-bold text-golddark mb-1">✓ ความสอดคล้องกับ ICAO Annex 9 / Doc 9957 Appendix &amp; กฎหมายไทย:</div>
-            <ul class="list-disc pl-5 text-base text-ink space-y-1.5">
+            <div class="text-base font-bold text-gbdarkest mb-1">✓ ความสอดคล้องกับ ICAO Annex 9 / Doc 9957 Appendix &amp; กฎหมายไทย:</div>
+            <ul class="list-disc pl-5 text-base text-gbdarkest space-y-1.5">
               ${ak.task1.standardsMapping.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
             </ul>
           </div>
           <div>
-            <div class="text-base font-bold text-rose-700 mb-1">✕ ประเด็นหลอก (Operational Distractors) ที่ต้องคัดออก:</div>
-            <ul class="list-disc pl-5 text-base text-slateink space-y-1.5">
+            <div class="text-base font-bold text-pokered mb-1">✕ ประเด็นหลอก (Operational Distractors) ที่ต้องคัดออก:</div>
+            <ul class="list-disc pl-5 text-base text-gbdark space-y-1.5">
               ${ak.task1.distractors.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
             </ul>
           </div>
         </div>
 
-        <div class="p-5 rounded-xl bg-platinum border border-slate-300 space-y-2.5">
-          <div class="font-mono text-sm font-bold text-golddark uppercase">ภารกิจที่ 2: เฉลยการตรวจสอบองค์ประกอบคณะกรรมการ AFC (NATFP 2568)</div>
-          <div class="text-base sm:text-lg font-bold ${ak.task2.isComplete ? 'text-emerald-800' : 'text-amber-800'}">
+        <div class="p-5 bg-pokewhite border-3 border-gbdarkest space-y-2.5 shadow-[4px_4px_0px_#0F380F]">
+          <div class="pixel-font text-xs font-bold text-pokered uppercase">▶ ภารกิจที่ 2: เฉลยการตรวจสอบองค์ประกอบคณะกรรมการ AFC (NATFP 2568)</div>
+          <div class="text-base sm:text-lg font-bold ${ak.task2.isComplete ? 'text-gbdark' : 'text-pokered'}">
             สถานะ: ${ak.task2.isComplete ? 'ครบถ้วนตามเกณฑ์ขั้นต่ำ NATFP 2568' : 'ไม่ครบถ้วน — ต้องเสนอแก้ไขคำสั่งแต่งตั้ง AFC'}
           </div>
           ${
             !ak.task2.isComplete
               ? `
-                <div class="text-base text-ink">
-                  <span class="text-golddark font-bold">หน่วยงานที่ขาดหายไป:</span>
-                  ${ak.task2.missingAgencies.map(a => `<span class="inline-block px-3 py-1 m-1 rounded-lg bg-amber-100 border border-amber-500 text-amber-900 font-bold text-sm">${escapeHtml(a)}</span>`).join('')}
+                <div class="text-base text-gbdarkest">
+                  <span class="font-bold">หน่วยงานที่ขาดหายไป:</span>
+                  ${ak.task2.missingAgencies.map(a => `<span class="inline-block px-3 py-1 m-1 bg-pikagold border-2 border-gbdarkest text-gbdarkest font-bold text-sm">${escapeHtml(a)}</span>`).join('')}
                 </div>
               `
               : ''
           }
-          <p class="text-base text-ink leading-relaxed">${escapeHtml(ak.task2.reason)}</p>
+          <p class="text-base text-gbdarkest leading-relaxed">${escapeHtml(ak.task2.reason)}</p>
         </div>
 
-        <div class="p-5 rounded-xl bg-platinum border border-slate-300 space-y-2.5">
-          <div class="font-mono text-sm font-bold text-golddark uppercase">ภารกิจที่ 3: แนวทางการหารือเชิงยุทธศาสตร์ที่วิทยากรควรกระตุ้น (Discussion Prompts)</div>
-          <ul class="list-disc pl-5 text-base text-ink space-y-2">
+        <div class="p-5 bg-pokewhite border-3 border-gbdarkest space-y-2.5 shadow-[4px_4px_0px_#0F380F]">
+          <div class="pixel-font text-xs font-bold text-pokered uppercase">▶ ภารกิจที่ 3: แนวทางการหารือเชิงยุทธศาสตร์ที่วิทยากรควรกระตุ้น (Discussion Prompts)</div>
+          <ul class="list-disc pl-5 text-base text-gbdarkest space-y-2">
             ${ak.task3.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
           </ul>
         </div>
@@ -2196,30 +2347,30 @@
         const btn = document.getElementById(`codex-tab-${t}`);
         if (!btn) return;
         if (t === tabNum) {
-          btn.classList.add('border-golddark', 'text-ink', 'bg-white');
-          btn.classList.remove('border-transparent', 'text-slateink');
+          btn.classList.add('border-gbdarkest', 'text-gbdarkest', 'bg-pokewhite');
+          btn.classList.remove('border-transparent', 'text-gbdark');
         } else {
-          btn.classList.remove('border-golddark', 'text-ink', 'bg-white');
-          btn.classList.add('border-transparent', 'text-slateink');
+          btn.classList.remove('border-gbdarkest', 'text-gbdarkest', 'bg-pokewhite');
+          btn.classList.add('border-transparent', 'text-gbdark');
         }
       });
 
       const body = document.getElementById('codex-body');
       if (tabNum === 4 && state.facilitatorUnlocked) {
         body.innerHTML = SCENARIOS.map(sc => `
-          <div class="p-4 sm:p-5 rounded-xl bg-platinum border border-slate-300 space-y-2">
+          <div class="p-4 sm:p-5 bg-pokecream border-3 border-gbdarkest space-y-2 shadow-[3px_3px_0px_#0F380F]">
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <span class="font-mono text-base font-bold text-golddark">${sc.code} • ${escapeHtml(sc.title)}</span>
-              <span class="text-sm font-bold px-3 py-1 rounded-lg ${
+              <span class="silk-font text-base font-bold text-pokered">${sc.code} • ${escapeHtml(sc.title)}</span>
+              <span class="text-sm font-bold px-3 py-1 ${
                 sc.facilitatorKey.task2.isComplete
-                  ? 'bg-emerald-100 text-emerald-900 border border-emerald-500'
-                  : 'bg-amber-100 text-amber-900 border border-amber-500'
+                  ? 'bg-gbdark text-gblightest border-2 border-gbdarkest'
+                  : 'bg-pikagold text-gbdarkest border-2 border-gbdarkest'
               }">
                 ${sc.facilitatorKey.task2.isComplete ? 'AFC ครบถ้วน' : 'ขาด: ' + sc.facilitatorKey.task2.missingAgencies.join(', ')}
               </span>
             </div>
-            <p class="text-base text-ink"><strong>FAL จริง:</strong> ${escapeHtml(sc.facilitatorKey.task1.realIssues.join(' / '))}</p>
-            <p class="text-sm sm:text-base text-slateink"><strong>ประเด็นหลอก:</strong> ${escapeHtml(sc.facilitatorKey.task1.distractors.join(' / '))}</p>
+            <p class="text-base text-gbdarkest"><strong>FAL จริง:</strong> ${escapeHtml(sc.facilitatorKey.task1.realIssues.join(' / '))}</p>
+            <p class="text-sm sm:text-base text-gbdark"><strong>ประเด็นหลอก:</strong> ${escapeHtml(sc.facilitatorKey.task1.distractors.join(' / '))}</p>
           </div>
         `).join('');
       } else {
