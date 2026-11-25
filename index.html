@@ -466,21 +466,21 @@
               3. ห้องวิเคราะห์
             </button>
           </nav>
-
-          <!-- Row 2: Utility Buttons (Aligned Symmetrically Beneath Row 1) -->
-          <div class="grid grid-cols-3 gap-2 w-full px-2 box-border">
-            <button onclick="openCodexModal()" class="header-ghost-btn w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm whitespace-nowrap flex items-center justify-center gap-1.5">
-              <span class="pixel-font text-[10px] sm:text-xs text-pikagold">DEX</span>
-              <span>คู่มือ Codex</span>
+          <!-- Row 2: Utility Buttons (Responsive 2-Col Mobile / 3-Col Tablet+ Grid, Zero Overflow) -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full box-border">
+            <button onclick="openCodexModal()" class="header-ghost-btn w-full min-w-0 max-w-full overflow-hidden min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm whitespace-nowrap flex items-center justify-center gap-1.5">
+              <span class="pixel-font text-[10px] sm:text-xs text-pikagold shrink-0">DEX</span>
+              <span class="truncate">คู่มือ CODEX</span>
             </button>
 
-            <button id="btn-facilitator-toggle" onclick="handleFacilitatorClick()" class="header-ghost-btn w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm whitespace-nowrap flex items-center justify-center gap-1.5">
-              <span class="pixel-font text-[10px] sm:text-xs text-pikagold">KEY</span>
-              <span id="facilitator-status-label">โหมดวิทยากร</span>
+            <button id="btn-facilitator-toggle" onclick="handleFacilitatorClick()" class="header-ghost-btn w-full min-w-0 max-w-full overflow-hidden min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm whitespace-nowrap flex items-center justify-center gap-1.5">
+              <span class="pixel-font text-[10px] sm:text-xs text-pikagold shrink-0">KEY</span>
+              <span id="facilitator-status-label" class="truncate">โหมดวิทยากร</span>
             </button>
 
-            <button onclick="openResetModal()" class="w-full min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-bold bg-pokered text-white border-3 border-pokewhite shadow-[3px_3px_0px_#000000] hover:bg-red-700 active:translate-x-[2px] active:translate-y-[2px] whitespace-nowrap flex items-center justify-center gap-1.5" title="รีเซ็ตข้อมูล Workshop">
-              <span class="silk-font">Reset</span>
+            <button onclick="openResetModal()" class="col-span-2 sm:col-span-1 w-full min-w-0 max-w-full overflow-hidden min-h-[44px] px-2 sm:px-3 py-2 text-xs sm:text-sm font-bold bg-pokered text-white border-3 border-pokewhite shadow-[3px_3px_0px_#000000] hover:bg-red-700 active:translate-x-[2px] active:translate-y-[2px] whitespace-nowrap flex items-center justify-center gap-1.5" title="รีเซ็ตข้อมูล Workshop">
+              <span class="pixel-font text-[10px] sm:text-xs text-pikagold shrink-0">RST</span>
+              <span class="silk-font truncate">Reset</span>
             </button>
           </div>
         </div>
@@ -1340,7 +1340,7 @@
           facBtn.style.backgroundColor = '#F8B800';
           facBtn.style.color = '#0F380F';
           facBtn.style.borderColor = '#FFFFFF';
-          facLabel.textContent = 'วิทยากร: ปลดล็อกแล้ว';
+          facLabel.innerHTML = '<span class="sm:hidden">วิทยากร: ปลดล็อก</span><span class="hidden sm:inline">วิทยากร: ปลดล็อกแล้ว</span>';
           if (codexTab4) codexTab4.classList.remove('hidden');
         } else {
           facBtn.style.backgroundColor = '';
