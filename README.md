@@ -1,4 +1,3 @@
-[readme_md.md](https://github.com/user-attachments/files/35391376/readme_md.md)
 # ✈️ AFC FACILITATION CHALLENGE — Civil Aviation Facilitation Workshop (v2.0)
 
 เว็บแอปพลิเคชันเชิงโต้ตอบสำหรับจัดเวิร์กชอปการเรียนรู้ด้าน **การอำนวยความสะดวกในการบินพลเรือน (Civil Aviation Facilitation)** ณ ระดับสนามบิน ผ่านกลไกของ **คณะกรรมการอำนวยความสะดวกในการบินพลเรือน ณ สนามบิน (Airport Facilitation Committee: AFC)** ในระดับยุทธศาสตร์ (Strategic & High-Level) เพื่อทลายกำแพงการทำงานแบบแยกส่วน (Silo Working) และยกระดับคุณภาพการให้บริการท่าอากาศยาน (ASQ) อย่างยั่งยืน
